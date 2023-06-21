@@ -1,0 +1,29 @@
+@import "./resets";
+@import "./variables";
+
+#navBar{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 3rem;
+
+    li{
+        display: flex;
+        align-items: center;
+    }
+}
+
+a:any-link{
+    font-size: 2em;
+    color: $nav-font-colour;
+    text-decoration: none;
+}
+
+img{
+    display: flex;
+}

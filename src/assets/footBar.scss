@@ -1,0 +1,52 @@
+@import "./resets";
+@import "./variables";
+
+
+#foot{
+    gap: 0.5rem;
+    display: grid;
+    grid-template-rows: [col1] 6fr [col2] 14fr [col3] 7fr [col4] 7fr [col5] 6fr;
+    grid-template-columns: [row1] 1fr [row2] 4fr [row3] 2fr [row4] 2fr [row5] 1fr;
+    grid-template-areas: 
+        "fn fn fn fn fn"
+        ". lg ad ad ."
+        ". lg ph fx ."
+        ". lg tf em ."
+        "fc fc fc fc fc";
+    background-color: $accent-colour-dark;
+    
+    p{
+        grid-area: fc;
+        align-self: center;
+        justify-self: center;
+    }
+    img{
+        grid-area: lg;
+        align-self: center;
+        justify-self: center;
+    }
+}
+
+#footNav{
+    display: flex;
+    justify-content: space-evenly;
+    grid-area: fn;
+
+    a:any-link{
+        font-size: 2em;
+        color: $font-on-accent-colour;
+        text-decoration: none;
+    }
+
+    ul{
+        list-style-type: none;
+        display: flex;
+        justify-content: space-evenly;
+        gap: 7rem;
+    
+        li{
+            display: flex;
+            align-items: center;
+        }
+    }
+}
