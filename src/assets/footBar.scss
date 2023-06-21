@@ -3,7 +3,7 @@
 
 
 #foot{
-    gap: 0.5rem;
+    gap: 1rem;
     display: grid;
     grid-template-rows: [col1] 6fr [col2] 14fr [col3] 7fr [col4] 7fr [col5] 6fr;
     grid-template-columns: [row1] 1fr [row2] 4fr [row3] 2fr [row4] 2fr [row5] 1fr;
@@ -14,12 +14,43 @@
         ". lg tf em ."
         "fc fc fc fc fc";
     background-color: $accent-colour-dark;
+
+    .address{
+        grid-area: ad;
+    }
+
+    .email{
+        grid-area: em;
+    }
+
+    .tollFree{
+        grid-area: tf;
+    }
+
+    .phone{
+        grid-area: ph;
+    }
+
+    .fax{
+        grid-area: fx;
+    }
     
     p{
+        align-self: center;
+        justify-self: center;
+        color: $font-on-accent-colour;
+    }
+
+    .credit{
         grid-area: fc;
         align-self: center;
         justify-self: center;
     }
+
+    h1{
+        color: $font-on-accent-colour;
+    }
+
     img{
         grid-area: lg;
         align-self: center;
