@@ -57,6 +57,11 @@
         align-self: center;
         justify-self: center;
         font-size: 0.8em;
+        display: grid;
+
+        p{
+            justify-self: center;
+        }
     }
 
     #{&}__priv-pol:any-link{
