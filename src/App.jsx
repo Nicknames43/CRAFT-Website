@@ -6,7 +6,7 @@ import Services from './pages/Services/index.jsx'
 import Properties from './pages/PropertiesMain/index.jsx'
 import Contact from './pages/Contact/index.jsx'
 import NavBar from './components/NavBar.jsx'
-import FootBar from './components/FootBar.jsx'
+import Footer from './components/Footer.jsx'
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path='/Properties' element={Properties()}/>
         <Route path='/Contact' element={Contact()}/>
       </Routes>
-      <FootBar/>
+      <Footer/>
     </>
   )
 }

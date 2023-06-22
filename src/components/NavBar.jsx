@@ -1,17 +1,17 @@
 import React from "react"
 import {Link} from "react-router-dom"
 import "../assets/NavBar.scss";
-import tempURL from "/images/temp.jpg"
+import logo from "/images/craft logo.svg"
 
 function NavBar(){
     return (
-        <nav id="navBar">
-            <Link to="/"><img src={tempURL} alt="Home" /></Link>
+        <nav className="nav-bar">
+            <Link className="nav-bar__img-link" to="/"><img src={logo} alt="Home" /></Link>
             <ul> 
-                <li><Link to="/About">About</Link></li>
-                <li><Link to="/Services">Services</Link></li>
-                <li><Link to="/Properties">Properties</Link></li>
-                <li><Link to="/Contact">Contact</Link></li>
+                <li><Link className="nav-bar__txt-link" to="/About">About</Link></li>
+                <li><Link className="nav-bar__txt-link" to="/Services">Services</Link></li>
+                <li><Link className="nav-bar__txt-link" to="/Properties">Properties</Link></li>
+                <li><Link className="nav-bar__txt-link" to="/Contact">Contact</Link></li>
             </ul>
         </nav>
     )

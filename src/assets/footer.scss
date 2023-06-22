@@ -2,7 +2,7 @@
 @import "./variables";
 
 
-#foot{
+.footer{
     gap: 1rem;
     display: grid;
     grid-template-rows: [col1] 6fr [col2] 14fr [col3] 7fr [col4] 7fr [col5] 6fr;
@@ -14,40 +14,51 @@
         ". lg tf em ."
         "fc fc fc fc fc";
     background-color: $accent-colour-dark;
+    color: $font-on-accent-colour;
+    font-family: $primary-font;
 
-    .address{
-        grid-area: ad;
-    }
-
-    .email{
-        grid-area: em;
-    }
-
-    .tollFree{
-        grid-area: tf;
-    }
-
-    .phone{
-        grid-area: ph;
-    }
-
-    .fax{
-        grid-area: fx;
-    }
-    
     p{
-        align-self: center;
-        justify-self: center;
-        color: $font-on-accent-colour;
-    }
-
-    .credit{
-        grid-area: fc;
-        align-self: center;
-        justify-self: center;
+        font-weight: lighter;
+        font-size: 1.5em;
+        padding: 0.2em;
     }
 
     h1{
+        font-weight: lighter;
+    }
+
+    #{&}__address{
+        grid-area: ad;
+
+        p{
+            font-family: $secondary-font;
+        }
+    }
+
+    #{&}__email{
+        grid-area: em;
+    }
+
+    #{&}__tollFree{
+        grid-area: tf;
+    }
+
+    #{&}__phone{
+        grid-area: ph;
+    }
+
+    #{&}__fax{
+        grid-area: fx;
+    }
+
+    #{&}__credit{
+        grid-area: fc;
+        align-self: center;
+        justify-self: center;
+        font-size: 0.8em;
+    }
+
+    #{&}__priv-pol:any-link{
         color: $font-on-accent-colour;
     }
 
@@ -55,16 +66,19 @@
         grid-area: lg;
         align-self: center;
         justify-self: center;
+        padding-right: 5em;
+        margin-right: 5em;
+        border-right: 4px solid $font-on-accent-colour;
     }
 }
 
-#footNav{
+.footer__nav{
     display: flex;
     justify-content: space-evenly;
     grid-area: fn;
 
     a:any-link{
-        font-size: 2em;
+        font-size: 2.25em;
         color: $font-on-accent-colour;
         text-decoration: none;
     }
@@ -74,10 +88,10 @@
         display: flex;
         justify-content: space-evenly;
         gap: 7rem;
-    
-        li{
-            display: flex;
-            align-items: center;
-        }
+    }
+
+    li{
+        display: flex;
+        align-items: center;
     }
 }

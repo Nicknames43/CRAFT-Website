@@ -1,8 +1,14 @@
-$font-stack: sans-serif;
+$primary-font: bankGothicMedium, sans-serif;
+$secondary-font: indivisible, sans-serif;
 $background-colour: #FFF;
 $font-on-bg-colour: #000;
-$title-colour: darkBlue;
-$accent-colour-dark: darkBlue;
-$accent-colour-light: lightBlue;
+$title-colour: #233682;
+$accent-colour-dark: #233682;
+$accent-colour-light: #2869A8;
 $font-on-accent-colour: #FFF;
 $nav-font-colour: #000;
+
+@font-face {
+    font-family: bankGothicMedium;
+    src: url("./Bank Gothic Medium.otf") format("opentype");
+}
