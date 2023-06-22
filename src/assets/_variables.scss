@@ -1,4 +1,5 @@
-$primary-font: bankGothicMedium, sans-serif;
+$primary-font-medium: bankGothicMedium, sans-serif;
+$primary-font-light: bankGothicLight, sans-serif;
 $secondary-font: indivisible, sans-serif;
 $background-colour: #FFF;
 $font-on-bg-colour: #000;
@@ -10,5 +11,10 @@ $nav-font-colour: #000;
 
 @font-face {
     font-family: bankGothicMedium;
-    src: url("./Bank Gothic Medium.otf") format("opentype");
+    src: url("./fonts/Bank Gothic Medium.otf") format("opentype");
+}
+
+@font-face {
+    font-family: bankGothicLight;
+    src: url("./fonts/Bank Gothic Light Regular.otf") format("opentype");
 }

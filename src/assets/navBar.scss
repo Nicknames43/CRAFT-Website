@@ -5,10 +5,10 @@
     padding-top: 1vh;
     display: flex;
     justify-content: space-between;
-    font-family: $primary-font;
+    font-family: $primary-font-medium;
 
     #{&}__txt-link:any-link{
-        font-size: 2em;
+        font-size: 2.25em;
         color: $nav-font-colour;
         text-decoration: none;
     }
@@ -25,7 +25,7 @@
         list-style-type: none;
         display: flex;
         justify-content: space-evenly;
-        gap: 4vw;
+        gap: 3.2vw;
     }
 
     li{
