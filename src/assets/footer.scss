@@ -1,0 +1,99 @@
+@import "./resets";
+@import "./variables";
+
+
+.footer{
+    gap: 1rem;
+    display: grid;
+    grid-template-rows: [col1] 6fr [col2] 14fr [col3] 7fr [col4] 7fr [col5] 6fr;
+    grid-template-columns: [row1] 1fr [row2] 4fr [row3] 2fr [row4] 2fr [row5] 1fr;
+    grid-template-areas: 
+        "fn fn fn fn fn"
+        ". lg ad ad ."
+        ". lg ph fx ."
+        ". lg tf em ."
+        "fc fc fc fc fc";
+    background-color: $accent-colour-dark;
+    color: $font-on-accent-colour;
+    font-family: $primary-font-light;
+
+    p{
+        font-weight: lighter;
+        font-size: 1.5em;
+        padding: 0.2em;
+    }
+
+    h1{
+        font-family: $primary-font-medium;
+        font-weight: lighter;
+    }
+
+    #{&}__address{
+        grid-area: ad;
+
+        p{
+            font-family: $secondary-font;
+        }
+    }
+
+    #{&}__email{
+        grid-area: em;
+    }
+
+    #{&}__tollFree{
+        grid-area: tf;
+    }
+
+    #{&}__phone{
+        grid-area: ph;
+    }
+
+    #{&}__fax{
+        grid-area: fx;
+    }
+
+    #{&}__credit{
+        grid-area: fc;
+        align-self: center;
+        justify-self: center;
+        font-size: 0.8em;
+    }
+
+    #{&}__priv-pol:any-link{
+        color: $font-on-accent-colour;
+    }
+
+    img{
+        grid-area: lg;
+        align-self: center;
+        justify-self: center;
+        padding-right: 5em;
+        margin-right: 5em;
+        border-right: 4px solid $font-on-accent-colour;
+    }
+}
+
+.footer__nav{
+    display: flex;
+    justify-content: space-evenly;
+    grid-area: fn;
+    font-family: $primary-font-medium;
+
+    a:any-link{
+        font-size: 2.25em;
+        color: $font-on-accent-colour;
+        text-decoration: none;
+    }
+
+    ul{
+        list-style-type: none;
+        display: flex;
+        justify-content: space-evenly;
+        gap: 7rem;
+    }
+
+    li{
+        display: flex;
+        align-items: center;
+    }
+}

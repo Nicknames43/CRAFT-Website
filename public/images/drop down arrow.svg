@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50.724" height="43.738" viewBox="0 0 50.724 43.738">
+  <g id="next_slide_arrow" data-name="next slide arrow" transform="translate(3056.059 -1740.709) rotate(90)">
+    <path id="top" d="M21.118,25.362h.775L43.738,0H21.844L0,25.362Z" transform="translate(1784.447 3056.059) rotate(180)" fill="#233682"/>
+    <path id="bottom" d="M22.62,25.362h-.775L0,0H21.893L43.738,25.362Z" transform="translate(1784.447 3030.697) rotate(180)" fill="#2869a8"/>
+  </g>
+</svg>

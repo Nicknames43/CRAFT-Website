@@ -1,0 +1,35 @@
+@import "./resets";
+@import "./variables";
+
+.nav-bar{
+    padding-top: 1vh;
+    display: flex;
+    justify-content: space-between;
+    font-family: $primary-font-medium;
+
+    #{&}__txt-link:any-link{
+        font-size: 2.25em;
+        color: $nav-font-colour;
+        text-decoration: none;
+    }
+
+    #{&}__img-link{
+        display: flex;
+        align-content: right;
+        padding-left: 6vw;
+    }
+
+    ul{
+        align-self: right;
+        padding-right: 13vw;
+        list-style-type: none;
+        display: flex;
+        justify-content: space-evenly;
+        gap: 3.2vw;
+    }
+
+    li{
+        display: flex;
+        align-items: center;
+    }
+}
