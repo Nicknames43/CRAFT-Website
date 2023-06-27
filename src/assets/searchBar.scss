@@ -2,5 +2,51 @@
 @import "./variables";
 
 .search-bar{
-    background-image: url("/images/landing page_search bar bg.svg");
+    position: relative;
+    width: 140vw;
+    height: 12vw;
+
+    #{&}__form{
+        container: search-bar / size;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+
+        ::placeholder{
+            color: $font-on-accent-colour;
+        }
+    }
+
+    #{&}__bg{
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: -17vw;
+    }
+
+    #{&}__type{
+        height: 100%;
+        flex: 10 10 80%;
+        background-color: $accent-colour-dark;
+        color: $font-on-accent-colour;
+        border: none;
+        font-family: $primary-font-light;
+        margin-right: 15px;
+    }
+}
+
+@container search-bar (min-height: 0px) {
+    .search-bar__type{
+        font-size: 33cqh;
+    }
+
+    .search-bar input[type="image"]{
+        flex: 0 0 auto;
+        height: 50cqh;
+        width: auto;
+        margin-right: 15px;
+    }
 }

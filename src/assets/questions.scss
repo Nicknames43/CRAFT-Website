@@ -1,0 +1,36 @@
+@import "./resets";
+@import "./variables";
+
+.questions{
+    width: 140vw;
+    height: 15vw;
+    position: relative;
+
+    #{&}__bg{
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: -20vw;
+    }
+
+    #{&}__container{
+        container: questions / size;
+        height: 100%;
+        width: 100%;
+        display: grid;
+    }
+}
+
+@container questions (min-height: 0px) {
+    .questions__text{
+        font-size: 40cqh;
+        align-self: center;
+        justify-self: center;
+        font-family: $primary-font-light;
+        color: $font-on-accent-colour;
+
+        a:any-link{
+            color: $font-on-accent-colour;
+        }
+    }
+}
