@@ -1,13 +1,14 @@
 import SearchBar from "../../components/SearchBar"
-import Trust from "./Trust"
+import TrustInterested from "./TrustInterested"
 import Questions from "./Questions"
+import Welcome from "./Welcome"
 
 function Home() {
   return (
     <>
-      <h1>Home</h1>
+      <Welcome />
       <SearchBar />
-      <Trust />
+      <TrustInterested />
       <Questions />
     </>
   )
