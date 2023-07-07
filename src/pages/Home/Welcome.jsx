@@ -156,7 +156,7 @@ function Welcome() {
               className="welcome__link-container"
               xmlns="http://www.w3.org/1999/xhtml"
             >
-              <Link to="/Properties">LEARN MORE</Link>
+              <Link to="/About">LEARN MORE</Link>
             </div>
           </foreignObject>
         </svg>
