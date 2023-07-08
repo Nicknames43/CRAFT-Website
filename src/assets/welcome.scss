@@ -2,9 +2,10 @@
 @import "./variables";
 
 .welcome{
+    margin-top: 5vh;
     position: relative;
     width: 122vw;
-    height: 40vw;
+    height: 35vw;
     container: welcome/size;
 
    #{&}__arrows{
@@ -61,7 +62,7 @@
         left: 14vw;
         font-family: $secondary-font;
         color: $font-on-bg-colour-secondary;
-        font-size: 3.7cqh;
+        font-size: 4cqh;
         line-height: 1.75;
     }
 }

@@ -6,9 +6,11 @@
     display: flex;
     justify-content: space-between;
     font-family: $primary-font-medium;
+    width: 100vw;
+
 
     #{&}__txt-link:any-link{
-        font-size: 2.25em;
+        font-size: 4vh;
         color: $nav-font-colour;
         text-decoration: none;
     }
@@ -17,6 +19,11 @@
         display: flex;
         align-content: right;
         margin-left: 6vw;
+
+        img{
+            width: 25vw;
+            height: 7vw;
+        }
     }
 
     ul{
@@ -25,7 +32,7 @@
         list-style-type: none;
         display: flex;
         justify-content: space-evenly;
-        gap: 3.2vw;
+        gap: 2.5vw;
     }
 
     li{

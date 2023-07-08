@@ -1,9 +1,32 @@
+@import "./resets";
+@import "./variables";
+
+.feature-properties{
+    overflow-x: hidden;
+
+    #{&}__title-container{
+        width: 100%;
+        height: 100%;
+        display: grid;
+        align-content: center;
+        container: feature-properties__title-container /size;
+    }
+}
+
 .carousel{
     height: 100%;
     width: 100%;
     position: relative;
     overflow: hidden;
     container: carousel / size;
+}
+
+@container feature-properties__title-container (min-height: 0px){
+    .feature-properties__title{
+        font-family: $primary-font-medium;
+        color: $font-on-bg-colour;
+        font-size: 50cqh;
+    }
 }
 
 @container carousel (min-height: 0px) {
