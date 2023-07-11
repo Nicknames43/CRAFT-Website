@@ -1,5 +1,7 @@
-function About(){
-    return <h1>About</h1>
+import AboutTitle from "./AboutTitle"
+
+function About() {
+  return <AboutTitle />
 }
 
 export default About
