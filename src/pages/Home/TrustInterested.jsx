@@ -1,7 +1,7 @@
 import "../../assets/trustInterest.scss"
 import { Link } from "react-router-dom"
 
-function Trust() {
+function TrustInterested() {
   return (
     <div className="trust-interested">
       <div className="trust">
@@ -17,7 +17,7 @@ function Trust() {
             <p className="trust__company">Dollarama</p>
           </li>
           <li className="trust__item">
-            <p className="trust__company">East Side Mario's</p>
+            <p className="trust__company">East Side Mario&apos;s</p>
           </li>
           <li className="trust__item">
             <p className="trust__company">Marks</p>
@@ -53,7 +53,7 @@ function Trust() {
             <p className="trust__company">TD Canada Trust</p>
           </li>
           <li className="trust__item">
-            <p className="trust__company">Tim Horton's</p>
+            <p className="trust__company">Tim Horton&apos;s</p>
           </li>
           <li className="trust__item">
             <p className="trust__company">Value Village</p>
@@ -62,7 +62,7 @@ function Trust() {
             <p className="trust__company">Walmart</p>
           </li>
           <li className="trust__item">
-            <p className="trust__company">Zehr's</p>
+            <p className="trust__company">Zehr&apos;s</p>
           </li>
           <li className="trust__item">
             <p className="trust__company">And More!</p>
@@ -97,7 +97,7 @@ function Trust() {
               xmlns="http://www.w3.org/1999/xhtml"
               className="interested__text-container"
             >
-              <p className="interested__text">CRAFT'S PROPERTIES</p>
+              <p className="interested__text">CRAFT&apos;S PROPERTIES</p>
             </div>
           </foreignObject>
           <foreignObject x="330" y="240" width="418" height="95">
@@ -216,4 +216,4 @@ function Trust() {
   )
 }
 
-export default Trust
+export default TrustInterested

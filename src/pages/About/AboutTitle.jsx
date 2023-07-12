@@ -1,4 +1,4 @@
-import "../../assets/about.scss"
+import "../../assets/aboutTitle.scss"
 
 function AboutTitle() {
   return (
