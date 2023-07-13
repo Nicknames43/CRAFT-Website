@@ -1,7 +1,13 @@
-import React, { useEffect, useState, useRef, useCallback } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
+import PropTypes from "prop-types"
 import arrow from "/images/next slide arrow.svg"
 
-function Carousel({ items, itemPrefix, slideSpeed }) {
+function Carousel({
+  items,
+  itemPrefix,
+  slideSpeed = "0.5s",
+  autoPlaySpeed = 0,
+}) {
   const innerRef = useRef(null)
   const timerRef = useRef(null)
   const [currIndex, setCurrIndex] = useState(1)
@@ -17,7 +23,7 @@ function Carousel({ items, itemPrefix, slideSpeed }) {
       setTranslateX(100 * (currIndex + 1))
       setCurrIndex(currIndex + 1)
     }
-  }, [currIndex, items])
+  }, [currIndex, items, slideSpeed])
 
   const goToPrevSlide = () => {
     innerRef.current.style.transitionDuration = slideSpeed
@@ -62,13 +68,13 @@ function Carousel({ items, itemPrefix, slideSpeed }) {
     }
     timerRef.current = setTimeout(() => {
       goToNextSlide()
-    }, 50000)
+    }, autoPlaySpeed)
     if (!autoPlay) {
       clearTimeout(timerRef.current)
     }
 
     return () => clearTimeout(timerRef.current)
-  }, [goToNextSlide])
+  }, [goToNextSlide, autoPlay, autoPlaySpeed])
 
   return (
     <div
@@ -148,6 +154,13 @@ function Carousel({ items, itemPrefix, slideSpeed }) {
       </div>
     </div>
   )
+}
+
+Carousel.propTypes = {
+  items: PropTypes.array.isRequired,
+  itemPrefix: PropTypes.string.isRequired,
+  slideSpeed: PropTypes.string.isRequired,
+  autoPlaySpeed: PropTypes.number,
 }
 
 export default Carousel
