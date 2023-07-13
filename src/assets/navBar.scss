@@ -2,7 +2,8 @@
 @import "./variables";
 
 .nav-bar{
-    padding-top: 1vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     display: flex;
     justify-content: space-between;
     font-family: $primary-font-medium;
@@ -10,7 +11,7 @@
 
 
     #{&}__txt-link:any-link{
-        font-size: 4vh;
+        font-size: 2vw;
         color: $nav-font-colour;
         text-decoration: none;
     }

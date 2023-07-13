@@ -1,0 +1,47 @@
+@import "./resets";
+@import "./variables";
+
+.management{
+    margin-left:11vw;
+    margin-right: 14vw;
+
+    #{&}__title{
+        font-family: $primary-font-light;
+        color: $font-on-bg-colour;
+        font-size: 3vw;
+        margin-bottom: 1vw;
+    }
+
+    #{&}__columns{
+        columns: 2 28vw;
+        column-gap: 12vw;
+    }
+
+    #{&}__list{
+        list-style: none;
+    }
+
+    #{&}__text, #{&}__item-text{
+        break-inside: avoid;
+        font-family: $secondary-font;
+        color: $font-on-bg-colour-secondary;
+        font-size: 1.5vw;
+        line-height: 1.6;
+        margin-bottom: 0.75vw;
+    }
+
+    #{&}__item-text::before{
+        content: '';
+        position: absolute;
+        height: 0.5vw;
+        width: 2vw;
+        top: 1vw;
+        left: -2.5vw;
+        background-repeat: no-repeat;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 31.426 8.493'%3E%3Cpath id='Path_296' data-name='Path 296' d='M393.437-174.07l-14.076,8.493H396.71l14.076-8.493Z' transform='translate(-379.361 174.07)' fill='%23233682'/%3E%3C/svg%3E%0A");
+    }
+
+    #{&}__item{
+        position: relative;
+    }
+}
