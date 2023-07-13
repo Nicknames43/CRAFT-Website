@@ -53,16 +53,10 @@ function FeatureProperties() {
     },
   ]
   const slideSpeed = "0.5s"
+  const autoPlaySpeed = 5
   const slides = []
   for (let i = 0; i < items.length; i++) {
-    slides[i] = (
-      <FeatureProperty
-        icon={items[i].icon}
-        title={items[i].title}
-        description={items[i].description}
-        infoLink={items[i].infoLink}
-      />
-    )
+    slides[i] = <FeatureProperty {...items[i]} />
   }
 
   return (
@@ -103,6 +97,7 @@ function FeatureProperties() {
             items={slides}
             itemPrefix="fp"
             slideSpeed={slideSpeed}
+            autoPlaySpeed={autoPlaySpeed * 1000}
           ></Carousel>
         </foreignObject>
       </svg>
