@@ -1,0 +1,43 @@
+@import "./resets";
+@import "./variables";
+
+.questions{
+    width: 140vw;
+    height: 19vw;
+    position: relative;
+
+    #{&}__title{
+        font-family: $primary-font-light;
+        color: $font-on-bg-colour;
+        font-size: 3.5vw;
+        margin-left: 12vw;
+    }
+
+    #{&}__bg{
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: -20vw;
+    }
+
+    #{&}__container{
+        container: questions / size;
+        height: 100%;
+        width: 100%;
+        display: grid;
+    }
+}
+
+@container questions (min-height: 0px) {
+    .questions__text{
+        font-size: 40cqh;
+        align-self: center;
+        justify-self: center;
+        font-family: $primary-font-light;
+        color: $font-on-accent-colour;
+
+        a:any-link{
+            color: $font-on-accent-colour;
+        }
+    }
+}
