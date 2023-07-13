@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function Questions() {
   return (
     <div className="questions">
+      <h1 className="questions__title">QUESTIONS ABOUT CRAFT?</h1>
       <div className="questions__bg">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2524.135 269.04">
           <g id="rectangles" transform="translate(350.771 -5371.768)">
@@ -71,7 +72,7 @@ function Questions() {
         </svg>
       </div>
     </div>
-  );
+  )
 }
 
 export default Questions;

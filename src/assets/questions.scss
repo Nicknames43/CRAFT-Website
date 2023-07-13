@@ -3,8 +3,15 @@
 
 .questions{
     width: 140vw;
-    height: 15vw;
+    height: 19vw;
     position: relative;
+
+    #{&}__title{
+        font-family: $primary-font-light;
+        color: $font-on-bg-colour;
+        font-size: 3.5vw;
+        margin-left: 12vw;
+    }
 
     #{&}__bg{
         width: 100%;

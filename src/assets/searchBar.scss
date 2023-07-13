@@ -4,7 +4,14 @@
 .search-bar{
     position: relative;
     width: 140vw;
-    height: 8vw;
+    height: 10vw;
+
+    #{&}__title{
+        margin-left: 12vw;
+        font-family: $primary-font-light;
+        color: $font-on-bg-colour;
+        font-size: 2vw;
+    }
 
     #{&}__form{
         container: search-bar / size;
