@@ -1,0 +1,69 @@
+@import "./resets";
+@import "./variables";
+
+.team-partners{
+    display: flex;
+    width: 100vw;
+    height: 45vw;
+    margin-bottom: 5vw;
+    container: team-partners / size;
+}
+
+@container team-partners (min-height: 0px) {
+    .team-partners{
+        #{&}__title{
+            font-family: $primary-font-light;
+            color: $font-on-bg-colour;
+            font-size: 7.25cqh;
+            margin-left: 5cqh;
+            margin-bottom: 0.5cqh;
+        }
+
+        #{&}__team, #{&}__partners{
+            width: 50vw;
+        }
+
+        #{&}__team{
+            padding-left: 7vw;
+            padding-right: 7vw;
+        }
+
+        #{&}__partners{
+            padding-right: 14vw;
+        }
+
+        #{&}__list{
+            list-style: none;
+            margin-top: 3.5cqh;
+        }
+
+        #{&}__text, #{&}__description{
+            font-family: $secondary-font;
+            color: $font-on-bg-colour-secondary;
+            padding-left: 6cqh;
+            font-size: 3.65cqh;
+            line-height: 6cqh;
+        }
+
+        #{&}__description{
+            margin-top: 3.5cqh;
+        }
+
+        #{&}__text::before{
+            content: '';
+            position: absolute;
+            height: 1cqh;
+            width: 4cqh;
+            top: 2.25cqh;
+            left: 0;
+            background-repeat: no-repeat;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 31.426 8.493'%3E%3Cpath id='Path_296' data-name='Path 296' d='M393.437-174.07l-14.076,8.493H396.71l14.076-8.493Z' transform='translate(-379.361 174.07)' fill='%23233682'/%3E%3C/svg%3E%0A");
+        }
+
+        #{&}__item{
+            position: relative;
+            overflow-x: visible;
+            margin-bottom: 1.5cqh;
+        }
+    }
+}
