@@ -3,7 +3,9 @@
 
 
 .footer{
-    gap: 1rem;
+    width: 100vw;
+    height: 35vw;
+    gap: 1vw;
     display: grid;
     grid-template-rows: [col1] 6fr [col2] 14fr [col3] 7fr [col4] 7fr [col5] 6fr;
     grid-template-columns: [row1] 1fr [row2] 4fr [row3] 2fr [row4] 2fr [row5] 1fr;
@@ -16,16 +18,18 @@
     background-color: $accent-colour-dark;
     color: $font-on-accent-colour;
     font-family: $primary-font-light;
+    container: footer / size;
 
     p{
         font-weight: lighter;
-        font-size: 1.5em;
-        padding: 0.2em;
+        font-size: 1.5vw;
+        padding: 0.2vw;
     }
 
     h1{
         font-family: $primary-font-medium;
         font-weight: lighter;
+        font-size: 1.75vw;
     }
 
     #{&}__address{
@@ -56,7 +60,12 @@
         grid-area: fc;
         align-self: center;
         justify-self: center;
-        font-size: 0.8em;
+        display: grid;
+
+        p{
+            font-size: 1.2vw;
+            justify-self: center;
+        }
     }
 
     #{&}__priv-pol:any-link{
@@ -67,33 +76,35 @@
         grid-area: lg;
         align-self: center;
         justify-self: center;
-        padding-right: 5em;
-        margin-right: 5em;
-        border-right: 4px solid $font-on-accent-colour;
-    }
-}
-
-.footer__nav{
-    display: flex;
-    justify-content: space-evenly;
-    grid-area: fn;
-    font-family: $primary-font-medium;
-
-    a:any-link{
-        font-size: 2.25em;
-        color: $font-on-accent-colour;
-        text-decoration: none;
+        padding-right: 5vw;
+        margin-right: 5vw;
+        border-right: 0.3vw solid $font-on-accent-colour;
+        width: 35vw;
+        height: auto;
     }
 
-    ul{
-        list-style-type: none;
+    #{&}__nav{
         display: flex;
         justify-content: space-evenly;
-        gap: 7rem;
-    }
-
-    li{
-        display: flex;
-        align-items: center;
+        grid-area: fn;
+        font-family: $primary-font-medium;
+    
+        a:any-link{
+            font-size: 2.75vw;
+            color: $font-on-accent-colour;
+            text-decoration: none;
+        }
+    
+        ul{
+            list-style-type: none;
+            display: flex;
+            justify-content: space-evenly;
+            gap: 7vw;
+        }
+    
+        li{
+            display: flex;
+            align-items: center;
+        }
     }
 }
