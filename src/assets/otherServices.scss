@@ -1,0 +1,37 @@
+@import "./resets";
+@import "./variables";
+
+.other-services{
+    #{&}__bg{
+        width: 100vw;
+        height: auto;
+    }
+
+    #{&}__container{
+        width: 100%;
+        height: 100%;
+        container: other-services / size;
+        display: grid;
+        align-content: center;
+    }
+}
+
+@container other-services (min-height: 0px) {
+    .other-services{
+        #{&}__title{
+            font-size: 20cqh;
+            font-family: $primary-font-light;
+            margin-bottom: 5cqh;
+        }
+
+        #{&}__description{
+            font-size: 10cqh;
+            font-family: $secondary-font;
+        }
+
+        #{&}__title, #{&}__description{
+            color: $font-on-accent-colour;
+            line-height: 1.6;
+        }
+    }
+}
