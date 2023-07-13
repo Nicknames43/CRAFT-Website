@@ -12,5 +12,6 @@ function About() {
       <Methodologies />
     </>
   )
+}
 
 export default About
