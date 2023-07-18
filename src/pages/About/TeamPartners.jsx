@@ -1,5 +1,3 @@
-import "../../assets/teamPartners.scss"
-
 function TeamPartners() {
   return (
     <div className="team-partners">

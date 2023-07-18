@@ -1,4 +1,3 @@
-import "../../assets/trustInterest.scss"
 import { Link } from "react-router-dom"
 
 function TrustInterested() {

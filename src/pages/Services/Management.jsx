@@ -1,5 +1,3 @@
-import "../../assets/management.scss"
-
 function Management() {
   return (
     <div className="management">

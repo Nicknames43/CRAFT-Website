@@ -1,5 +1,3 @@
-import "../../assets/development.scss"
-
 function Development() {
   return (
     <div className="development">

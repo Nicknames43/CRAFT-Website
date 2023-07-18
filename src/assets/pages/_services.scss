@@ -1,0 +1,159 @@
+.services-title {
+    overflow-y: visible;
+    margin-bottom: 2vw;
+
+    #{&}__bg{
+        overflow: visible;
+        width: 124vw;
+        height: auto;
+        margin-left: -12vw;
+    }
+
+    #{&}__container{
+        width: 100%;
+        height: 100%;
+        container: services / size;
+    }
+}
+
+@container services (min-height: 0px) {
+    .services-title{
+        #{&}__heading{
+            font-family: $primary-font-light;
+            color: $font-on-bg-colour;
+            font-size: 32cqh;
+        }
+
+        #{&}__description{
+            font-family: $secondary-font;
+            color: $font-on-bg-colour-secondary;
+            font-size: 10cqh;
+            line-height: 1.4;
+            width: 90cqw;
+        }
+    }
+}
+
+.development{
+    margin-left:11vw;
+    margin-right: 14vw;
+
+    #{&}__title{
+        font-family: $primary-font-light;
+        color: $font-on-bg-colour;
+        font-size: 3vw;
+    }
+
+    #{&}__columns{
+        columns: 2 28vw;
+        column-gap: 12vw;
+    }
+
+    #{&}__list{
+        list-style: none;
+    }
+
+    #{&}__text, #{&}__item-text{
+        break-inside: avoid;
+        font-family: $secondary-font;
+        color: $font-on-bg-colour-secondary;
+        font-size: 1.5vw;
+        line-height: 1.6;
+        margin-bottom: 0.75vw;
+    }
+
+    #{&}__item-text::before{
+        content: '';
+        position: absolute;
+        height: 0.5vw;
+        width: 2vw;
+        top: 1vw;
+        left: -2.5vw;
+        background-repeat: no-repeat;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 31.426 8.493'%3E%3Cpath id='Path_296' data-name='Path 296' d='M393.437-174.07l-14.076,8.493H396.71l14.076-8.493Z' transform='translate(-379.361 174.07)' fill='%23233682'/%3E%3C/svg%3E%0A");
+    }
+
+    #{&}__item{
+        position: relative;
+    }
+}
+
+.management{
+    margin-left:11vw;
+    margin-right: 14vw;
+
+    #{&}__title{
+        font-family: $primary-font-light;
+        color: $font-on-bg-colour;
+        font-size: 3vw;
+        margin-bottom: 1vw;
+    }
+
+    #{&}__columns{
+        columns: 2 28vw;
+        column-gap: 12vw;
+    }
+
+    #{&}__list{
+        list-style: none;
+    }
+
+    #{&}__text, #{&}__item-text{
+        break-inside: avoid;
+        font-family: $secondary-font;
+        color: $font-on-bg-colour-secondary;
+        font-size: 1.5vw;
+        line-height: 1.6;
+        margin-bottom: 0.75vw;
+    }
+
+    #{&}__item-text::before{
+        content: '';
+        position: absolute;
+        height: 0.5vw;
+        width: 2vw;
+        top: 1vw;
+        left: -2.5vw;
+        background-repeat: no-repeat;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 31.426 8.493'%3E%3Cpath id='Path_296' data-name='Path 296' d='M393.437-174.07l-14.076,8.493H396.71l14.076-8.493Z' transform='translate(-379.361 174.07)' fill='%23233682'/%3E%3C/svg%3E%0A");
+    }
+
+    #{&}__item{
+        position: relative;
+    }
+}
+
+.other-services{
+    #{&}__bg{
+        width: 100vw;
+        height: auto;
+    }
+
+    #{&}__container{
+        width: 100%;
+        height: 100%;
+        container: other-services / size;
+        display: grid;
+        align-content: center;
+    }
+}
+
+@container other-services (min-height: 0px) {
+    .other-services{
+        #{&}__title{
+            font-size: 20cqh;
+            font-family: $primary-font-light;
+            margin-bottom: 5cqh;
+        }
+
+        #{&}__description{
+            font-size: 10cqh;
+            font-family: $secondary-font;
+        }
+
+        #{&}__title, #{&}__description{
+            color: $font-on-accent-colour;
+            line-height: 1.6;
+        }
+    }
+}

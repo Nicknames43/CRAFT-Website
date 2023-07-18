@@ -1,5 +1,4 @@
-import "../../assets/questions.scss";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 function Questions() {
   return (
@@ -75,4 +74,4 @@ function Questions() {
   )
 }
 
-export default Questions;
+export default Questions
