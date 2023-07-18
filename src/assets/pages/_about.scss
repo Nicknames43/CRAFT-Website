@@ -1,0 +1,186 @@
+.fact-banner{
+    #{&}__container{
+        width: 100%;
+        height: 100%;
+        container: fact-banner / size;
+        align-content: center;
+        display: grid;
+    }
+
+    #{&}__bg{
+        width: 140vw;
+        height: auto;
+        margin-left: -17vw;
+    }
+}
+
+@container fact-banner (min-height: 0px) {
+    .fact-banner__fact{
+        font-size: 31cqh;
+        font-family: $primary-font-medium;
+        color: $font-on-accent-colour;
+        line-height: 1.3;
+    }
+}
+
+.about-title {
+    overflow-y: visible;
+    margin-bottom: 7vw;
+
+    #{&}__bg{
+        overflow: visible;
+        width: 124vw;
+        height: auto;
+        margin-left: -12vw;
+    }
+
+    #{&}__container{
+        width: 100%;
+        height: 100%;
+        container: about / size;
+    }
+}
+
+@container about (min-height: 0px) {
+    .about-title{
+        #{&}__heading{
+            font-family: $primary-font-light;
+            color: $font-on-bg-colour;
+            font-size: 22cqh;
+        }
+
+        #{&}__description{
+            font-family: $secondary-font;
+            color: $font-on-bg-colour-secondary;
+            font-size: 5.6cqh;
+            line-height: 1.6;
+        }
+    }
+}
+
+.team-partners{
+    display: flex;
+    width: 100vw;
+    height: 45vw;
+    margin-bottom: 5vw;
+    container: team-partners / size;
+}
+
+@container team-partners (min-height: 0px) {
+    .team-partners{
+        #{&}__title{
+            font-family: $primary-font-light;
+            color: $font-on-bg-colour;
+            font-size: 7.25cqh;
+            margin-left: 5cqh;
+            margin-bottom: 0.5cqh;
+        }
+
+        #{&}__team, #{&}__partners{
+            width: 50vw;
+        }
+
+        #{&}__team{
+            padding-left: 7vw;
+            padding-right: 7vw;
+        }
+
+        #{&}__partners{
+            padding-right: 14vw;
+        }
+
+        #{&}__list{
+            list-style: none;
+            margin-top: 3.5cqh;
+        }
+
+        #{&}__text, #{&}__description{
+            font-family: $secondary-font;
+            color: $font-on-bg-colour-secondary;
+            padding-left: 6cqh;
+            font-size: 3.65cqh;
+            line-height: 6cqh;
+        }
+
+        #{&}__description{
+            margin-top: 3.5cqh;
+        }
+
+        #{&}__text::before{
+            content: '';
+            position: absolute;
+            height: 1cqh;
+            width: 4cqh;
+            top: 2.25cqh;
+            left: 0;
+            background-repeat: no-repeat;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 31.426 8.493'%3E%3Cpath id='Path_296' data-name='Path 296' d='M393.437-174.07l-14.076,8.493H396.71l14.076-8.493Z' transform='translate(-379.361 174.07)' fill='%23233682'/%3E%3C/svg%3E%0A");
+        }
+
+        #{&}__item{
+            position: relative;
+            overflow-x: visible;
+            margin-bottom: 1.5cqh;
+        }
+    }
+}
+
+.methodologies{
+    #{&}__bg{
+        width: 100vw;
+        height: auto;
+    }
+
+    #{&}__container{
+        width: 100%;
+        height: 100%;
+        container: methodologies-container / size;
+    }
+}
+
+@container methodologies-container (min-height: 0px) {
+    .methodologies{
+        #{&}__title{
+            font-family: $primary-font-light;
+            color: $font-on-accent-colour;
+            font-size: 7.25cqh;
+            margin-left: 5cqh;
+            margin-bottom: 4cqh;
+        }
+
+        #{&}__columns{
+            columns: 2 30cqw;
+            column-gap: 10cqw;
+        }
+
+        #{&}__list{
+            list-style: none;
+        }
+
+        #{&}__method{
+            break-inside: avoid;
+            font-family: $secondary-font;
+            color: $font-on-accent-colour;
+            padding-left: 6cqh;
+            font-size: 3.65cqh;
+            line-height: 6cqh;
+        }
+
+        #{&}__method::before{
+            content: '';
+            position: absolute;
+            height: 1cqh;
+            width: 4cqh;
+            top: 2.25cqh;
+            left: 0;
+            background-repeat: no-repeat;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='31.426' height='8.493' viewBox='0 0 31.426 8.493'%3E%3Cpath id='Path_340' data-name='Path 340' d='M393.437-174.07l-14.076,8.493H396.71l14.076-8.493Z' transform='translate(-379.361 174.07)' fill='%23fff'/%3E%3C/svg%3E%0A");
+        }
+
+        #{&}__item{
+            position: relative;
+            overflow-x: visible;
+            margin-bottom: 1.5cqh;
+        }
+    }
+}

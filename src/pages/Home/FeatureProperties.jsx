@@ -2,7 +2,6 @@ import PropTypes from "prop-types"
 import keswickLogo from "/images/keswick-marketplace-logo.svg"
 import tempLogo from "/images/temp-img.svg"
 import Carousel from "../../components/Carousel"
-import "../../assets/featureProperties.scss"
 
 function FeatureProperty({ icon, title, description, infoLink }) {
   return (

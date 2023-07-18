@@ -1,10 +1,5 @@
-@import "./resets";
-@import "./variables";
-
 .search-bar{
-    position: relative;
-    width: 140vw;
-    height: 10vw;
+    height: max-content;
 
     #{&}__title{
         margin-left: 12vw;
@@ -28,10 +23,9 @@
     }
 
     #{&}__bg{
-        width: 100%;
+        width: 140vw;
         height: auto;
-        position: absolute;
-        left: -17vw;
+        margin-left: -17vw;
     }
 
     #{&}__type{

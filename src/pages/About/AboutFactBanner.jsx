@@ -1,5 +1,3 @@
-import "../../assets/aboutFactBanner.scss"
-
 function AboutFactBanner() {
   return (
     <div className="fact-banner">

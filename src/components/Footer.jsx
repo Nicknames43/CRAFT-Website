@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import "../assets/footer.scss"
 import logoWhite from "/images/craft logo white.svg"
 
 function Footer() {

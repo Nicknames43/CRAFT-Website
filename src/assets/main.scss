@@ -1,0 +1,22 @@
+@import "abstracts/variables";
+
+//@import "vendors/";
+
+@import "base/resets";
+
+@import 
+    "layout/footer.scss", 
+    "layout/navBar.scss";
+
+@import 
+    "components/carousel",
+    "components/searchBar.scss";
+
+@import 
+    "pages/about",
+    "pages/contact",
+    "pages/home",
+    "pages/properties",
+    "pages/services";
+
+//@import "themes/";

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import "../assets/navBar.scss"
 import logo from "/images/craft logo.svg"
 
 function NavBar() {

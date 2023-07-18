@@ -1,5 +1,3 @@
-import "../../assets/methodologies.scss"
-
 function Methodologies() {
   return (
     <div className="methodologies">

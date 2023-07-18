@@ -6,6 +6,7 @@ import Properties from "./pages/PropertiesMain/index.jsx"
 import Contact from "./pages/Contact/index.jsx"
 import NavBar from "./components/NavBar.jsx"
 import Footer from "./components/Footer.jsx"
+import "./assets/main.scss"
 
 function App() {
   return (

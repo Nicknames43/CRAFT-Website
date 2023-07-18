@@ -1,5 +1,3 @@
-import "../../assets/otherServices.scss"
-
 function OtherServices() {
   return (
     <div className="other-services">

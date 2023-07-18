@@ -1,0 +1,82 @@
+{
+  "23520-23546WoodbineAvenue": {
+    "name": "23520-23546 Woodbine Avenue",
+    "type": "Shopping Centre",
+    "address": {
+      "country": "Canada",
+      "province": "Ontario",
+      "city": "Keswick",
+      "streetName": "Woodbine Avenue",
+      "streetNum": "23520-23546",
+      "postalCode": "L4P 3E9"
+    },
+    "salesManager": {
+      "name": "Larry Regan",
+      "number": "(416) 204-0730",
+      "email": "lregan@craftgrp.com"
+    },
+    "propDetails": {
+      "totSize": 26787,
+      "leaseSize": 10458,
+      "siteArea": 3.5
+    },
+    "tenantMix": [
+      "Financial Services",
+      "Fast Food",
+      "Service",
+      "Medical",
+      "Other"
+    ],
+    "images": [],
+    "buildings": {
+      "C": [
+        {
+          "unit": "1-7",
+          "tenant": "Vacant",
+          "space": 10458,
+          "lease": true
+        }
+      ],
+      "D": [
+        {
+          "unit": "1",
+          "tenant": "TD Canada Trust",
+          "space": 5021,
+          "lease": false
+        }
+      ],
+      "E": [
+        {
+          "unit": "1",
+          "tenant": "Sunset Grill",
+          "space": 2045,
+          "lease": false
+        },
+        {
+          "unit": "1A",
+          "tenant": "Subway",
+          "space": 1009,
+          "lease": false
+        },
+        {
+          "unit": "2",
+          "tenant": "Hair Fitness",
+          "space": 1221,
+          "lease": false
+        },
+        {
+          "unit": "4-7",
+          "tenant": "Advanced Radiology",
+          "space": 5811,
+          "lease": false
+        },
+        {
+          "unit": "3",
+          "tenant": "Shell's Nail Salon & Spa",
+          "space": 1222,
+          "lease": false
+        }
+      ]
+    }
+  }
+}
