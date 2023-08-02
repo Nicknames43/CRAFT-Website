@@ -3,7 +3,7 @@ import Development from "./Development"
 import Management from "./Management"
 import OtherServices from "./OtherServices"
 
-function Services() {
+export function Services() {
   return (
     <>
       <ServicesTitle />
@@ -13,5 +13,3 @@ function Services() {
     </>
   )
 }
-
-export default Services

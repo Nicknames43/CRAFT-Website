@@ -4,7 +4,7 @@ import Questions from "./Questions"
 import Welcome from "./Welcome"
 import FeatureProperties from "./FeatureProperties"
 
-function Home() {
+export function Home() {
   return (
     <>
       <Welcome />
@@ -15,5 +15,3 @@ function Home() {
     </>
   )
 }
-
-export default Home

@@ -11,7 +11,7 @@ function Carousel({
   const innerRef = useRef(null)
   const timerRef = useRef(null)
   const [currIndex, setCurrIndex] = useState(1)
-  const [translateX, setTranslateX] = useState(0)
+  const [translateX, setTranslateX] = useState(100)
   const [autoPlay, setAutoPlay] = useState(true)
 
   const goToNextSlide = useCallback(() => {
