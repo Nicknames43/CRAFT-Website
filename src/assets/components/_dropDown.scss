@@ -16,6 +16,8 @@
     #{&}__heading{
         font-family: $primary-font-light;
         color: $font-on-bg-colour;
+        font-size: 3vw;
+        line-height: 1.25;
     }
 
     #{&}__content-container{
@@ -25,5 +27,9 @@
 
     #{&}__content{
         overflow: hidden;
+    }
+
+    #{&}__button-img{
+        height: 2vw;   
     }
 }

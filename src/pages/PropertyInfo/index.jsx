@@ -167,7 +167,8 @@ PropertyInfo.propTypes = {
           ).isRequired,
         }),
         PropTypes.exact({
-          totNumHomes: PropTypes.number.isRequired,
+          totNumHomes: PropTypes.number,
+          totNumServicedLots: PropTypes.number,
           purchasable: PropTypes.bool.isRequired,
           totNumSingle: PropTypes.number,
           totNumSemi: PropTypes.number,
@@ -182,6 +183,8 @@ PropertyInfo.propTypes = {
               numTownHome: PropTypes.number,
               numCondo: PropTypes.number,
               phaseArea: PropTypes.number,
+              numServicedLots: PropTypes.number,
+              completed: PropTypes.bool.isRequired,
             })
           ).isRequired,
         }),

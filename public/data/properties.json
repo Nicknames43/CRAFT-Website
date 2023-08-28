@@ -1,30 +1,688 @@
 {
+  "1KennedyRoadSouth": {
+    "name": "1 Kennedy Road South",
+    "address": {
+      "streetNum": "1",
+      "streetName": "Kennedy Road South",
+      "city": "Brampton",
+      "province": "Ontario",
+      "postalCode": "L6W 3C9",
+      "country": "Canada"
+    },
+    "type": "Strip Mall",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 12,
+      "leaseSize": 0,
+      "totSize": 29154,
+      "tenantMix": "Drug Store, Fast Food, Financial Services, Medical",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 15411,
+            "lease": false
+          },
+          { "unit": "2", "tenant": "Quiznos", "space": 1628, "lease": false },
+          {
+            "unit": "3",
+            "tenant": "Money Mart",
+            "space": 1622,
+            "lease": false
+          },
+          {
+            "unit": "4",
+            "tenant": "Medical Clinic",
+            "space": 3767,
+            "lease": false
+          },
+          {
+            "unit": "5",
+            "tenant": "Home Health Care (Shoppers Drug Mart)",
+            "space": 3826,
+            "lease": false
+          },
+          {
+            "unit": "6",
+            "tenant": "Canadian Back Institute",
+            "space": 2900,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "7988TorbramRoad": {
+    "name": "7988 Torbram Road",
+    "address": {
+      "streetNum": "7988",
+      "streetName": "Torbram Road",
+      "city": "Brampton",
+      "province": "Ontario",
+      "postalCode": "L6T 5A2",
+      "country": "Canada"
+    },
+    "type": "Strip Mall",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.66,
+      "leaseSize": 0,
+      "totSize": 5298,
+      "tenantMix": "Automotive Services, Fast Food",
+      "featured": ["Tru Valu (now Circle K)", "Tim Horton's", "McDonald's"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Tru Valu (now Circle K)",
+            "space": -1,
+            "lease": false
+          }
+        ],
+        "B": [
+          {
+            "unit": "1",
+            "tenant": "Tim Horton's",
+            "space": 2813,
+            "lease": false
+          },
+          { "unit": "1", "tenant": "McDonald's", "space": 2485, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "2211BrantStreet": {
+    "name": "2211 Brant Street",
+    "address": {
+      "streetNum": "2211",
+      "streetName": "Brant Street",
+      "city": "Burlington",
+      "province": "Ontario",
+      "postalCode": "L7P 0A1",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.94,
+      "leaseSize": 0,
+      "totSize": 13911,
+      "tenantMix": "Drug Store",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 13911,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "4524NewStreet": {
+    "name": "4524 New Street",
+    "address": {
+      "streetNum": "4524",
+      "streetName": "New Street",
+      "city": "Burlington",
+      "province": "Ontario",
+      "postalCode": "L7L 7K8",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.19,
+      "leaseSize": 0,
+      "totSize": 14142,
+      "tenantMix": "Drug Store",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 14142,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "270SpringStreet": {
+    "name": "270 Spring Street",
+    "address": {
+      "streetNum": "270",
+      "streetName": "Spring Street",
+      "city": "Cobourg",
+      "province": "Ontario",
+      "postalCode": "K9A 3K2",
+      "country": "Canada"
+    },
+    "type": "Strip Mall",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.04,
+      "leaseSize": 0,
+      "totSize": 17387,
+      "tenantMix": "Drug Store, Fast Food",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 15887,
+            "lease": false
+          }
+        ],
+        "B": [
+          { "unit": "1", "tenant": "Mr. Sub", "space": 1500, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "345FirstStreet": {
+    "name": "345 First Street",
+    "address": {
+      "streetNum": "345",
+      "streetName": "First Street",
+      "city": "Collingwood",
+      "province": "Ontario",
+      "postalCode": "L9Y 1B3",
+      "country": "Canada"
+    },
+    "type": "Strip Mall",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 2,
+      "leaseSize": 0,
+      "totSize": 14708,
+      "tenantMix": "Fast Food, Grocery, GM, Automotive Services, Health & Nutrition",
+      "featured": ["Subway", "Master Mechanic"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Bulk Barn", "space": 5543, "lease": false },
+          { "unit": "2", "tenant": "Subway", "space": 2645, "lease": false }
+        ],
+        "B": [
+          {
+            "unit": "1",
+            "tenant": "Master Mechanic",
+            "space": 6520,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "11-15ArthurStreet": {
+    "name": "11 - 15 Arthur Street",
+    "address": {
+      "streetNum": " 11 - 15",
+      "streetName": "Arthur Street",
+      "city": "Elmira",
+      "province": "Ontario",
+      "postalCode": "N3B 1Z4",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.79,
+      "leaseSize": 0,
+      "totSize": 13404,
+      "tenantMix": "Drug Store",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 13404,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "3701LakeshoreBlvdW": {
+    "name": "3701 Lakeshore Blvd W",
+    "address": {
+      "streetNum": "3701",
+      "streetName": "Lakeshore Blvd. W",
+      "city": "Etobicoke",
+      "province": "Ontario",
+      "postalCode": "M8W 1P8",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.52,
+      "leaseSize": 0,
+      "totSize": 10770,
+      "tenantMix": "Drug Store",
+      "featured": ["Rexall"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Rexall", "space": 10770, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "10QueenElizabethBoulevard": {
+    "name": "10 Queen Elizabeth Boulevard",
+    "address": {
+      "streetNum": "10",
+      "streetName": "Queen Elizabeth Boulevard",
+      "city": "Etobicoke",
+      "province": "Ontario",
+      "postalCode": "M8Z 1L8",
+      "country": "Canada"
+    },
+    "type": "Industrial/Office",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1,
+      "leaseSize": 0,
+      "totSize": 29000,
+      "tenantMix": "Home Retail, Real Estate",
+      "featured": ["ViFloor", "CRAFT Development Corporation"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "ViFloor", "space": 25000, "lease": false },
+          {
+            "unit": "2",
+            "tenant": "CRAFT Development Corporation",
+            "space": 4000,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "475RenforthDrive": {
+    "name": "475 Renforth Drive",
+    "address": {
+      "streetNum": "475",
+      "streetName": "Renforth Drive",
+      "city": "Etobicoke",
+      "province": "Ontario",
+      "postalCode": "M9C 2N3",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.5,
+      "leaseSize": 0,
+      "totSize": 4500,
+      "tenantMix": "Financial Services",
+      "featured": ["Scotiabank"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Scotiabank", "space": 4500, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "224HighlandStreet": {
+    "name": "224 Highland Street",
+    "address": {
+      "streetNum": "224",
+      "streetName": "Highland Street",
+      "city": "Haliburton",
+      "province": "Ontario",
+      "postalCode": "K0M 1S0",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.62,
+      "leaseSize": 0,
+      "totSize": 42174,
+      "tenantMix": "Drug Store",
+      "featured": ["Rexall"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Rexall", "space": 42174, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "399GreenhillAvenue": {
+    "name": "399 Greenhill Avenue",
+    "address": {
+      "streetNum": "399",
+      "streetName": "Greenhill Avenue",
+      "city": "Hamilton",
+      "province": "Ontario",
+      "postalCode": "L8K 6N5",
+      "country": "Canada"
+    },
+    "type": "Strip Mall",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 3.6,
+      "leaseSize": 0,
+      "totSize": 42174,
+      "tenantMix": "Drug Store, Financial Services, Grocery/GM, Other",
+      "featured": ["Shoppers Drug Mart", "CIBC"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 4346,
+            "lease": false
+          },
+          {
+            "unit": "2",
+            "tenant": "D'Alesios Foodland",
+            "space": 20400,
+            "lease": false
+          },
+          { "unit": "3", "tenant": "CIBC", "space": 3000, "lease": false },
+          {
+            "unit": "Various",
+            "tenant": "Other Local Retailers",
+            "space": 14428,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "680StonechurchRoadEast": {
+    "name": "680 Stonechurch Road East",
+    "address": {
+      "streetNum": "680",
+      "streetName": "Stonechurch Road East",
+      "city": "Hamilton",
+      "province": "Ontario",
+      "postalCode": "L8W 1A7",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.64,
+      "leaseSize": 0,
+      "totSize": 16850,
+      "tenantMix": "Drug Store, Automotive Services",
+      "featured": ["Shoppers Drug Mart", "Sunoco"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 16850,
+            "lease": false
+          }
+        ],
+        "B": [{ "unit": "1", "tenant": "Sunoco", "space": -1, "lease": false }]
+      }
+    },
+    "images": []
+  },
+  "3015-3027BinbrookRoadEast": {
+    "name": "3015-3027 Binbrook Road East",
+    "address": {
+      "streetNum": "3015-3027",
+      "streetName": "Binbrook Road East",
+      "city": "Hamilton",
+      "province": "Ontario",
+      "postalCode": "L0R 1C0",
+      "country": "Canada"
+    },
+    "type": "Shopping Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 2.06,
+      "leaseSize": 0,
+      "totSize": 25603,
+      "tenantMix": "Drug Store, Financial Services, Other",
+      "featured": ["Shoppers Drug Mart", "TD Canada Trust"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 18812,
+            "lease": false
+          }
+        ],
+        "B": [
+          {
+            "unit": "1",
+            "tenant": "TD Canada Trust",
+            "space": 6791,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "867RymalRoad": {
+    "name": "867 Rymal Road",
+    "address": {
+      "streetNum": "867",
+      "streetName": "Rymal Road",
+      "city": "Hamilton",
+      "province": "Ontario",
+      "postalCode": "L8W 1B6",
+      "country": "Canada"
+    },
+    "type": "Free-Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.89,
+      "leaseSize": 0,
+      "totSize": 5326,
+      "tenantMix": "Financial Services",
+      "featured": ["TD Canada Trust"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "TD Canada Trust",
+            "space": 5326,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "107NorthKinton": {
+    "name": "107 North Kinton",
+    "address": {
+      "streetNum": "107",
+      "streetName": "North Kinton Rd",
+      "city": "Huntsville",
+      "province": "Ontario",
+      "postalCode": "PIH 1M3",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.43,
+      "leaseSize": 0,
+      "totSize": 5007,
+      "tenantMix": "Financial Services",
+      "featured": ["TD Canada Trust"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "TD Canada Trust",
+            "space": 5007,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "51-57KingWilliamStreet": {
+    "name": "51-57 King William Street",
+    "address": {
+      "streetNum": "51-57",
+      "streetName": "King William Street",
+      "city": "Huntsville",
+      "province": "Ontario",
+      "postalCode": "PIH 1G4",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.3,
+      "leaseSize": 0,
+      "totSize": 16161,
+      "tenantMix": "Drug Store",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 16161,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "DovedaleDriveWoodbineAvenue": {
+    "name": "Dovedale Drive Woodbine Avenue",
+    "address": {
+      "streetNum": "Dovedale",
+      "streetName": "Drive/Woodbine Avenue",
+      "city": "Keswick",
+      "province": "Ontario",
+      "postalCode": "L4P 3E9",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.2,
+      "leaseSize": 0,
+      "totSize": 20000,
+      "tenantMix": "Automotive Services",
+      "featured": ["Halo Car Wash"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Halo Car Wash",
+            "space": 10000,
+            "lease": false
+          }
+        ],
+        "B": [
+          { "unit": "1", "tenant": "Vacant", "space": 10000, "lease": true }
+        ]
+      }
+    },
+    "images": []
+  },
+  "23558-23580WoodbineAvenue": {
+    "name": "23558-23580 Woodbine Avenue",
+    "address": {
+      "streetNum": "23558-23580",
+      "streetName": "Woodbine Avenue",
+      "city": "Keswick",
+      "province": "Ontario",
+      "postalCode": "L4P 3E9",
+      "country": "Canada"
+    },
+    "type": "Shopping Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 4,
+      "leaseSize": 0,
+      "totSize": 27419,
+      "tenantMix": "Fashion, Dental, Financial Services, Grocery/GM, Casual Dining, Other",
+      "featured": ["Mark's", "Royal Bank", "Dollarama"],
+      "buildings": {
+        "F": [
+          { "unit": "1", "tenant": "Mark's", "space": 8022, "lease": false },
+          {
+            "unit": "2",
+            "tenant": "Keswick Dental Studio",
+            "space": 1922,
+            "lease": false
+          },
+          { "unit": "3", "tenant": "Royal Bank", "space": 4643, "lease": false }
+        ],
+        "H": [
+          {
+            "unit": "2-6",
+            "tenant": "Dollarama",
+            "space": 8818,
+            "lease": false
+          },
+          {
+            "unit": "7",
+            "tenant": "Prestige Jeweller",
+            "space": 1494,
+            "lease": false
+          },
+          {
+            "unit": "1",
+            "tenant": "St. Louis Bar & Grill",
+            "space": 2520,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
   "23520-23546WoodbineAvenue": {
     "name": "23520-23546 Woodbine Avenue",
-    "type": "Shopping Centre",
     "address": {
-      "country": "Canada",
-      "province": "Ontario",
-      "city": "Keswick",
-      "streetName": "Woodbine Avenue",
       "streetNum": "23520-23546",
-      "postalCode": "L4P 3E9"
+      "streetName": "Woodbine Avenue",
+      "city": "Keswick",
+      "province": "Ontario",
+      "postalCode": "L4P 3E9",
+      "country": "Canada"
     },
-    "status": ["Developed"],
+    "type": "Shopping Centre",
+    "status": ["Sold", "Developed"],
     "propDetails": {
-      "totSize": 26787,
-      "leaseSize": 10458,
       "siteArea": 3.5,
+      "leaseSize": 0,
+      "totSize": 26787,
       "tenantMix": "Financial Services, Fast Food, Service, Medical, Other",
       "featured": ["TD Canada Trust", "Sunset Grill", "Subway"],
       "buildings": {
         "C": [
-          {
-            "unit": "1-7",
-            "tenant": "Vacant",
-            "space": 10458,
-            "lease": true
-          }
+          { "unit": "1", "tenant": "Vacant", "space": 10458, "lease": true }
         ],
         "D": [
           {
@@ -41,12 +699,7 @@
             "space": 2045,
             "lease": false
           },
-          {
-            "unit": "1A",
-            "tenant": "Subway",
-            "space": 1009,
-            "lease": false
-          },
+          { "unit": "1A", "tenant": "Subway", "space": 1009, "lease": false },
           {
             "unit": "2",
             "tenant": "Hair Fitness",
@@ -68,6 +721,1087 @@
         ]
       }
     },
-    "images": ["temp-img.svg"]
+    "images": []
+  },
+  "23550-23590WoodbineAvenue": {
+    "name": "23550-23590 Woodbine Avenue",
+    "address": {
+      "streetNum": "23550-23590",
+      "streetName": "Woodbine Avenue",
+      "city": "Keswick",
+      "province": "Ontario",
+      "postalCode": "L4P 3E9",
+      "country": "Canada"
+    },
+    "type": "Shopping Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 13,
+      "leaseSize": 0,
+      "totSize": 150426,
+      "tenantMix": "Grocery/GM, Automotive Services, Financial Services",
+      "featured": ["Walmart", "Scotia Bank"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Walmart", "space": 150426, "lease": false }
+        ],
+        "M": [
+          {
+            "unit": "1",
+            "tenant": "Scotia Bank",
+            "space": 5277.7,
+            "lease": false
+          }
+        ],
+        "L": [
+          {
+            "unit": "1",
+            "tenant": "Master Mechanic",
+            "space": 3415.3,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "795OttawaStreet": {
+    "name": "795 Ottawa Street",
+    "address": {
+      "streetNum": "795",
+      "streetName": "Ottawa Street",
+      "city": "Kitchener",
+      "province": "Ontario",
+      "postalCode": "L4P 3E9",
+      "country": "Canada"
+    },
+    "type": "Strip Mall",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 25,
+      "leaseSize": 0,
+      "totSize": 21580,
+      "tenantMix": "Financial Services, Fast Food, Automotive Service, Other",
+      "featured": ["Bank of Montreal", "Tim Horton's"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Bank of Montreal",
+            "space": 6000,
+            "lease": false
+          }
+        ],
+        "B": [
+          { "unit": "1", "tenant": "Vacant", "space": 10000, "lease": true }
+        ],
+        "C": [
+          {
+            "unit": "1",
+            "tenant": "Tim Horton's",
+            "space": 3080,
+            "lease": false
+          }
+        ],
+        "D": [
+          {
+            "unit": "1",
+            "tenant": "Petro Canada",
+            "space": 2500,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "250KingStreetWest": {
+    "name": "250 King Street West",
+    "address": {
+      "streetNum": "250",
+      "streetName": "King Street West",
+      "city": "Kitchener",
+      "province": "Ontario",
+      "postalCode": "N2G 1B6",
+      "country": "Canada"
+    },
+    "type": "Street Retail and Medical Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.51,
+      "leaseSize": 0,
+      "totSize": 50298,
+      "tenantMix": "Drug Store, Office",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 17644,
+            "lease": false
+          },
+          { "unit": "2", "tenant": "Office", "space": 32654, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "135GatewayParkDrive": {
+    "name": "135 Gateway Park Drive",
+    "address": {
+      "streetNum": "135",
+      "streetName": "Gateway Park Drive",
+      "city": "Kitchener",
+      "province": "Ontario",
+      "postalCode": "N2P 2J9",
+      "country": "Canada"
+    },
+    "type": "Shopping Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 9.51,
+      "leaseSize": 0,
+      "totSize": 82962,
+      "tenantMix": "Entertainment, Fast Food",
+      "featured": ["Chapters", "East Side Mario's", "Famous Players"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Chapters", "space": 22000, "lease": false }
+        ],
+        "B": [
+          {
+            "unit": "1",
+            "tenant": "East Side Mario's",
+            "space": 5350,
+            "lease": false
+          }
+        ],
+        "C": [
+          {
+            "unit": "1",
+            "tenant": "Famous Players",
+            "space": 55612,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "245StrasburgRoad": {
+    "name": "245 Strasburg Road",
+    "address": {
+      "streetNum": "245",
+      "streetName": "Strasburg Road",
+      "city": "Kitchener",
+      "province": "Ontario",
+      "postalCode": "N2E 3W7",
+      "country": "Canada"
+    },
+    "type": "Shopping Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 14.38,
+      "leaseSize": 0,
+      "totSize": 387075,
+      "tenantMix": "Home Improvement, Grocery/GM, Casual Dining, Office Supplies, Entertainment, Financial Services, Dental",
+      "featured": ["RONA", "Home Outfitters", "CIBC", "Montana's", "Staples"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "RONA", "space": 111000, "lease": false },
+          {
+            "unit": "2",
+            "tenant": "Home Outfitters",
+            "space": 34023,
+            "lease": false
+          },
+          { "unit": "3", "tenant": "CIBC", "space": 5340, "lease": false },
+          {
+            "unit": "4",
+            "tenant": "Fairway Dental Centre",
+            "space": 2900,
+            "lease": false
+          }
+        ],
+        "B": [
+          { "unit": "1", "tenant": "Target", "space": 116770, "lease": false }
+        ],
+        "C": [
+          { "unit": "1", "tenant": "Zehr's", "space": 85000, "lease": false }
+        ],
+        "D": [
+          { "unit": "1", "tenant": "Montana's", "space": 5150, "lease": false }
+        ],
+        "E": [
+          { "unit": "1", "tenant": "Staples", "space": 25727, "lease": false }
+        ],
+        "F": [
+          {
+            "unit": "1",
+            "tenant": "Electronic Boutique",
+            "space": 1165,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "210WallaceAvenueNorth": {
+    "name": "210 Wallace Avenue North",
+    "address": {
+      "streetNum": "210",
+      "streetName": "Wallace Avenue North",
+      "city": "Listowel",
+      "province": "Ontario",
+      "postalCode": "N4W 1K9",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.3,
+      "leaseSize": 0,
+      "totSize": 13514,
+      "tenantMix": "Drug Store",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 13514,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "80-100KingAvenueWest": {
+    "name": "80-100 King Avenue West",
+    "address": {
+      "streetNum": "80-100",
+      "streetName": "King Avenue West",
+      "city": "Newcastle",
+      "province": "Ontario",
+      "postalCode": "L1B 1H7",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 2,
+      "leaseSize": 0,
+      "totSize": 27039,
+      "tenantMix": "Grocery/GM",
+      "featured": ["No Frills"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "No Frills", "space": 27039, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "3930MontroseRoad": {
+    "name": "3930 Montrose Road",
+    "address": {
+      "streetNum": "3930",
+      "streetName": "Montrose Road",
+      "city": "Niagara Falls",
+      "province": "Ontario",
+      "postalCode": "L2H 3C9",
+      "country": "Canada"
+    },
+    "type": "Shopping Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 30,
+      "leaseSize": 0,
+      "totSize": 18250,
+      "tenantMix": "Other, Fast Food, Office, Medical, Financial Services",
+      "featured": ["Tim Horton's", "Harvey's"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Tim Horton's",
+            "space": 3030,
+            "lease": false
+          }
+        ],
+        "B": [
+          { "unit": "1", "tenant": "Harvey's", "space": 1660, "lease": false }
+        ],
+        "CRU-1": [
+          {
+            "unit": "6",
+            "tenant": "Bell Canada/Nexacor",
+            "space": 693,
+            "lease": false
+          },
+          {
+            "unit": "11",
+            "tenant": "Jasmine Chinese Foods",
+            "space": 2016,
+            "lease": false
+          },
+          {
+            "unit": "10",
+            "tenant": "Dr. Perera - Optometrist",
+            "space": 1475,
+            "lease": false
+          },
+          {
+            "unit": "9",
+            "tenant": "Dr. Bozicevic - Dentist",
+            "space": 1560,
+            "lease": false
+          },
+          {
+            "unit": "5A-B",
+            "tenant": "Grant Thornton Accounting",
+            "space": 7816,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "3770MontroseRoad": {
+    "name": "3770 Montrose Road",
+    "address": {
+      "streetNum": "3770",
+      "streetName": "Montrose Road",
+      "city": "Niagara Falls",
+      "province": "Ontario",
+      "postalCode": "L2H 3C8",
+      "country": "Canada"
+    },
+    "type": "Shopping Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 30,
+      "leaseSize": 0,
+      "totSize": 144086,
+      "tenantMix": "Furniture/Appliances, Service, Medical, Office, Sporting Goods, Travel, Real Estate, Grocery, General Merchandise",
+      "featured": ["Food Basics", "Canadian Tire", "Swiss Chalet"],
+      "buildings": {
+        "Metro": [
+          {
+            "unit": "1",
+            "tenant": "Food Basics",
+            "space": 40353,
+            "lease": false
+          }
+        ],
+        "CTC": [
+          {
+            "unit": "1",
+            "tenant": "Canadian Tire",
+            "space": 46913,
+            "lease": false
+          }
+        ],
+        "Swiss": [
+          {
+            "unit": "1",
+            "tenant": "Swiss Chalet",
+            "space": 5743,
+            "lease": false
+          }
+        ],
+        "CRU-3": [
+          {
+            "unit": "13",
+            "tenant": "Ryn's Furniture (Sears)",
+            "space": 5011,
+            "lease": false
+          },
+          {
+            "unit": "12",
+            "tenant": "The Wine Place",
+            "space": 2415,
+            "lease": false
+          },
+          {
+            "unit": "10",
+            "tenant": "Dr. Bernstein",
+            "space": 1357,
+            "lease": false
+          },
+          {
+            "unit": "8",
+            "tenant": "TEW & Associates Accounting",
+            "space": 2141,
+            "lease": false
+          },
+          {
+            "unit": "6",
+            "tenant": "Cruiseship Centre",
+            "space": 1357,
+            "lease": false
+          },
+          {
+            "unit": "5",
+            "tenant": "Vacant - Unit 5",
+            "space": 1357,
+            "lease": false
+          },
+          {
+            "unit": "2-4",
+            "tenant": "Niagara Orthopedic",
+            "space": 4112,
+            "lease": false
+          },
+          {
+            "unit": "1B-C",
+            "tenant": "Royal Lepage",
+            "space": 6039,
+            "lease": false
+          },
+          {
+            "unit": "1B-C",
+            "tenant": "Vacant - Unit 1A",
+            "space": 3081,
+            "lease": false
+          }
+        ],
+        "CRU-4": [
+          {
+            "unit": "4B",
+            "tenant": "On the Ball",
+            "space": 1072,
+            "lease": false
+          },
+          {
+            "unit": "1-4",
+            "tenant": "IDA Meadows Pharmacy",
+            "space": 5000,
+            "lease": false
+          },
+          {
+            "unit": "7",
+            "tenant": "Michael's Carpet",
+            "space": 4085,
+            "lease": false
+          },
+          {
+            "unit": "8-9",
+            "tenant": "Tango Boutique",
+            "space": 2260,
+            "lease": false
+          },
+          {
+            "unit": "10-11",
+            "tenant": "Caswell's Menswear",
+            "space": 3966,
+            "lease": false
+          },
+          {
+            "unit": "12",
+            "tenant": "Dr. Brian Kim - Dentist",
+            "space": 1518,
+            "lease": false
+          },
+          {
+            "unit": "15A-B",
+            "tenant": "Condotta Merrett & Co. Insurance",
+            "space": 4218,
+            "lease": false
+          },
+          {
+            "unit": "16",
+            "tenant": "Casa d'Pizza",
+            "space": 2088,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "215-217PembrokeStreet": {
+    "name": "215 - 217 Pembroke Street",
+    "address": {
+      "streetNum": "215-217",
+      "streetName": "Pembroke Street",
+      "city": "Pembroke",
+      "province": "Ontario",
+      "postalCode": "K8A 3J8",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.83,
+      "leaseSize": 0,
+      "totSize": 10654,
+      "tenantMix": "Drug Store",
+      "featured": ["Pharma Plus"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Pharma Plus",
+            "space": 10654,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "1215PembrokeStreetWest": {
+    "name": "1215 Pembroke Street West",
+    "address": {
+      "streetNum": "1215",
+      "streetName": "Pembroke Street West",
+      "city": "Pembroke",
+      "province": "Ontario",
+      "postalCode": "K8A 5R3",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 2.27,
+      "leaseSize": 0,
+      "totSize": 24393,
+      "tenantMix": "Fashion",
+      "featured": ["Value Village"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Value Village",
+            "space": 24393,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "122MainStreet": {
+    "name": "122 Main Street",
+    "address": {
+      "streetNum": "122",
+      "streetName": "Main Street",
+      "city": "Penetanguishene",
+      "province": "Ontario",
+      "postalCode": "L9M 1T6",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.46,
+      "leaseSize": 0,
+      "totSize": 10550,
+      "tenantMix": "Drug Store",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 10550,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "9275BayviewAvenue": {
+    "name": "9275 Bayview Avenue",
+    "address": {
+      "streetNum": "9275",
+      "streetName": "Bayview Avenue",
+      "city": "Richmond Hill",
+      "province": "Ontario",
+      "postalCode": "L4C 9X4",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 2.4,
+      "leaseSize": 0,
+      "totSize": 15628,
+      "tenantMix": "Drug Store, Medical, Fast Food",
+      "featured": ["Shoppers Drug Mart", "Tim Horton's"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 10826,
+            "lease": false
+          },
+          {
+            "unit": "2",
+            "tenant": "First Health Touch Services",
+            "space": 981,
+            "lease": false
+          },
+          {
+            "unit": "3",
+            "tenant": "Tim Horton's",
+            "space": 1011,
+            "lease": false
+          },
+          { "unit": "4", "tenant": "Pizza Nova", "space": 2810, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "892-966OntarioStreet": {
+    "name": "892 - 966 Ontario Street",
+    "address": {
+      "streetNum": "892-966",
+      "streetName": "Ontario Street",
+      "city": "Stratford",
+      "province": "Ontario",
+      "postalCode": "N5A 3K1",
+      "country": "Canada"
+    },
+    "type": "Shopping Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 8.15,
+      "leaseSize": 0,
+      "totSize": 96800,
+      "tenantMix": "Grocery, Financial Services, Fast Food",
+      "featured": ["Walmart", "Pizza Hut", "Royal Bank"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Walmart", "space": 89000, "lease": false }
+        ],
+        "B": [
+          { "unit": "1", "tenant": "Pizza Hut", "space": 3800, "lease": false }
+        ],
+        "C": [
+          { "unit": "1", "tenant": "Royal Bank", "space": 4000, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "1039MemorialAvenue": {
+    "name": "1039 Memorial Avenue",
+    "address": {
+      "streetNum": "1039",
+      "streetName": "Memorial Avenue",
+      "city": "Thunder Bay",
+      "province": "Ontario",
+      "postalCode": "P7B 4A4",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.87,
+      "leaseSize": 0,
+      "totSize": 13200,
+      "tenantMix": "Financial Services",
+      "featured": ["TD Canada Trust"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "TD Canada Trust",
+            "space": 13200,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "292DupontStreet": {
+    "name": "292 Dupont Street",
+    "address": {
+      "streetNum": "292",
+      "streetName": "Dupont Street",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M5R 1V9",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.4,
+      "leaseSize": 0,
+      "totSize": 17000,
+      "tenantMix": "Drug Store",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 17000,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "755DanforthAvenue": {
+    "name": "755 Danforth Avenue",
+    "address": {
+      "streetNum": "755",
+      "streetName": "Danforth Avenue",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M4J 1L2",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.43,
+      "leaseSize": 0,
+      "totSize": 12882,
+      "tenantMix": "Drug Store",
+      "featured": ["Shoppers Drug Mart"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 12882,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "228QueenStreetWest": {
+    "name": "228 Queen Street West",
+    "address": {
+      "streetNum": "228",
+      "streetName": "Queen Street West",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M5V 1Z6",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Owned", "Developed"],
+    "propDetails": {
+      "siteArea": 0.06,
+      "leaseSize": 0,
+      "totSize": 3040,
+      "tenantMix": "Fast Food",
+      "featured": ["Pizza Pizza"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Pizza Pizza",
+            "space": 3040,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "816EglintonAvenueEast": {
+    "name": "816 Eglinton Avenue East",
+    "address": {
+      "streetNum": "816",
+      "streetName": "Eglinton Avenue East",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M4G 2L1",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.127,
+      "leaseSize": 0,
+      "totSize": 3436,
+      "tenantMix": "Home Improvement",
+      "featured": ["Sherwin Williams"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Sherwin Williams",
+            "space": 3436,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "795-807BroadviewAvenue": {
+    "name": "795-807 Broadview Avenue",
+    "address": {
+      "streetNum": "795-807",
+      "streetName": "Broadview Avenue",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M4K 2P8",
+      "country": "Canada"
+    },
+    "type": "Street Retail and Medical Centre",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.66,
+      "leaseSize": 0,
+      "totSize": 51982,
+      "tenantMix": "Medical, Drug Store, Financial Services",
+      "featured": ["Rexall", "Medical Clinics", "TD Canada Trust"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Rexall", "space": 2941, "lease": false },
+          {
+            "unit": "3",
+            "tenant": "Medical Clinics",
+            "space": 44197,
+            "lease": false
+          },
+          {
+            "unit": "2",
+            "tenant": "TD Canada Trust",
+            "space": 4844,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "456WellingtonStreetWest": {
+    "name": "456 Wellington Street West",
+    "address": {
+      "streetNum": "456",
+      "streetName": "Wellington Street West",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M5V 1E9",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 0.24,
+      "leaseSize": 0,
+      "totSize": 4847,
+      "tenantMix": "Pub/Bar",
+      "featured": ["C Lounge"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "C Lounge", "space": 4847, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "3757KeeleStreet": {
+    "name": "3757 Keele Street",
+    "address": {
+      "streetNum": "3757",
+      "streetName": "Keele Street",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M3J 1N4",
+      "country": "Canada"
+    },
+    "type": "Free-Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 4,
+      "leaseSize": 0,
+      "totSize": 93088,
+      "tenantMix": "Grocery/GM",
+      "featured": ["Walmart"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Walmart", "space": 93088, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "603DavenportRoad": {
+    "name": "603 Davenport Road",
+    "address": {
+      "streetNum": "603",
+      "streetName": "Davenport Road",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M5R 1L1",
+      "country": "Canada"
+    },
+    "type": "Strip Mall",
+    "status": ["Owned", "Developed"],
+    "propDetails": {
+      "siteArea": 0.27,
+      "leaseSize": 0,
+      "totSize": 3495,
+      "tenantMix": "Fast Food, Other",
+      "featured": ["Tim Horton's", "Pizza Nova"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Tim Horton's",
+            "space": 2309,
+            "lease": false
+          },
+          {
+            "unit": "2",
+            "tenant": "Pizza Nova - Other",
+            "space": 1186,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "731EasternAvenue": {
+    "name": "731 Eastern Avenue",
+    "address": {
+      "streetNum": "731",
+      "streetName": "Eastern Avenue",
+      "city": "Toronto",
+      "province": "Ontario",
+      "postalCode": "M4M 3H6",
+      "country": "Canada"
+    },
+    "type": "Shopping Centre",
+    "status": ["Owned", "Developed"],
+    "propDetails": {
+      "siteArea": 3.58,
+      "leaseSize": 0,
+      "totSize": 36898,
+      "tenantMix": "Grocery/GM, Fast Food, Service",
+      "featured": ["Freshco", "Wendy's", "Tim Horton's"],
+      "buildings": {
+        "A": [
+          { "unit": "1", "tenant": "Freshco", "space": 31236, "lease": false }
+        ],
+        "B": [
+          { "unit": "1", "tenant": "Wendy's", "space": 2876, "lease": false },
+          {
+            "unit": "2",
+            "tenant": "Tim Horton's",
+            "space": 2786,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
+  },
+  "1900MosleyStreet": {
+    "name": "1900 Mosley Street",
+    "address": {
+      "streetNum": "1900",
+      "streetName": "Mosley Street",
+      "city": "Wasaga Beach",
+      "province": "Ontario",
+      "postalCode": "L9Z 1Z3",
+      "country": "Canada"
+    },
+    "type": "Strip Mall",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 3.39,
+      "leaseSize": 0,
+      "totSize": 31122,
+      "tenantMix": "Drug Store, Service, Fast Food, Real Estate",
+      "featured": ["Shoppers Drug Mart", "Tim Horton's", "LCBO"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "Shoppers Drug Mart",
+            "space": 18042,
+            "lease": false
+          },
+          {
+            "unit": "2",
+            "tenant": "Tim Horton's",
+            "space": 8442,
+            "lease": false
+          },
+          { "unit": "3", "tenant": "LCBO", "space": 3018, "lease": false },
+          { "unit": "4", "tenant": "Re/Max", "space": 1620, "lease": false }
+        ]
+      }
+    },
+    "images": []
+  },
+  "6800TecumsehRoadEast": {
+    "name": "6800 Tecumseh Road East",
+    "address": {
+      "streetNum": "6800",
+      "streetName": "Tecumseh Road East",
+      "city": "Windsor",
+      "province": "Ontario",
+      "postalCode": "N8T 1E6",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.44,
+      "leaseSize": 0,
+      "totSize": 14442,
+      "tenantMix": "Financial Services",
+      "featured": ["CIBC"],
+      "buildings": {
+        "A": [{ "unit": "1", "tenant": "CIBC", "space": 14442, "lease": false }]
+      }
+    },
+    "images": []
+  },
+  "1000DundasStreet": {
+    "name": "1000 Dundas Street",
+    "address": {
+      "streetNum": "1000",
+      "streetName": "Dundas Street",
+      "city": "Woodstock",
+      "province": "Ontario",
+      "postalCode": "N4S 0A3",
+      "country": "Canada"
+    },
+    "type": "Free Standing Retail",
+    "status": ["Sold", "Developed"],
+    "propDetails": {
+      "siteArea": 1.14,
+      "leaseSize": 0,
+      "totSize": 5500,
+      "tenantMix": "Financial Services",
+      "featured": ["TD Canada Trust"],
+      "buildings": {
+        "A": [
+          {
+            "unit": "1",
+            "tenant": "TD Canada Trust",
+            "space": 5500,
+            "lease": false
+          }
+        ]
+      }
+    },
+    "images": []
   }
 }

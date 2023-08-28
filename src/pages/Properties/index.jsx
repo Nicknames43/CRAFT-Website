@@ -1,13 +1,81 @@
 import PropTypes from "prop-types"
 import { useState } from "react"
+import ViewingOptions from "./ViewingOptions"
+import DropDown from "../../components/DropDown"
+import PropertiesTitle from "./PropertiesTitle"
+import SearchBar from "./SearchBar"
+import PropertyList from "./PropertyList"
 
 export function Properties({ properties }) {
+  let countryIndex = 0
+  let cityIndex = 0
+  let countries = []
+  let cities = []
+  let citiesToProperty = {}
+  Object.keys(properties).forEach((property) => {
+    if (!countries.includes(properties[property].address.country)) {
+      countries[countryIndex] = properties[property].address.country
+      countryIndex++
+    }
+    if (!cities.includes(properties[property].address.city)) {
+      cities[cityIndex] = properties[property].address.city
+      cityIndex++
+      citiesToProperty[properties[property].address.city] = []
+    }
+    citiesToProperty[properties[property].address.city].push(property)
+  })
+  cities.sort()
+  const statuses = [
+    "Developed",
+    "Under Development",
+    "Leasing Opportunities",
+    "Sold",
+    "Owned",
+  ]
   const [searchParam, setSearchParam] = useState("")
-  const [selectedStatus, setSelectedStatus] = useState([])
-  const [selectedCountry, setSelectedCountry] = useState([])
-  const [selectedCity, setSelectedCity] = useState([])
+  const [selectedStatus, setSelectedStatus] = useState(
+    new Array(statuses.length).fill(false)
+  )
+  const [selectedCountry, setSelectedCountry] = useState(
+    new Array(countries.length).fill(false)
+  )
+  const [selectedCity, setSelectedCity] = useState(
+    new Array(cities.length).fill(false)
+  )
 
-  return <></>
+  return (
+    <div className="properties">
+      <PropertiesTitle />
+      <SearchBar setSearchParam={setSearchParam} />
+      <DropDown
+        heading="Viewing Options"
+        content={
+          <ViewingOptions
+            statuses={statuses}
+            selectedStatus={selectedStatus}
+            setSelectedStatus={setSelectedStatus}
+            countries={countries}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={setSelectedCountry}
+            cities={cities}
+            selectedCity={selectedCity}
+            setSelectedCity={setSelectedCity}
+          />
+        }
+      />
+      <PropertyList
+        citiesToProperty={citiesToProperty}
+        cities={cities}
+        countries={countries}
+        statuses={statuses}
+        selectedCity={selectedCity}
+        selectedCountry={selectedCountry}
+        selectedStatus={selectedStatus}
+        properties={properties}
+        searchParam={searchParam}
+      />
+    </div>
+  )
 }
 
 Properties.propTypes = {

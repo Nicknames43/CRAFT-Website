@@ -47,18 +47,6 @@
     }
 }
 
-.drop-down{
-    #{&}__button-img{
-        height: 2vw;   
-    }
-
-    #{&}__heading{
-        font-size: 3vw;
-        line-height: 1.25;
-        width: 19vw;
-    }
-}
-
 .property-info{
     margin-left: 12vw;
     margin-right: 3vw;
@@ -89,6 +77,10 @@
     #{&}__breakdown, #{&}__details, #{&}__inquiries, #{&}__featured{
         display: inline-block;
     }
+
+    .drop-down__heading{
+        width: 19vw;
+     }
 }
 
 .property-details{
