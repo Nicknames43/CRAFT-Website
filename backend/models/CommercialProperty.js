@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const propertyScheme = require("./property")
+const propertyScheme = require("./Property")
 
 const unitSchema = new mongoose.Schema(
   {

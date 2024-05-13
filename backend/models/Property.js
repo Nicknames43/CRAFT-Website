@@ -10,10 +10,21 @@ const propertySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  salesManager: {
-    type: mongoose.ObjectId,
-    ref: "salesManager",
-    required: true,
+  salesManagerName: {
+    type: String,
+    default: "",
+  },
+  salesManagerPhone: {
+    type: String,
+    default: "",
+  },
+  salesManagerEmail: {
+    type: String,
+    default: "",
+  },
+  salesURL: {
+    type: String,
+    default: "",
   },
   country: {
     type: String,

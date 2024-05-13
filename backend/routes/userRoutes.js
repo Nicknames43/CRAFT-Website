@@ -11,7 +11,7 @@ router
 router
   .route("/:username")
   .get(userController.getUser)
-  .patch(userController.updateUser)
+  .put(userController.updateUser)
   .delete(userController.deleteUser)
 
 module.exports = router

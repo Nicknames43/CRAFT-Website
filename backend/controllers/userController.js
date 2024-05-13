@@ -59,7 +59,7 @@ const createNewUser = async (req, res) => {
 }
 
 // @desc Update a user
-// @route PATCH /users/:username
+// @route PUT /users/:username
 // @access Private
 const updateUser = async (req, res) => {
   const username = req.params.username
@@ -99,9 +99,8 @@ const deleteUser = async (req, res) => {
     return res.status(400).json({ message: "user not found" })
   }
 
-  const result = await user.deleteOne()
-  const reply = `Username ${result.username} with ID ${result._id} deleted`
-  res.json(reply)
+  await user.deleteOne()
+  res.json({message: `${username} deleted`})
 }
 
 module.exports = { getAllUsers, getUser, createNewUser, updateUser, deleteUser }
