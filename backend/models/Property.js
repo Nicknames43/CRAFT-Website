@@ -12,19 +12,15 @@ const propertySchema = new mongoose.Schema({
   },
   salesManagerName: {
     type: String,
-    default: "",
   },
   salesManagerPhone: {
     type: String,
-    default: "",
   },
   salesManagerEmail: {
     type: String,
-    default: "",
   },
   salesURL: {
     type: String,
-    default: "",
   },
   country: {
     type: String,

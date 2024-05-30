@@ -509,13 +509,12 @@ const updateProperty = async (req, res) => {
         numHomes += numCondo
         newPhase.numCondo = numCondo
       }
-      if (typeof phaseArea === "number" && phaseArea < 0) {
+      if (typeof phaseArea !== "number" || phaseArea < 0) {
         return res.status(400).json({ message: "Invalid phase area" })
-      } else if (typeof phaseArea === "number" && phaseArea > 0) {
-        siteArea += phaseArea
-        newPhase.phaseArea = phaseArea
       }
 
+      siteArea += phaseArea
+      newPhase.phaseArea = phaseArea
       phaseArray.push(newPhase)
       totNumHomes += numHomes
     }

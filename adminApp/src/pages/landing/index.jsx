@@ -5,7 +5,7 @@ const Landing = () => {
     <section className="landing">
       <h1>Welcome!</h1>
       <p>
-        <Link to="/dash/properties">View properties</Link>
+        <Link to="/dash/properties">View Properties</Link>
       </p>
       <p>
         <Link to="/dash/users">View Users</Link>
