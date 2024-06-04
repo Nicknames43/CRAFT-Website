@@ -5,6 +5,8 @@ import Login from "./pages/login"
 import Landing from "./pages/landing"
 import PropertiesList from "./pages/properties"
 import UsersList from "./pages/users"
+import User from "./pages/user"
+import Prefetch from "./components/Prefetch"
 
 function App() {
   return (
@@ -12,15 +14,18 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Login />} />
 
-        <Route path="dash" element={<DashLayout />}>
-          <Route index element={<Landing />} />
+        <Route element={<Prefetch />}>
+          <Route path="dash" element={<DashLayout />}>
+            <Route index element={<Landing />} />
 
-          <Route path="properties">
-            <Route index element={<PropertiesList />} />
-          </Route>
+            <Route path="properties">
+              <Route index element={<PropertiesList />} />
+            </Route>
 
-          <Route path="users">
-            <Route index element={<UsersList />} />
+            <Route path="users">
+              <Route index element={<UsersList />} />
+              <Route path=":id" element={<User />} />
+            </Route>
           </Route>
         </Route>
       </Route>

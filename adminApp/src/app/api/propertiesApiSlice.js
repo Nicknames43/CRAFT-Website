@@ -1,7 +1,7 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit"
 import { apiSlice } from "../../app/api/apiSlice"
 
-const propertiesAdapter = createEntityAdapter({})
+const propertiesAdapter = createEntityAdapter({})//move sold ones to bottom?
 
 const initialState = propertiesAdapter.getInitialState()
 

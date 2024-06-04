@@ -29,6 +29,7 @@ const phaseSchema = new mongoose.Schema(
     },
     phaseArea: {
       type: Number,
+      required: true,
     },
   },
   { _id: false }

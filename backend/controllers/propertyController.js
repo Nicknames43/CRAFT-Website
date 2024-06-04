@@ -111,17 +111,10 @@ const createNewProperty = async (req, res) => {
   }
 
   if (type === "Commercial") {
-    const {
-      commercialType,
-      siteArea,
-      tenantMix,
-      featured,
-      buildings,
-      purchaseable,
-    } = propDetails
+    const { commercialType, siteArea, tenantMix, featured, buildings } =
+      propDetails
     if (
       typeof commercialType !== "string" ||
-      typeof purchaseable !== "boolean" ||
       typeof tenantMix !== "string" ||
       !Array.isArray(featured) ||
       Object.prototype.toString.call(buildings) !== "[object Object]"
@@ -382,17 +375,10 @@ const updateProperty = async (req, res) => {
   }
 
   if (type === "Commercial") {
-    const {
-      commercialType,
-      siteArea,
-      tenantMix,
-      featured,
-      buildings,
-      purchaseable,
-    } = propDetails
+    const { commercialType, siteArea, tenantMix, featured, buildings } =
+      propDetails
     if (
       typeof commercialType !== "string" ||
-      typeof purchaseable !== "boolean" ||
       typeof tenantMix !== "string" ||
       !Array.isArray(featured) ||
       Object.prototype.toString.call(buildings) !== "[object Object]"
@@ -509,13 +495,12 @@ const updateProperty = async (req, res) => {
         numHomes += numCondo
         newPhase.numCondo = numCondo
       }
-      if (typeof phaseArea === "number" && phaseArea < 0) {
+      if (typeof phaseArea !== "number" || phaseArea < 0) {
         return res.status(400).json({ message: "Invalid phase area" })
-      } else if (typeof phaseArea === "number" && phaseArea > 0) {
-        siteArea += phaseArea
-        newPhase.phaseArea = phaseArea
       }
 
+      siteArea += phaseArea
+      newPhase.phaseArea = phaseArea
       phaseArray.push(newPhase)
       totNumHomes += numHomes
     }
