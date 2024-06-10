@@ -31,7 +31,7 @@ const getUser = async (req, res) => {
 // @route POST /users
 // @access Private
 const createNewUser = async (req, res) => {
-  const { username, password, roles } = req.body
+  const { username, password, admin } = req.body
 
   if (!username || !password) {
     return res.status(400).json({ message: "All fields are required" })
@@ -47,9 +47,9 @@ const createNewUser = async (req, res) => {
 
   const hashedPwd = await bcrypt.hash(password, 10) // 10 salt rounds
   const newUser =
-    !Array.isArray(roles) || !roles.length
-      ? { username, password: hashedPwd }
-      : { username, password: hashedPwd, roles }
+    typeof admin === "boolean"
+      ? { username, password: hashedPwd, admin }
+      : { username, password: hashedPwd }
   const user = await User.create(newUser)
   if (user) {
     res.status(201).json({ message: `New user ${username} created` })
@@ -63,9 +63,9 @@ const createNewUser = async (req, res) => {
 // @access Private
 const updateUser = async (req, res) => {
   const id = req.params.id
-  const { username, password, roles } = req.body
+  const { username, password, admin } = req.body
 
-  if (!username || !Array.isArray(roles) || !roles.length) {
+  if (!username || typeof admin === "boolean") {
     return res
       .status(400)
       .json({ message: "All fields except password are required" })
@@ -76,18 +76,18 @@ const updateUser = async (req, res) => {
     return res.status(400).json({ message: "user not found" })
   }
 
-  if(username){
+  if (username) {
     const duplicate = await User.findOne({ username })
       .collation({ locale: "en", strength: 2 })
       .lean()
       .exec()
-      if (duplicate && duplicate?._id.toString() !== id) {
-        return res.status(400).json({ message: "username already exists" })
+    if (duplicate && duplicate?._id.toString() !== id) {
+      return res.status(400).json({ message: "username already exists" })
     }
     user.username = username
   }
 
-  user.roles = roles
+  user.admin = admin
 
   if (password) {
     user.password = await bcrypt.hash(password, 10) // 10 salt rounds
