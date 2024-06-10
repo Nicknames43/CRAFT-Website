@@ -51,6 +51,10 @@ const propertySchema = new mongoose.Schema({
     required: true,
     default: undefined,
   },
+  images: {
+    type: [String],
+    default: undefined,
+  },
 })
 
 module.exports = mongoose.model("Property", propertySchema)

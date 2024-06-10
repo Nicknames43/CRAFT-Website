@@ -1,6 +1,8 @@
 const Property = require("../models/Property")
 const CProperty = require("../models/commercialProperty")
 const RProperty = require("../models/residentialProperty")
+const fs = require("fs")
+const path = require("path")
 
 const validStatus = [
   "Developed",
@@ -53,6 +55,22 @@ const createNewProperty = async (req, res) => {
     status,
     propDetails,
   } = req.body
+  const files = req.files
+
+  if (files.length < 1) {
+    return res.status(400).json({ message: "At least 1 image required" })
+  }
+
+  const images = []
+  for (file of files) {
+    const parsedPath = path.parse(file.path)
+    const dirPathArray = parsedPath.dir.split(path.sep)
+    const filePath = path.join(
+      dirPathArray[dirPathArray.length - 1],
+      parsedPath.base
+    )
+    images.push(filePath)
+  }
 
   if (
     typeof name !== "string" ||
@@ -67,11 +85,13 @@ const createNewProperty = async (req, res) => {
     status.length === 0 ||
     Object.prototype.toString.call(propDetails) !== "[object Object]"
   ) {
+    deleteImages(images)
     return res.status(400).json({ message: "All fields are required" })
   }
 
   for (const s of status) {
     if (validStatus.indexOf(s) === -1) {
+      deleteImages(images)
       return res.status(400).json({ message: "Invalid status" })
     }
   }
@@ -87,6 +107,7 @@ const createNewProperty = async (req, res) => {
     country,
     postalCode,
     status,
+    images,
   }
 
   if (
@@ -95,6 +116,7 @@ const createNewProperty = async (req, res) => {
       (typeof salesManagerEmail !== "string" &&
         typeof salesManagerPhone !== "string"))
   ) {
+    deleteImages(images)
     return res
       .status(400)
       .json({ message: "Invalid sales manager information combination" })
@@ -111,19 +133,21 @@ const createNewProperty = async (req, res) => {
   }
 
   if (type === "Commercial") {
-    const { commercialType, siteArea, tenantMix, featured, buildings } =
-      propDetails
+    const { commercialType, tenantMix, featured, buildings } = propDetails
+    const siteArea = parseInt(propDetails.siteArea, 10)
     if (
       typeof commercialType !== "string" ||
       typeof tenantMix !== "string" ||
       !Array.isArray(featured) ||
       Object.prototype.toString.call(buildings) !== "[object Object]"
     ) {
+      deleteImages(images)
       return res.status(400).json({ message: "All fields are required" })
     }
 
     for (const f of featured) {
       if (typeof f !== "string") {
+        deleteImages(images)
         return res.status(400).json({ message: "Invalid featured" })
       }
     }
@@ -134,20 +158,24 @@ const createNewProperty = async (req, res) => {
 
     for (const [buildingName, units] of Object.entries(buildings)) {
       if (!Array.isArray(units)) {
+        deleteImages(images)
         return res.status(400).json({ message: "Invalid units" })
       }
 
       const unitArray = []
       for (const u of units) {
-        const { unit, tenant, space, lease } = u
+        const { unit, tenant } = u
+        const space = parseInt(u.space, 10)
+        const lease = /true/i.test(u.lease) //change this later for undefined
 
         if (
           typeof unit !== "string" ||
           typeof tenant !== "string" ||
-          typeof space !== "number" ||
-          typeof space <= 0 ||
-          typeof lease !== "boolean"
+          isNaN(space) ||
+          space <= 0 ||
+          typeof lease !== "boolean" //not needed currently
         ) {
+          deleteImages(images)
           return res.status(400).json({ message: "Invalid unit" })
         }
 
@@ -171,7 +199,7 @@ const createNewProperty = async (req, res) => {
       featured,
       buildings: buildingArray,
     }
-    if (typeof siteArea === "Number" && siteArea > 0) {
+    if (!isNaN(siteArea) && siteArea > 0) {
       property.siteArea = siteArea
     }
 
@@ -179,6 +207,7 @@ const createNewProperty = async (req, res) => {
     if (prop) {
       return res.status(201).json({ message: "New property created" })
     } else {
+      deleteImages(images)
       return res.status(400).json({ message: "Invalid property data received" })
     }
   } else if (type === "Residential") {
@@ -189,6 +218,7 @@ const createNewProperty = async (req, res) => {
       typeof purchaseable !== "boolean" ||
       Object.prototype.toString.call(phases) !== "[object Object]"
     ) {
+      deleteImages(images)
       return res.status(400).json({ message: "All fields are required" })
     }
 
@@ -202,48 +232,58 @@ const createNewProperty = async (req, res) => {
     const phaseArray = []
 
     for (const [phaseName, phase] of Object.entries(phases)) {
-      const { numSingle, numSemi, numTownHome, numCondo, phaseArea, approved } =
-        phase
+      const numSingle = parseInt(phase.numSingle, 10)
+      const numSemi = parseInt(phase.numSemi, 10)
+      const numTownHome = parseInt(phase.numTownHome, 10)
+      const numCondo = parseInt(phase.numCondo, 10)
+      const phaseArea = parseInt(phase.phaseArea, 10)
+      const approved = /true/i.test(phase.approved) //change this later for undefined
 
       if (typeof phaseName !== "string" || typeof approved !== "boolean") {
+        deleteImages(images)
         return res.status(400).json({ message: "All fields are required" })
       }
       const newPhase = { phaseName, approved }
       numHomes = 0
 
-      if (typeof numSingle !== "number" || numSingle < 0) {
+      if (isNaN(numSingle) || numSingle < 0) {
+        deleteImages(images)
         return res
           .status(400)
           .json({ message: "Invalid number of Single Homes" })
-      } else if (typeof numSingle === "number" && numSingle > 0) {
+      } else if (!isNaN(numSingle) && numSingle > 0) {
         totNumSingle += numSingle
         numHomes += numSingle
         newPhase.numSingle = numSingle
       }
-      if (typeof numSemi !== "number" || numSemi < 0) {
+      if (isNaN(numSemi) || numSemi < 0) {
+        deleteImages(images)
         return res.status(400).json({ message: "Invalid number of Semi Homes" })
-      } else if (typeof numSemi === "number" && numSemi > 0) {
+      } else if (!isNaN(numSemi) && numSemi > 0) {
         totNumSemi += numSemi
         numHomes += numSemi
         newPhase.numSemi = numSemi
       }
-      if (typeof numTownHome !== "number" || numTownHome < 0) {
+      if (isNaN(numTownHome) || numTownHome < 0) {
+        deleteImages(images)
         return res.status(400).json({ message: "Invalid number of Townhomes" })
-      } else if (typeof numTownHome === "number" && numTownHome > 0) {
+      } else if (!isNaN(numTownHome) && numTownHome > 0) {
         totNumTownHome += numTownHome
         numHomes += numTownHome
         newPhase.numTownHome = numTownHome
       }
-      if (typeof numCondo !== "number" || numCondo < 0) {
+      if (isNaN(numCondo) || numCondo < 0) {
+        deleteImages(images)
         return res.status(400).json({ message: "Invalid number of Condos" })
-      } else if (typeof numCondo === "number" && numCondo > 0) {
+      } else if (!isNaN(numCondo) && numCondo > 0) {
         totNumCondo += numCondo
         numHomes += numCondo
         newPhase.numCondo = numCondo
       }
-      if (typeof phaseArea === "number" && phaseArea < 0) {
+      if (isNaN(phaseArea) && phaseArea < 0) {
+        deleteImages(images)
         return res.status(400).json({ message: "Invalid phase area" })
-      } else if (typeof phaseArea === "number" && phaseArea > 0) {
+      } else if (!isNaN(phaseArea) && phaseArea > 0) {
         siteArea += phaseArea
         newPhase.phaseArea = phaseArea
       }
@@ -279,6 +319,7 @@ const createNewProperty = async (req, res) => {
     if (prop) {
       return res.status(201).json({ message: "New property created" })
     } else {
+      deleteImages(images)
       return res.status(400).json({ message: "Invalid property data received" })
     }
   }
@@ -304,7 +345,20 @@ const updateProperty = async (req, res) => {
     postalCode,
     status,
     propDetails,
+    images,
   } = req.body
+  const files = req.files
+
+  const newImages = []
+  for (file of files) {
+    const parsedPath = path.parse(file.path)
+    const dirPathArray = parsedPath.dir.split(path.sep)
+    const filePath = path.join(
+      dirPathArray[dirPathArray.length - 1],
+      parsedPath.base
+    )
+    newImages.push(filePath)
+  }
 
   if (
     typeof name !== "string" ||
@@ -315,15 +369,19 @@ const updateProperty = async (req, res) => {
     typeof province !== "string" ||
     typeof country !== "string" ||
     typeof postalCode !== "string" ||
+    !Array.isArray(images) ||
+    images.length + newImages.length < 1 ||
     !Array.isArray(status) ||
     status.length === 0 ||
     Object.prototype.toString.call(propDetails) !== "[object Object]"
   ) {
+    deleteImages(newImages)
     return res.status(400).json({ message: "All fields are required" })
   }
 
   for (const s of status) {
     if (validStatus.indexOf(s) === -1) {
+      deleteImages(newImages)
       return res.status(400).json({ message: "Invalid status" })
     }
   }
@@ -331,15 +389,14 @@ const updateProperty = async (req, res) => {
   const property = await Property.findById(id).exec()
 
   if (!property) {
+    deleteImages(newImages)
     return res.status(400).json({ message: "Property not found" })
   }
 
-  const duplicate = await Property.findOne({ name })
-    .collation({ locale: "en", strength: 2 })
-    .lean()
-    .exec()
+  const duplicate = await Property.findById(name.split(" ").join("")).exec()
 
   if (duplicate && duplicate?._id.toString() !== id) {
+    deleteImages(newImages)
     return res.status(409).json({ message: "Duplicate property name" })
   }
 
@@ -359,6 +416,7 @@ const updateProperty = async (req, res) => {
       (typeof salesManagerEmail !== "string" &&
         typeof salesManagerPhone !== "string"))
   ) {
+    deleteImages(newImages)
     return res
       .status(400)
       .json({ message: "Invalid sales manager information combination" })
@@ -375,19 +433,22 @@ const updateProperty = async (req, res) => {
   }
 
   if (type === "Commercial") {
-    const { commercialType, siteArea, tenantMix, featured, buildings } =
-      propDetails
+    const { commercialType, tenantMix, featured, buildings } = propDetails
+    const siteArea = parseInt(propDetails.siteArea, 10)
+
     if (
       typeof commercialType !== "string" ||
       typeof tenantMix !== "string" ||
       !Array.isArray(featured) ||
       Object.prototype.toString.call(buildings) !== "[object Object]"
     ) {
+      deleteImages(newImages)
       return res.status(400).json({ message: "All fields are required" })
     }
 
     for (const f in featured) {
       if (typeof f !== "string") {
+        deleteImages(newImages)
         return res.status(400).json({ message: "Invalid featured" })
       }
     }
@@ -398,20 +459,24 @@ const updateProperty = async (req, res) => {
 
     for (const [buildingName, units] of Object.entries(buildings)) {
       if (!Array.isArray(units)) {
+        deleteImages(newImages)
         return res.status(400).json({ message: "Invalid units" })
       }
 
       const unitArray = []
       for (const u of units) {
-        const { unit, tenant, space, lease } = u
+        const { unit, tenant } = u
+        const space = parseInt(u.space, 10)
+        const lease = /true/i.test(u.lease) //change this later for undefined
 
         if (
           typeof unit !== "string" ||
           typeof tenant !== "string" ||
-          typeof space !== "number" ||
+          isNaN(space) ||
           typeof space <= 0 ||
-          typeof lease !== "boolean"
+          typeof lease !== "boolean" //not needed currently
         ) {
+          deleteImages(newImages)
           return res.status(400).json({ message: "Invalid unit" })
         }
 
@@ -432,7 +497,7 @@ const updateProperty = async (req, res) => {
     property.tenantMix = tenantMix
     property.featured = featured
     property.buildings = buildingArray
-    if (typeof siteArea === "Number" && siteArea > 0) {
+    if (!isNaN(siteArea) && siteArea > 0) {
       property.siteArea = siteArea
     }
   } else if (type === "Residential") {
@@ -443,6 +508,7 @@ const updateProperty = async (req, res) => {
       typeof purchaseable !== "boolean" ||
       Object.prototype.toString.call(phases) !== "[object Object]"
     ) {
+      deleteImages(newImages)
       return res.status(400).json({ message: "All fields are required" })
     }
 
@@ -456,51 +522,62 @@ const updateProperty = async (req, res) => {
     const phaseArray = []
 
     for (const [phaseName, phase] of Object.entries(phases)) {
-      const { numSingle, numSemi, numTownHome, numCondo, phaseArea, approved } =
-        phase
+      const numSingle = parseInt(phase.numSingle, 10)
+      const numSemi = parseInt(phase.numSemi, 10)
+      const numTownHome = parseInt(phase.numTownHome, 10)
+      const numCondo = parseInt(phase.numCondo, 10)
+      const phaseArea = parseInt(phase.phaseArea, 10)
+      const approved = /true/i.test(phase.approved) //change this later for undefined
 
       if (typeof phaseName !== "string" || typeof approved !== "boolean") {
+        deleteImages(newImages)
         return res.status(400).json({ message: "All fields are required" })
       }
       const newPhase = { phaseName, approved }
       numHomes = 0
 
-      if (typeof numSingle !== "number" || numSingle < 0) {
+      if (isNaN(numSingle) || numSingle < 0) {
+        deleteImages(newImages)
         return res
           .status(400)
           .json({ message: "Invalid number of Single Homes" })
-      } else if (typeof numSingle === "number" && numSingle > 0) {
+      } else if (!isNaN(numSingle) && numSingle > 0) {
         totNumSingle += numSingle
         numHomes += numSingle
         newPhase.numSingle = numSingle
       }
-      if (typeof numSemi !== "number" || numSemi < 0) {
+      if (isNaN(numSemi) || numSemi < 0) {
+        deleteImages(newImages)
         return res.status(400).json({ message: "Invalid number of Semi Homes" })
-      } else if (typeof numSemi === "number" && numSemi > 0) {
+      } else if (!isNaN(numSemi) && numSemi > 0) {
         totNumSemi += numSemi
         numHomes += numSemi
         newPhase.numSemi = numSemi
       }
-      if (typeof numTownHome !== "number" || numTownHome < 0) {
+      if (isNaN(numTownHome) || numTownHome < 0) {
+        deleteImages(newImages)
         return res.status(400).json({ message: "Invalid number of Townhomes" })
-      } else if (typeof numTownHome === "number" && numTownHome > 0) {
+      } else if (!isNaN(numTownHome) && numTownHome > 0) {
         totNumTownHome += numTownHome
         numHomes += numTownHome
         newPhase.numTownHome = numTownHome
       }
-      if (typeof numCondo !== "number" || numCondo < 0) {
+      if (isNaN(numCondo) || numCondo < 0) {
+        deleteImages(newImages)
         return res.status(400).json({ message: "Invalid number of Condos" })
-      } else if (typeof numCondo === "number" && numCondo > 0) {
+      } else if (!isNaN(numCondo) && numCondo > 0) {
         totNumCondo += numCondo
         numHomes += numCondo
         newPhase.numCondo = numCondo
       }
-      if (typeof phaseArea !== "number" || phaseArea < 0) {
+      if (isNaN(phaseArea) && phaseArea < 0) {
+        deleteImages(newImages)
         return res.status(400).json({ message: "Invalid phase area" })
+      } else if (!isNaN(phaseArea) && phaseArea > 0) {
+        siteArea += phaseArea
+        newPhase.phaseArea = phaseArea
       }
 
-      siteArea += phaseArea
-      newPhase.phaseArea = phaseArea
       phaseArray.push(newPhase)
       totNumHomes += numHomes
     }
@@ -526,8 +603,28 @@ const updateProperty = async (req, res) => {
     }
   }
 
-  const updatedProp = await property.save()
-  res.json({ message: `${updatedProp.name} updated` })
+  const oldImages = property.images
+  property.images = images
+  for (image of newImages) {
+    property.images.push(image)
+  }
+
+  await property
+    .save()
+    .then(() => {
+      for (image of oldImages) {
+        if (!images.includes(image)) {
+          fs.unlinkSync(image)
+        }
+      }
+      res.json({ message: `${property.name} updated` })
+    })
+    .catch((_err) => {
+      deleteImages(newImages)
+      return res
+        .status(400)
+        .json({ message: `${property.name} was not updated` })
+    })
 }
 
 // @desc Delete a property
@@ -541,8 +638,16 @@ const deleteProperty = async (req, res) => {
     return res.status(400).json({ message: "Property not found" })
   }
 
+  deleteImages(property.images)
+
   await Property.deleteOne(property)
   res.json({ message: `${id} deleted` })
+}
+
+const deleteImages = (images) => {
+  for (file of images) {
+    fs.unlinkSync(file)
+  }
 }
 
 module.exports = {
