@@ -3,19 +3,15 @@ const mongoose = require("mongoose")
 const salesManagerSchema = new mongoose.Schema({
   name: {
     type: String,
-    default: "",
+    required: true,
   },
-  number: {
+  phone: {
     type: String,
-    default: "",
+    required: true,
   },
   email: {
     type: String,
-    default: "",
-  },
-  url: {
-    type: String,
-    default: "",
+    required: true,
   },
 })
 

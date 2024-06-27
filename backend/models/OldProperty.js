@@ -1,17 +1,26 @@
 const mongoose = require("mongoose")
 
 const propertySchema = new mongoose.Schema({
-  pid: {
-    type: String,
-    required: true,
-  },
-  published: {
-    type: Boolean,
-    required: true,
-  },
+  _id: String,
   name: {
     type: String,
     required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  salesManagerName: {
+    type: String,
+  },
+  salesManagerPhone: {
+    type: String,
+  },
+  salesManagerEmail: {
+    type: String,
+  },
+  salesURL: {
+    type: String,
   },
   country: {
     type: String,
@@ -37,27 +46,14 @@ const propertySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
-    type: String,
+  status: {
+    type: [String],
     required: true,
-  },
-  siteArea: {
-    type: Number,
-    required: true,
-  },
-  developed: {
-    type: Boolean,
-    required: true,
-  },
-  salesManager: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "SalesManager",
-  },
-  salesURL: {
-    type: String,
+    default: undefined,
   },
   images: {
     type: [String],
+    default: undefined,
   },
 })
 

@@ -93,7 +93,7 @@ const updateUser = async (req, res) => {
     user.password = await bcrypt.hash(password, 10) // 10 salt rounds
   }
 
-  const updatedUser = await user.save()
+  await user.save()
 
   res.json({ message: `updated user with id ${id}` })
 }

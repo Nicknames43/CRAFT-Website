@@ -1,19 +1,14 @@
 const Property = require("../models/Property")
 const CProperty = require("../models/commercialProperty")
 const RProperty = require("../models/residentialProperty")
+const SalesManager = require("../models/SalesManager")
 const fs = require("fs")
 const path = require("path")
 
-const validStatus = [
-  "Developed",
-  "Under Development",
-  "Leasing Opportunities",
-  "Sold",
-  "Owned",
-]
+const validT = ["Commercial", "Residential"]
 
 // @desc Get all properties
-// @route GET /properties
+// @route GET /properties/all
 // @access Public
 const getAllProperties = async (req, res) => {
   const properties = await Property.find().lean()
@@ -23,12 +18,25 @@ const getAllProperties = async (req, res) => {
   res.json(properties)
 }
 
+// @desc Get all published properties
+// @route GET /properties
+// @access Public
+const getAllPublishedProperties = async (req, res) => {
+  const properties = await Property.find({ published: true })
+    .select("-published")
+    .lean()
+  if (!properties?.length) {
+    return res.status(400).json({ message: "No properties found" })
+  }
+  res.json(properties)
+}
+
 // @desc Get all property
-// @route GET /properties/:id
+// @route GET /properties/:pid
 // @access Private
 const getProperty = async (req, res) => {
-  const id = req.params.id
-  const property = await Property.findById(id).lean().exec()
+  const pid = req.params.pid
+  const property = await Property.findOne({ pid }).lean().exec()
   if (!property) {
     return res.status(400).json({ message: "Property not found" })
   }
@@ -40,28 +48,28 @@ const getProperty = async (req, res) => {
 // @access Private
 const createNewProperty = async (req, res) => {
   const {
+    published,
     name,
-    type,
-    salesManagerName,
-    salesManagerPhone,
-    salesManagerEmail,
-    salesURL,
-    streetNum,
-    streetName,
-    city,
-    province,
     country,
+    province,
+    city,
+    streetName,
+    streetNum,
     postalCode,
-    status,
-    propDetails,
+    description,
+    developed,
+    salesManager,
+    salesURL,
+    t,
   } = req.body
+  const siteArea = parseInt(req.body.siteArea, 10)
   const files = req.files
+  const message = {}
+  let failed = false
+  const property = {}
 
-  if (files.length < 1) {
-    return res.status(400).json({ message: "At least 1 image required" })
-  }
-
-  const images = []
+  // image stuff to be changed later (cloud storage)
+  property.images = []
   for (file of files) {
     const parsedPath = path.parse(file.path)
     const dirPathArray = parsedPath.dir.split(path.sep)
@@ -69,286 +77,302 @@ const createNewProperty = async (req, res) => {
       dirPathArray[dirPathArray.length - 1],
       parsedPath.base
     )
-    images.push(filePath)
+    property.images.push(filePath)
   }
 
-  if (
-    typeof name !== "string" ||
-    typeof type !== "string" ||
-    typeof streetName !== "string" ||
-    typeof streetNum !== "string" ||
-    typeof city !== "string" ||
-    typeof province !== "string" ||
-    typeof country !== "string" ||
-    typeof postalCode !== "string" ||
-    !Array.isArray(status) ||
-    status.length === 0 ||
-    Object.prototype.toString.call(propDetails) !== "[object Object]"
-  ) {
-    deleteImages(images)
-    return res.status(400).json({ message: "All fields are required" })
-  }
-
-  for (const s of status) {
-    if (validStatus.indexOf(s) === -1) {
-      deleteImages(images)
-      return res.status(400).json({ message: "Invalid status" })
-    }
-  }
-
-  let property = {
-    _id: name.split(" ").join(""),
-    name,
-    type,
-    streetNum,
-    streetName,
-    city,
-    province,
-    country,
-    postalCode,
-    status,
-    images,
-  }
-
-  if (
-    typeof salesURL !== "string" &&
-    (typeof salesManagerName !== "string" ||
-      (typeof salesManagerEmail !== "string" &&
-        typeof salesManagerPhone !== "string"))
-  ) {
-    deleteImages(images)
-    return res
-      .status(400)
-      .json({ message: "Invalid sales manager information combination" })
-  } else if (typeof salesURL === "string") {
-    property.salesURL = salesURL
+  if (typeof name !== "string" || !name) {
+    failed = true
+    message.name = "Name string is required"
   } else {
-    property.salesManagerName = salesManagerName
-    if (typeof salesManagerEmail === "string") {
-      property.salesManagerEmail = salesManagerEmail
+    const pid = name.split(" ").join("")
+    const duplicate = await Property.findOne({ pid }).exec()
+    if (duplicate) {
+      failed = true
+      message.name = "A property with that name already exists"
+    } else {
+      property.name = name
+      property.pid = pid
     }
-    if (typeof salesManagerPhone === "string") {
-      property.salesManagerPhone = salesManagerPhone
+  }
+  if (typeof country !== "string" || !country) {
+    failed = true
+    message.country = "Country string is required"
+  } else {
+    property.country = country
+  }
+  if (typeof province !== "string" || !province) {
+    failed = true
+    message.province = "Province string is required"
+  } else {
+    property.province = province
+  }
+  if (typeof city !== "string" || !city) {
+    failed = true
+    message.city = "City string is required"
+  } else {
+    property.city = city
+  }
+  if (typeof streetName !== "string" || !streetName) {
+    failed = true
+    message.streetName = "Street name string is required"
+  } else {
+    property.streetName = streetName
+  }
+  if (typeof streetNum !== "string" || !streetNum) {
+    failed = true
+    message.streetNum = "Street number(s) string is required"
+  } else {
+    property.streetNum = streetNum
+  }
+  if (typeof postalCode !== "string" || !postalCode) {
+    failed = true
+    message.postalCode = "Postal code string is required"
+  } else {
+    property.postalCode = postalCode
+  }
+  if (typeof description !== "string" || !description) {
+    failed = true
+    message.description = "Description string is required"
+  } else {
+    property.description = description
+  }
+  if (isNaN(siteArea) || siteArea <= 0) {
+    failed = true
+    message.siteArea = "Site area must be a number greater than 0"
+  } else {
+    property.siteArea = siteArea
+  }
+  if (typeof t !== "string" || !t) {
+    failed = true
+    message.t = "Must provide whether the property is commercial or residential"
+  } else if (validT.includes(t) === -1) {
+    failed = true
+    message.t = `Property cannot be of type ${t}`
+  }
+
+  if (typeof developed === "string") {
+    if (developed.toLowerCase() === "true") {
+      property.developed = true
+    } else if (developed.toLowerCase() === "false") {
+      property.developed = false
+    } else {
+      failed = true
+      message.developed = "Must be either true or false"
+    }
+  } else if (typeof developed === "boolean") {
+    if (developed) {
+      property.developed = true
+    } else {
+      property.developed = false
+    }
+  } else {
+    failed = true
+    message.developed = "Must be either true or false"
+  }
+
+  if (typeof published === "string") {
+    if (published.toLowerCase() === "true") {
+      property.published = true
+    } else if (published.toLowerCase() === "false") {
+      property.published = false
+    } else {
+      failed = true
+      message.published = "Must be either true or false"
+    }
+  } else if (typeof published === "boolean") {
+    if (published) {
+      property.published = true
+    } else {
+      property.published = false
+    }
+  } else {
+    failed = true
+    message.published = "Must be either true or false"
+  }
+
+  if (typeof salesManager !== "undefined") {
+    const sm = await SalesManager.findById(salesManager)
+    if (sm) {
+      property.salesManager = sm._id
+    } else {
+      failed = true
+      message.salesManager = "Sales manager not found"
     }
   }
 
-  if (type === "Commercial") {
-    const { commercialType, tenantMix, featured, buildings } = propDetails
-    const siteArea = parseInt(propDetails.siteArea, 10)
-    if (
-      typeof commercialType !== "string" ||
-      typeof tenantMix !== "string" ||
-      !Array.isArray(featured) ||
-      Object.prototype.toString.call(buildings) !== "[object Object]"
-    ) {
-      deleteImages(images)
-      return res.status(400).json({ message: "All fields are required" })
-    }
+  if (typeof salesURL === "string" && salesURL) property.salesURL = salesURL
 
-    for (const f of featured) {
-      if (typeof f !== "string") {
-        deleteImages(images)
-        return res.status(400).json({ message: "Invalid featured" })
-      }
-    }
+  if (t === "Commercial") {
+    const type = req.body.type
+    const size = parseInt(req.body.size, 10)
+    const featured = req.body.featured
+    const leaseSize = parseInt(req.body.leaseSize, 10)
 
-    const buildingArray = []
-    let totSize = 0,
-      leaseSize = 0
-
-    for (const [buildingName, units] of Object.entries(buildings)) {
-      if (!Array.isArray(units)) {
-        deleteImages(images)
-        return res.status(400).json({ message: "Invalid units" })
-      }
-
-      const unitArray = []
-      for (const u of units) {
-        const { unit, tenant } = u
-        const space = parseInt(u.space, 10)
-        const lease = /true/i.test(u.lease) //change this later for undefined
-
-        if (
-          typeof unit !== "string" ||
-          typeof tenant !== "string" ||
-          isNaN(space) ||
-          space <= 0 ||
-          typeof lease !== "boolean" //not needed currently
-        ) {
-          deleteImages(images)
-          return res.status(400).json({ message: "Invalid unit" })
-        }
-
-        if (lease) {
-          leaseSize += space
-        }
-        totSize += space
-
-        unitArray.push(u)
-      }
-
-      buildingArray.push({ buildingName, units: unitArray })
-    }
-
-    property = {
-      ...property,
-      commercialType,
-      totSize,
-      leaseSize,
-      tenantMix,
-      featured,
-      buildings: buildingArray,
-    }
-    if (!isNaN(siteArea) && siteArea > 0) {
-      property.siteArea = siteArea
-    }
-
-    const prop = await CProperty.create(property)
-    if (prop) {
-      return res.status(201).json({ message: "New property created" })
+    if (isNaN(size) || size <= 0) {
+      failed = true
+      message.size = "Size must be a number greater than 0"
     } else {
-      deleteImages(images)
-      return res.status(400).json({ message: "Invalid property data received" })
+      property.size = size
     }
-  } else if (type === "Residential") {
-    const { residentialType, purchaseable, phases } = propDetails
+    if (Array.isArray(featured)) {
+      for (const f of featured) {
+        if (typeof f !== "string" || !f) {
+          failed = true
+          message.featuredValues = "Featured array contains non-strings"
+        }
+      }
+      property.featured = featured
+    }
+    if (!isNaN(leaseSize) && leaseSize > 0) {
+      property.leaseSize = leaseSize
+    }
+    if (typeof type !== "string" || !type) {
+      failed = true
+      message.type = "Type string is required"
+    } else {
+      property.type = type
+    }
+  } else if (t === "Residential") {
+    const {
+      numSingle,
+      numSemi,
+      numTownHome,
+      numStacked,
+      numCondo,
+      dateCompleted,
+    } = req.body
+    const numSingleN = Number(numSingle)
+    const numSemiN = Number(numSemi)
+    const numTownHomeN = Number(numTownHome)
+    const numStackedN = Number(numStacked)
+    const numCondoN = Number(numCondo)
+    const dateCompletedN = Date.parse(dateCompleted)
+
+    count = 0
 
     if (
-      typeof residentialType !== "string" ||
-      typeof purchaseable !== "boolean" ||
-      Object.prototype.toString.call(phases) !== "[object Object]"
+      typeof numSingle !== "undefined" &&
+      Number.isInteger(numSingleN) &&
+      numSingleN > 0
     ) {
-      deleteImages(images)
-      return res.status(400).json({ message: "All fields are required" })
+      count++
+      property.numSingle = numSingleN
+    } else if (typeof numSingle !== "undefined") {
+      failed = true
+      message.numSingle =
+        "Number of single units must be an integer greater than 0"
     }
+    if (
+      typeof numSemi !== "undefined" &&
+      Number.isInteger(numSemiN) &&
+      numSemiN > 0
+    ) {
+      count++
+      property.numSemi = numSemiN
+    } else if (typeof numSemi !== "undefined") {
+      failed = true
+      message.numSemi = "Number of semi units must be an integer greater than 0"
+    }
+    if (
+      typeof numTownHome !== "undefined" &&
+      Number.isInteger(numTownHomeN) &&
+      numTownHomeN > 0
+    ) {
+      count++
+      property.numTownHome = numTownHomeN
+    } else if (typeof numTownHome !== "undefined") {
+      failed = true
+      message.numTownHome =
+        "Number of town home units must be an integer greater than 0"
+    }
+    if (
+      typeof numStacked !== "undefined" &&
+      Number.isInteger(numStackedN) &&
+      numStackedN > 0
+    ) {
+      count++
+      property.numStacked = numStackedN
+    } else if (typeof numStacked !== "undefined") {
+      failed = true
+      message.numStacked =
+        "Number of stacked town home units must be an integer greater than 0"
+    }
+    if (
+      typeof numCondo !== "undefined" &&
+      Number.isInteger(numCondoN) &&
+      numCondoN > 0
+    ) {
+      count++
+      property.numCondo = numCondoN
+    } else if (typeof numCondo !== "undefined") {
+      failed = true
+      message.numCondo =
+        "Number of condo units must be an integer greater than 0"
+    }
+    if (count === 0) {
+      failed = true
+      message.numUnits = "At least 1 of any type of unit is required"
+    }
+    if (
+      typeof dateCompleted === "string" &&
+      dateCompleted &&
+      isNaN(dateCompletedN)
+    ) {
+      failed = true
+      message.dateCompleted =
+        "Date completed must be a a valid date in the form YYYY-MM-DD as a string"
+    } else if (dateCompleted) {
+      property.dateCompleted = new Date(dateCompletedN)
+      //.toISOString().split("T")[0]
+    }
+  }
 
-    let totNumHomes = 0,
-      totNumSingle = 0,
-      totNumSemi = 0,
-      totNumTownHome = 0,
-      totNumCondo = 0,
-      siteArea = 0,
-      numHomes
-    const phaseArray = []
+  if (failed) {
+    deleteImages(property.images)
+    return res.status(400).json(message)
+  }
 
-    for (const [phaseName, phase] of Object.entries(phases)) {
-      const numSingle = parseInt(phase.numSingle, 10)
-      const numSemi = parseInt(phase.numSemi, 10)
-      const numTownHome = parseInt(phase.numTownHome, 10)
-      const numCondo = parseInt(phase.numCondo, 10)
-      const phaseArea = parseInt(phase.phaseArea, 10)
-      const approved = /true/i.test(phase.approved) //change this later for undefined
+  let prop
+  if (t === "Commercial") {
+    prop = await CProperty.create(property)
+  } else if (t === "Residential") {
+    prop = await RProperty.create(property)
+  }
 
-      if (typeof phaseName !== "string" || typeof approved !== "boolean") {
-        deleteImages(images)
-        return res.status(400).json({ message: "All fields are required" })
-      }
-      const newPhase = { phaseName, approved }
-      numHomes = 0
-
-      if (isNaN(numSingle) || numSingle < 0) {
-        deleteImages(images)
-        return res
-          .status(400)
-          .json({ message: "Invalid number of Single Homes" })
-      } else if (!isNaN(numSingle) && numSingle > 0) {
-        totNumSingle += numSingle
-        numHomes += numSingle
-        newPhase.numSingle = numSingle
-      }
-      if (isNaN(numSemi) || numSemi < 0) {
-        deleteImages(images)
-        return res.status(400).json({ message: "Invalid number of Semi Homes" })
-      } else if (!isNaN(numSemi) && numSemi > 0) {
-        totNumSemi += numSemi
-        numHomes += numSemi
-        newPhase.numSemi = numSemi
-      }
-      if (isNaN(numTownHome) || numTownHome < 0) {
-        deleteImages(images)
-        return res.status(400).json({ message: "Invalid number of Townhomes" })
-      } else if (!isNaN(numTownHome) && numTownHome > 0) {
-        totNumTownHome += numTownHome
-        numHomes += numTownHome
-        newPhase.numTownHome = numTownHome
-      }
-      if (isNaN(numCondo) || numCondo < 0) {
-        deleteImages(images)
-        return res.status(400).json({ message: "Invalid number of Condos" })
-      } else if (!isNaN(numCondo) && numCondo > 0) {
-        totNumCondo += numCondo
-        numHomes += numCondo
-        newPhase.numCondo = numCondo
-      }
-      if (isNaN(phaseArea) && phaseArea < 0) {
-        deleteImages(images)
-        return res.status(400).json({ message: "Invalid phase area" })
-      } else if (!isNaN(phaseArea) && phaseArea > 0) {
-        siteArea += phaseArea
-        newPhase.phaseArea = phaseArea
-      }
-
-      phaseArray.push(newPhase)
-      totNumHomes += numHomes
-    }
-
-    property = {
-      ...property,
-      residentialType,
-      purchaseable,
-      totNumHomes,
-      phases: phaseArray,
-    }
-    if (totNumSingle > 0) {
-      property.totNumSingle = totNumSingle
-    }
-    if (totNumSemi > 0) {
-      property.totNumSemi = totNumSemi
-    }
-    if (totNumTownHome > 0) {
-      property.totNumTownHome = totNumTownHome
-    }
-    if (totNumCondo > 0) {
-      property.totNumCondo = totNumCondo
-    }
-    if (siteArea > 0) {
-      property.siteArea = siteArea
-    }
-
-    const prop = await RProperty.create(property)
-    if (prop) {
-      return res.status(201).json({ message: "New property created" })
-    } else {
-      deleteImages(images)
-      return res.status(400).json({ message: "Invalid property data received" })
-    }
+  if (prop) {
+    return res.status(201).json({ message: "New property created" })
+  } else {
+    deleteImages(property.images)
+    return res.status(400).json({ message: "Invalid property data received" })
   }
 }
 
 // @desc Update a property
-// @route PUT /properties/:id
+// @route PUT /properties/:pid
 // @access Private
 const updateProperty = async (req, res) => {
-  const id = req.params.id
+  const pid = req.params.pid
   const {
+    published,
     name,
-    type,
-    salesManagerName,
-    salesManagerPhone,
-    salesManagerEmail,
-    salesURL,
-    streetNum,
-    streetName,
-    city,
-    province,
     country,
+    province,
+    city,
+    streetName,
+    streetNum,
     postalCode,
-    status,
-    propDetails,
+    description,
+    developed,
+    salesManager,
+    salesURL,
     images,
   } = req.body
+  const siteArea = parseInt(req.body.siteArea, 10)
   const files = req.files
+  const message = {}
+  let failed = false
 
+  // image stuff to be changed later (cloud storage)
   const newImages = []
   for (file of files) {
     const parsedPath = path.parse(file.path)
@@ -360,247 +384,270 @@ const updateProperty = async (req, res) => {
     newImages.push(filePath)
   }
 
-  if (
-    typeof name !== "string" ||
-    typeof type !== "string" ||
-    typeof streetName !== "string" ||
-    typeof streetNum !== "string" ||
-    typeof city !== "string" ||
-    typeof province !== "string" ||
-    typeof country !== "string" ||
-    typeof postalCode !== "string" ||
-    !Array.isArray(images) ||
-    images.length + newImages.length < 1 ||
-    !Array.isArray(status) ||
-    status.length === 0 ||
-    Object.prototype.toString.call(propDetails) !== "[object Object]"
-  ) {
-    deleteImages(newImages)
-    return res.status(400).json({ message: "All fields are required" })
-  }
-
-  for (const s of status) {
-    if (validStatus.indexOf(s) === -1) {
-      deleteImages(newImages)
-      return res.status(400).json({ message: "Invalid status" })
-    }
-  }
-
-  const property = await Property.findById(id).exec()
-
+  const property = await Property.findOne({ pid }).exec()
   if (!property) {
     deleteImages(newImages)
     return res.status(400).json({ message: "Property not found" })
   }
 
-  const duplicate = await Property.findById(name.split(" ").join("")).exec()
+  const t = property.__t
 
-  if (duplicate && duplicate?._id.toString() !== id) {
-    deleteImages(newImages)
-    return res.status(409).json({ message: "Duplicate property name" })
+  if (typeof name !== "string" || !name) {
+    failed = true
+    message.name = "Name string is required"
+  } else {
+    const pid = name.split(" ").join("")
+    const duplicate = await Property.findOne({ pid }).exec()
+    if (duplicate && duplicate?.pid.toString() !== pid) {
+      failed = true
+      message.name = "A property with that name already exists"
+    } else {
+      property.name = name
+      property.pid = pid
+    }
+  }
+  if (typeof country !== "string" || !country) {
+    failed = true
+    message.country = "Country string is required"
+  } else {
+    property.country = country
+  }
+  if (typeof province !== "string" || !province) {
+    failed = true
+    message.province = "Province string is required"
+  } else {
+    property.province = province
+  }
+  if (typeof city !== "string" || !city) {
+    failed = true
+    message.city = "City string is required"
+  } else {
+    property.city = city
+  }
+  if (typeof streetName !== "string" || !streetName) {
+    failed = true
+    message.streetName = "Street name string is required"
+  } else {
+    property.streetName = streetName
+  }
+  if (typeof streetNum !== "string" || !streetNum) {
+    failed = true
+    message.streetNum = "Street number(s) string is required"
+  } else {
+    property.streetNum = streetNum
+  }
+  if (typeof postalCode !== "string" || !postalCode) {
+    failed = true
+    message.postalCode = "Postal code string is required"
+  } else {
+    property.postalCode = postalCode
+  }
+  if (typeof description !== "string" || !description) {
+    failed = true
+    message.description = "Description string is required"
+  } else {
+    property.description = description
+  }
+  if (isNaN(siteArea) || siteArea <= 0) {
+    failed = true
+    message.siteArea = "Site area must be a number greater than 0"
+  } else {
+    property.siteArea = siteArea
+  }
+  if (typeof t !== "string" || !t) {
+    failed = true
+    message.t = "Must provide whether the property is commercial or residential"
+  } else if (validT.includes(t) === -1) {
+    failed = true
+    message.t = `Property cannot be of type ${t}`
   }
 
-  property._id = name.split(" ").join("")
-  property.name = name
-  property.streetNum = streetNum
-  property.streetName = streetName
-  property.city = city
-  property.province = province
-  property.country = country
-  property.postalCode = postalCode
-  property.status = status
+  if (typeof developed === "string") {
+    if (developed.toLowerCase() === "true") {
+      property.developed = true
+    } else if (developed.toLowerCase() === "false") {
+      property.developed = false
+    } else {
+      failed = true
+      message.developed = "Must be either true or false"
+    }
+  } else if (typeof developed === "boolean") {
+    if (developed) {
+      property.developed = true
+    } else {
+      property.developed = false
+    }
+  } else {
+    failed = true
+    message.developed = "Must be either true or false"
+  }
 
-  if (
-    typeof salesURL !== "string" &&
-    (typeof salesManagerName !== "string" ||
-      (typeof salesManagerEmail !== "string" &&
-        typeof salesManagerPhone !== "string"))
-  ) {
-    deleteImages(newImages)
-    return res
-      .status(400)
-      .json({ message: "Invalid sales manager information combination" })
-  } else if (typeof salesURL === "string") {
+  if (typeof published === "string") {
+    if (published.toLowerCase() === "true") {
+      property.published = true
+    } else if (published.toLowerCase() === "false") {
+      property.published = false
+    } else {
+      failed = true
+      message.published = "Must be either true or false"
+    }
+  } else if (typeof published === "boolean") {
+    if (published) {
+      property.published = true
+    } else {
+      property.published = false
+    }
+  } else {
+    failed = true
+    message.published = "Must be either true or false"
+  }
+
+  if (typeof salesManager !== "undefined") {
+    const sm = await SalesManager.findById(salesManager)
+    if (sm) {
+      property.salesManager = sm._id
+    } else {
+      failed = true
+      message.salesManager = "Sales manager not found"
+    }
+  } else {
+    property.salesManager = undefined
+  }
+
+  if (typeof salesURL === "string" && salesURL) {
     property.salesURL = salesURL
   } else {
-    property.salesManagerName = salesManagerName
-    if (typeof salesManagerEmail === "string") {
-      property.salesManagerEmail = salesManagerEmail
+    property.salesURL = undefined
+  }
+
+  if (t === "commercialProperty") {
+    const type = req.body.type
+    const size = parseInt(req.body.size, 10)
+    const featured = req.body.featured
+    const leaseSize = req.body.leaseSize
+    const leaseSizeN = parseInt(leaseSize, 10)
+
+    if (isNaN(size) || size <= 0) {
+      failed = true
+      message.size = "Size must be a number greater than 0"
+    } else {
+      property.size = size
     }
-    if (typeof salesManagerPhone === "string") {
-      property.salesManagerPhone = salesManagerPhone
+    if (typeof featured === "undefined") {
+      property.featured = undefined
+    } else if (Array.isArray(featured)) {
+      for (const f of featured) {
+        if (typeof f !== "string" || !f) {
+          failed = true
+          message.featuredValues = "Featured array contains non-strings"
+        }
+      }
+      property.featured = featured
+    } else {
+      message.featured = "Featured must be an array of strings"
+    }
+    if (
+      typeof leaseSize === "undefined" ||
+      (!isNaN(leaseSizeN) && leaseSizeN === 0)
+    ) {
+      property.leaseSize = undefined
+    } else if (!isNaN(leaseSizeN) && leaseSizeN >= 0) {
+      property.leaseSize = leaseSizeN
+    } else {
+      message.leaseSize = "Lease size must be a number greater than 0"
+    }
+    if (typeof type !== "string" || !type) {
+      failed = true
+      message.type = "Type string is required"
+    } else {
+      property.type = type
+    }
+  } else if (t === "residentialProperty") {
+    const {
+      numSingle,
+      numSemi,
+      numTownHome,
+      numStacked,
+      numCondo,
+      dateCompleted,
+    } = req.body
+    const numSingleN = Number(numSingle)
+    const numSemiN = Number(numSemi)
+    const numTownHomeN = Number(numTownHome)
+    const numStackedN = Number(numStacked)
+    const numCondoN = Number(numCondo)
+    const dateCompletedN = Date.parse(dateCompleted)
+
+    count = 0
+
+    if (typeof numSingle === "undefined" || numSingleN === 0) {
+      property.numSingle = undefined
+    } else if (Number.isInteger(numSingleN) && numSingleN > 0) {
+      count++
+      property.numSingle = numSingleN
+    } else {
+      failed = true
+      message.numSingle =
+        "Number of single units must be an integer greater than 0"
+    }
+    if (typeof numSemi === "undefined" || numSemiN === 0) {
+      property.numSemi = undefined
+    } else if (Number.isInteger(numSemiN) && numSemiN > 0) {
+      count++
+      property.numSemi = numSemiN
+    } else {
+      failed = true
+      message.numSemi = "Number of semi units must be an integer greater than 0"
+    }
+    if (typeof numTownHome === "undefined" || numTownHomeN === 0) {
+      property.numTownHome = undefined
+    } else if (Number.isInteger(numTownHomeN) && numTownHomeN > 0) {
+      count++
+      property.numTownHome = numTownHomeN
+    } else {
+      failed = true
+      message.numTownHome =
+        "Number of town home units must be an integer greater than 0"
+    }
+    if (typeof numStacked === "undefined" || numStackedN === 0) {
+      property.numStacked = undefined
+    } else if (Number.isInteger(numStackedN) && numStackedN > 0) {
+      count++
+      property.numStacked = numStackedN
+    } else {
+      failed = true
+      message.numStacked =
+        "Number of stacked town home units must be an integer greater than 0"
+    }
+    if (typeof numCondo === "undefined" || numCondoN === 0) {
+      property.numCondo = undefined
+    } else if (Number.isInteger(numCondoN) && numCondoN > 0) {
+      count++
+      property.numCondo = numCondoN
+    } else {
+      failed = true
+      message.numCondo =
+        "Number of condo units must be an integer greater than 0"
+    }
+    if (count === 0) {
+      failed = true
+      message.numUnits = "At least 1 of any type of unit is required"
+    }
+    if (dateCompleted && isNaN(dateCompletedN)) {
+      failed = true
+      message.dateCompleted =
+        "Date completed must be a string in the form YYYY-MM-DD"
+    } else if (dateCompleted) {
+      property.dateCompleted = new Date(dateCompletedN)
+      //.toISOString().split("T")[0]
+    } else {
+      property.dateCompleted = undefined
     }
   }
 
-  if (type === "Commercial") {
-    const { commercialType, tenantMix, featured, buildings } = propDetails
-    const siteArea = parseInt(propDetails.siteArea, 10)
-
-    if (
-      typeof commercialType !== "string" ||
-      typeof tenantMix !== "string" ||
-      !Array.isArray(featured) ||
-      Object.prototype.toString.call(buildings) !== "[object Object]"
-    ) {
-      deleteImages(newImages)
-      return res.status(400).json({ message: "All fields are required" })
-    }
-
-    for (const f in featured) {
-      if (typeof f !== "string") {
-        deleteImages(newImages)
-        return res.status(400).json({ message: "Invalid featured" })
-      }
-    }
-
-    const buildingArray = []
-    let totSize = 0,
-      leaseSize = 0
-
-    for (const [buildingName, units] of Object.entries(buildings)) {
-      if (!Array.isArray(units)) {
-        deleteImages(newImages)
-        return res.status(400).json({ message: "Invalid units" })
-      }
-
-      const unitArray = []
-      for (const u of units) {
-        const { unit, tenant } = u
-        const space = parseInt(u.space, 10)
-        const lease = /true/i.test(u.lease) //change this later for undefined
-
-        if (
-          typeof unit !== "string" ||
-          typeof tenant !== "string" ||
-          isNaN(space) ||
-          typeof space <= 0 ||
-          typeof lease !== "boolean" //not needed currently
-        ) {
-          deleteImages(newImages)
-          return res.status(400).json({ message: "Invalid unit" })
-        }
-
-        if (lease) {
-          leaseSize += space
-        }
-        totSize += space
-
-        unitArray.push(u)
-      }
-
-      buildingArray.push({ buildingName, units: unitArray })
-    }
-
-    property.commercialType = commercialType
-    property.totSize = totSize
-    property.leaseSize = leaseSize
-    property.tenantMix = tenantMix
-    property.featured = featured
-    property.buildings = buildingArray
-    if (!isNaN(siteArea) && siteArea > 0) {
-      property.siteArea = siteArea
-    }
-  } else if (type === "Residential") {
-    const { residentialType, purchaseable, phases } = propDetails
-
-    if (
-      typeof residentialType !== "string" ||
-      typeof purchaseable !== "boolean" ||
-      Object.prototype.toString.call(phases) !== "[object Object]"
-    ) {
-      deleteImages(newImages)
-      return res.status(400).json({ message: "All fields are required" })
-    }
-
-    let totNumHomes = 0,
-      totNumSingle = 0,
-      totNumSemi = 0,
-      totNumTownHome = 0,
-      totNumCondo = 0,
-      siteArea = 0,
-      numHomes
-    const phaseArray = []
-
-    for (const [phaseName, phase] of Object.entries(phases)) {
-      const numSingle = parseInt(phase.numSingle, 10)
-      const numSemi = parseInt(phase.numSemi, 10)
-      const numTownHome = parseInt(phase.numTownHome, 10)
-      const numCondo = parseInt(phase.numCondo, 10)
-      const phaseArea = parseInt(phase.phaseArea, 10)
-      const approved = /true/i.test(phase.approved) //change this later for undefined
-
-      if (typeof phaseName !== "string" || typeof approved !== "boolean") {
-        deleteImages(newImages)
-        return res.status(400).json({ message: "All fields are required" })
-      }
-      const newPhase = { phaseName, approved }
-      numHomes = 0
-
-      if (isNaN(numSingle) || numSingle < 0) {
-        deleteImages(newImages)
-        return res
-          .status(400)
-          .json({ message: "Invalid number of Single Homes" })
-      } else if (!isNaN(numSingle) && numSingle > 0) {
-        totNumSingle += numSingle
-        numHomes += numSingle
-        newPhase.numSingle = numSingle
-      }
-      if (isNaN(numSemi) || numSemi < 0) {
-        deleteImages(newImages)
-        return res.status(400).json({ message: "Invalid number of Semi Homes" })
-      } else if (!isNaN(numSemi) && numSemi > 0) {
-        totNumSemi += numSemi
-        numHomes += numSemi
-        newPhase.numSemi = numSemi
-      }
-      if (isNaN(numTownHome) || numTownHome < 0) {
-        deleteImages(newImages)
-        return res.status(400).json({ message: "Invalid number of Townhomes" })
-      } else if (!isNaN(numTownHome) && numTownHome > 0) {
-        totNumTownHome += numTownHome
-        numHomes += numTownHome
-        newPhase.numTownHome = numTownHome
-      }
-      if (isNaN(numCondo) || numCondo < 0) {
-        deleteImages(newImages)
-        return res.status(400).json({ message: "Invalid number of Condos" })
-      } else if (!isNaN(numCondo) && numCondo > 0) {
-        totNumCondo += numCondo
-        numHomes += numCondo
-        newPhase.numCondo = numCondo
-      }
-      if (isNaN(phaseArea) && phaseArea < 0) {
-        deleteImages(newImages)
-        return res.status(400).json({ message: "Invalid phase area" })
-      } else if (!isNaN(phaseArea) && phaseArea > 0) {
-        siteArea += phaseArea
-        newPhase.phaseArea = phaseArea
-      }
-
-      phaseArray.push(newPhase)
-      totNumHomes += numHomes
-    }
-
-    property.residentialType = residentialType
-    property.purchaseable = purchaseable
-    property.totNumHomes = totNumHomes
-    property.phases = phaseArray
-    if (totNumSingle > 0) {
-      property.totNumSingle = totNumSingle
-    }
-    if (totNumSemi > 0) {
-      property.totNumSemi = totNumSemi
-    }
-    if (totNumTownHome > 0) {
-      property.totNumTownHome = totNumTownHome
-    }
-    if (totNumCondo > 0) {
-      property.totNumCondo = totNumCondo
-    }
-    if (siteArea > 0) {
-      property.siteArea = siteArea
-    }
+  if (failed) {
+    deleteImages(newImages)
+    return res.status(400).json(message)
   }
 
   const oldImages = property.images
@@ -617,9 +664,10 @@ const updateProperty = async (req, res) => {
           fs.unlinkSync(image)
         }
       }
-      res.json({ message: `${property.name} updated` })
+      return res.json({ message: `${property.name} updated` })
     })
-    .catch((_err) => {
+    .catch((err) => {
+      console.log(err)
       deleteImages(newImages)
       return res
         .status(400)
@@ -628,11 +676,11 @@ const updateProperty = async (req, res) => {
 }
 
 // @desc Delete a property
-// @route DELETE /properties/:id
+// @route DELETE /properties/:pid
 // @access Private
 const deleteProperty = async (req, res) => {
-  const id = req.params.id
-  const property = await Property.findById(id).lean().exec()
+  const pid = req.params.pid
+  const property = await Property.findOne({ pid }).lean().exec()
 
   if (!property) {
     return res.status(400).json({ message: "Property not found" })
@@ -641,7 +689,7 @@ const deleteProperty = async (req, res) => {
   deleteImages(property.images)
 
   await Property.deleteOne(property)
-  res.json({ message: `${id} deleted` })
+  res.json({ message: `${pid} deleted` })
 }
 
 const deleteImages = (images) => {
@@ -652,6 +700,7 @@ const deleteImages = (images) => {
 
 module.exports = {
   getAllProperties,
+  getAllPublishedProperties,
   getProperty,
   createNewProperty,
   updateProperty,

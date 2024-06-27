@@ -31,12 +31,13 @@ const upload = multer({
 
 router
   .route("/")
-  .get(propertyController.getAllProperties)
+  .get(verifyJWT, propertyController.getAllProperties)
   .post(verifyJWT, upload.array("images"), propertyController.createNewProperty)
 router
-  .route("/:id")
+  .route("/:pid")
   .get(propertyController.getProperty)
   .put(verifyJWT, upload.array("newImages"), propertyController.updateProperty)
   .delete(verifyJWT, propertyController.deleteProperty)
+router.route("/published").get(propertyController.getAllPublishedProperties)
 
 module.exports = router
