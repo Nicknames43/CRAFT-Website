@@ -5,18 +5,22 @@
 @import "base/resets";
 
 @import 
-    "layout/footer.scss", 
-    "layout/navBar.scss";
+    "layout/footer", 
+    "layout/navBar";
 
 @import 
     "components/carousel",
-    "components/searchBar.scss";
+    "components/dropDown",
+    "components/buttonLink",
+    "components/checkbox";
 
 @import 
     "pages/about",
     "pages/contact",
     "pages/home",
     "pages/properties",
+    "pages/propertyInfo",
+    "pages/privacyPolicy",
     "pages/services";
 
 //@import "themes/";

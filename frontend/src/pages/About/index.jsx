@@ -3,7 +3,7 @@ import AboutFactBanner from "./AboutFactBanner"
 import TeamPartners from "./TeamPartners"
 import Methodologies from "./Methodologies"
 
-function About() {
+export function About() {
   return (
     <>
       <AboutTitle />
@@ -13,5 +13,3 @@ function About() {
     </>
   )
 }
-
-export default About

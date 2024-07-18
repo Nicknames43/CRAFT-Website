@@ -1,0 +1,20 @@
+.button-link{
+    display: inline-block;
+
+    #{&}__container{
+        height: 100%;
+        width: 100%;
+        display: grid;
+        align-content: center;
+        justify-content: center;
+        container: link / size;
+    }
+}
+
+@container link (min-width: 0px) {
+    .button-link a:any-link{
+        font-family: $primary-font-light;
+        text-decoration: none;
+        font-size: 40cqh;
+    }
+}
