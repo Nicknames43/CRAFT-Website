@@ -19,8 +19,5 @@ module.exports = propertyScheme.discriminator(
     numCondo: {
       type: Number,
     },
-    dateCompleted: {
-      type: Date,
-    },
   })
 )

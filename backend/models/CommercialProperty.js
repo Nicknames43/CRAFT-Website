@@ -8,7 +8,7 @@ module.exports = propertyScheme.discriminator(
       type: Number,
       required: true,
     },
-    featured: {
+    featuredTenants: {
       type: [String],
     },
     leaseSize: {

@@ -1,11 +1,11 @@
 const mongoose = require("mongoose")
 
 const propertySchema = new mongoose.Schema({
-  pid: {
-    type: String,
+  published: {
+    type: Boolean,
     required: true,
   },
-  published: {
+  featured: {
     type: Boolean,
     required: true,
   },
@@ -37,6 +37,14 @@ const propertySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  latitude: {
+    type: Number,
+    required: true,
+  },
+  longitude: {
+    type: Number,
+    required: true,
+  },
   description: {
     type: String,
     required: true,
@@ -55,6 +63,9 @@ const propertySchema = new mongoose.Schema({
   },
   salesURL: {
     type: String,
+  },
+  dateCompleted: {
+    type: Date,
   },
   images: {
     type: [String],

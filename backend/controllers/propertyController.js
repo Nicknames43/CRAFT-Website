@@ -32,11 +32,11 @@ const getAllPublishedProperties = async (req, res) => {
 }
 
 // @desc Get all property
-// @route GET /properties/:pid
+// @route GET /properties/:id
 // @access Private
 const getProperty = async (req, res) => {
-  const pid = req.params.pid
-  const property = await Property.findOne({ pid }).lean().exec()
+  const id = req.params.id
+  const property = await Property.findById(id).lean().exec()
   if (!property) {
     return res.status(400).json({ message: "Property not found" })
   }
@@ -49,6 +49,7 @@ const getProperty = async (req, res) => {
 const createNewProperty = async (req, res) => {
   const {
     published,
+    featured,
     name,
     country,
     province,
@@ -60,10 +61,14 @@ const createNewProperty = async (req, res) => {
     developed,
     salesManager,
     salesURL,
+    dateCompleted,
     t,
   } = req.body
   const siteArea = parseInt(req.body.siteArea, 10)
-  const files = req.files
+  const latitude = Number(req.body.latitude)
+  const longitude = Number(req.body.longitude)
+  const dateCompletedN = Date.parse(dateCompleted)
+  const files = req.files ?? []
   const message = {}
   let failed = false
   const property = {}
@@ -84,14 +89,12 @@ const createNewProperty = async (req, res) => {
     failed = true
     message.name = "Name string is required"
   } else {
-    const pid = name.split(" ").join("")
-    const duplicate = await Property.findOne({ pid }).exec()
+    const duplicate = await Property.findOne({ name }).exec()
     if (duplicate) {
       failed = true
       message.name = "A property with that name already exists"
     } else {
       property.name = name
-      property.pid = pid
     }
   }
   if (typeof country !== "string" || !country) {
@@ -130,6 +133,18 @@ const createNewProperty = async (req, res) => {
   } else {
     property.postalCode = postalCode
   }
+  if (isNaN(latitude) || latitude < -90 || latitude > 90) {
+    failed = true
+    message.latitude = "Latitude must be a number from -90 (inclusive) to 90 (inclusive)"
+  } else {
+    property.latitude = latitude
+  }
+  if (isNaN(longitude) || longitude < -180 || longitude >= 180) {
+    failed = true
+    message.longitude = "Longitude must be a number from -180 (inclusive) to 180 (exclusive)"
+  } else {
+    property.longitude = longitude
+  }
   if (typeof description !== "string" || !description) {
     failed = true
     message.description = "Description string is required"
@@ -142,6 +157,16 @@ const createNewProperty = async (req, res) => {
   } else {
     property.siteArea = siteArea
   }
+
+  if(!isNaN(dateCompletedN)){
+    property.dateCompleted = new Date(dateCompletedN)
+    //.toISOString().split("T")[0]
+  }
+  else if(dateCompleted && dateCompleted !== "yyyy-mm-dd"){
+    failed = true
+    message.dateCompleted = "Date completed must be a string in the form yyyy-mm-dd"
+  }
+
   if (typeof t !== "string" || !t) {
     failed = true
     message.t = "Must provide whether the property is commercial or residential"
@@ -190,6 +215,26 @@ const createNewProperty = async (req, res) => {
     message.published = "Must be either true or false"
   }
 
+  if (typeof featured === "string") {
+    if (featured.toLowerCase() === "true") {
+      property.featured = true
+    } else if (featured.toLowerCase() === "false") {
+      property.featured = false
+    } else {
+      failed = true
+      message.featured = "Must be either true or false"
+    }
+  } else if (typeof featured === "boolean") {
+    if (featured) {
+      property.featured = true
+    } else {
+      property.featured = false
+    }
+  } else {
+    failed = true
+    message.featured = "Must be either true or false"
+  }
+
   if (typeof salesManager !== "undefined") {
     const sm = await SalesManager.findById(salesManager)
     if (sm) {
@@ -202,10 +247,10 @@ const createNewProperty = async (req, res) => {
 
   if (typeof salesURL === "string" && salesURL) property.salesURL = salesURL
 
-  if (t === "Commercial") {
+  if (t === "commercialProperty") {
     const type = req.body.type
     const size = parseInt(req.body.size, 10)
-    const featured = req.body.featured
+    const featuredTenants = req.body.featuredTenants
     const leaseSize = parseInt(req.body.leaseSize, 10)
 
     if (isNaN(size) || size <= 0) {
@@ -214,14 +259,14 @@ const createNewProperty = async (req, res) => {
     } else {
       property.size = size
     }
-    if (Array.isArray(featured)) {
-      for (const f of featured) {
+    if (Array.isArray(featuredTenants)) {
+      for (const f of featuredTenants) {
         if (typeof f !== "string" || !f) {
           failed = true
-          message.featuredValues = "Featured array contains non-strings"
+          message.featuredTenantsValues = "featured tenants array contains non-strings"
         }
       }
-      property.featured = featured
+      property.featuredTenants = featuredTenants
     }
     if (!isNaN(leaseSize) && leaseSize > 0) {
       property.leaseSize = leaseSize
@@ -232,21 +277,19 @@ const createNewProperty = async (req, res) => {
     } else {
       property.type = type
     }
-  } else if (t === "Residential") {
+  } else if (t === "residentialProperty") {
     const {
       numSingle,
       numSemi,
       numTownHome,
       numStacked,
       numCondo,
-      dateCompleted,
     } = req.body
     const numSingleN = Number(numSingle)
     const numSemiN = Number(numSemi)
     const numTownHomeN = Number(numTownHome)
     const numStackedN = Number(numStacked)
     const numCondoN = Number(numCondo)
-    const dateCompletedN = Date.parse(dateCompleted)
 
     count = 0
 
@@ -313,18 +356,6 @@ const createNewProperty = async (req, res) => {
       failed = true
       message.numUnits = "At least 1 of any type of unit is required"
     }
-    if (
-      typeof dateCompleted === "string" &&
-      dateCompleted &&
-      isNaN(dateCompletedN)
-    ) {
-      failed = true
-      message.dateCompleted =
-        "Date completed must be a a valid date in the form YYYY-MM-DD as a string"
-    } else if (dateCompleted) {
-      property.dateCompleted = new Date(dateCompletedN)
-      //.toISOString().split("T")[0]
-    }
   }
 
   if (failed) {
@@ -333,9 +364,9 @@ const createNewProperty = async (req, res) => {
   }
 
   let prop
-  if (t === "Commercial") {
+  if (t === "commercialProperty") {
     prop = await CProperty.create(property)
-  } else if (t === "Residential") {
+  } else if (t === "residentialProperty") {
     prop = await RProperty.create(property)
   }
 
@@ -348,12 +379,13 @@ const createNewProperty = async (req, res) => {
 }
 
 // @desc Update a property
-// @route PUT /properties/:pid
+// @route PUT /properties/:id
 // @access Private
 const updateProperty = async (req, res) => {
-  const pid = req.params.pid
+  const id = req.params.id
   const {
     published,
+    featured,
     name,
     country,
     province,
@@ -365,10 +397,14 @@ const updateProperty = async (req, res) => {
     developed,
     salesManager,
     salesURL,
+    dateCompleted,
     images,
   } = req.body
   const siteArea = parseInt(req.body.siteArea, 10)
-  const files = req.files
+  const latitude = Number(req.body.latitude)
+  const longitude = Number(req.body.longitude)
+  const dateCompletedN = Date.parse(dateCompleted)
+  const files = req.files ?? []
   const message = {}
   let failed = false
 
@@ -384,7 +420,7 @@ const updateProperty = async (req, res) => {
     newImages.push(filePath)
   }
 
-  const property = await Property.findOne({ pid }).exec()
+  const property = await Property.findById(id).exec()
   if (!property) {
     deleteImages(newImages)
     return res.status(400).json({ message: "Property not found" })
@@ -396,14 +432,12 @@ const updateProperty = async (req, res) => {
     failed = true
     message.name = "Name string is required"
   } else {
-    const pid = name.split(" ").join("")
-    const duplicate = await Property.findOne({ pid }).exec()
-    if (duplicate && duplicate?.pid.toString() !== pid) {
+    const duplicate = await Property.findOne({ name }).exec()
+    if (duplicate && duplicate?._id.toString() !== id) {
       failed = true
       message.name = "A property with that name already exists"
     } else {
       property.name = name
-      property.pid = pid
     }
   }
   if (typeof country !== "string" || !country) {
@@ -442,6 +476,18 @@ const updateProperty = async (req, res) => {
   } else {
     property.postalCode = postalCode
   }
+  if (isNaN(latitude) || latitude < -90 || latitude > 90) {
+    failed = true
+    message.latitude = "Latitude must be a number from -90 (inclusive) to 90 (inclusive)"
+  } else {
+    property.latitude = latitude
+  }
+  if (isNaN(longitude) || longitude < -180 || longitude >= 180) {
+    failed = true
+    message.longitude = "Longitude must be a number from -180 (inclusive) to 180 (exclusive)"
+  } else {
+    property.longitude = longitude
+  }
   if (typeof description !== "string" || !description) {
     failed = true
     message.description = "Description string is required"
@@ -454,6 +500,19 @@ const updateProperty = async (req, res) => {
   } else {
     property.siteArea = siteArea
   }
+
+  if(!isNaN(dateCompletedN)){
+    property.dateCompleted = new Date(dateCompletedN)
+    //.toISOString().split("T")[0]
+  }
+  else if(dateCompleted && dateCompleted !== "yyyy-mm-dd"){
+    failed = true
+    message.dateCompleted = "Date completed must be a string in the form yyyy-mm-dd"
+  }
+  else{
+    property.dateCompleted = undefined
+  }
+
   if (typeof t !== "string" || !t) {
     failed = true
     message.t = "Must provide whether the property is commercial or residential"
@@ -502,6 +561,26 @@ const updateProperty = async (req, res) => {
     message.published = "Must be either true or false"
   }
 
+  if (typeof featured === "string") {
+    if (featured.toLowerCase() === "true") {
+      property.featured = true
+    } else if (featured.toLowerCase() === "false") {
+      property.featured = false
+    } else {
+      failed = true
+      message.featured = "Must be either true or false"
+    }
+  } else if (typeof featured === "boolean") {
+    if (featured) {
+      property.featured = true
+    } else {
+      property.featured = false
+    }
+  } else {
+    failed = true
+    message.featured = "Must be either true or false"
+  }
+
   if (typeof salesManager !== "undefined") {
     const sm = await SalesManager.findById(salesManager)
     if (sm) {
@@ -523,7 +602,7 @@ const updateProperty = async (req, res) => {
   if (t === "commercialProperty") {
     const type = req.body.type
     const size = parseInt(req.body.size, 10)
-    const featured = req.body.featured
+    const featuredTenants = req.body.featuredTenants
     const leaseSize = req.body.leaseSize
     const leaseSizeN = parseInt(leaseSize, 10)
 
@@ -533,18 +612,18 @@ const updateProperty = async (req, res) => {
     } else {
       property.size = size
     }
-    if (typeof featured === "undefined") {
-      property.featured = undefined
-    } else if (Array.isArray(featured)) {
-      for (const f of featured) {
+    if (typeof featuredTenants === "undefined") {
+      property.featuredTenants = undefined
+    } else if (Array.isArray(featuredTenants)) {
+      for (const f of featuredTenants) {
         if (typeof f !== "string" || !f) {
           failed = true
-          message.featuredValues = "Featured array contains non-strings"
+          message.featuredTenants = "featured tenants array contains non-strings"
         }
       }
-      property.featured = featured
+      property.featuredTenants = featuredTenants
     } else {
-      message.featured = "Featured must be an array of strings"
+      message.featuredTenants = "featured tenants must be an array of strings"
     }
     if (
       typeof leaseSize === "undefined" ||
@@ -569,14 +648,12 @@ const updateProperty = async (req, res) => {
       numTownHome,
       numStacked,
       numCondo,
-      dateCompleted,
     } = req.body
     const numSingleN = Number(numSingle)
     const numSemiN = Number(numSemi)
     const numTownHomeN = Number(numTownHome)
     const numStackedN = Number(numStacked)
     const numCondoN = Number(numCondo)
-    const dateCompletedN = Date.parse(dateCompleted)
 
     count = 0
 
@@ -633,16 +710,6 @@ const updateProperty = async (req, res) => {
       failed = true
       message.numUnits = "At least 1 of any type of unit is required"
     }
-    if (dateCompleted && isNaN(dateCompletedN)) {
-      failed = true
-      message.dateCompleted =
-        "Date completed must be a string in the form YYYY-MM-DD"
-    } else if (dateCompleted) {
-      property.dateCompleted = new Date(dateCompletedN)
-      //.toISOString().split("T")[0]
-    } else {
-      property.dateCompleted = undefined
-    }
   }
 
   if (failed) {
@@ -676,11 +743,11 @@ const updateProperty = async (req, res) => {
 }
 
 // @desc Delete a property
-// @route DELETE /properties/:pid
+// @route DELETE /properties/:id
 // @access Private
 const deleteProperty = async (req, res) => {
-  const pid = req.params.pid
-  const property = await Property.findOne({ pid }).lean().exec()
+  const id = req.params.id
+  const property = await Property.findById(id).lean().exec()
 
   if (!property) {
     return res.status(400).json({ message: "Property not found" })
@@ -689,7 +756,7 @@ const deleteProperty = async (req, res) => {
   deleteImages(property.images)
 
   await Property.deleteOne(property)
-  res.json({ message: `${pid} deleted` })
+  res.json({ message: `${id} deleted` })
 }
 
 const deleteImages = (images) => {

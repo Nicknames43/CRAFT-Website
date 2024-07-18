@@ -29,10 +29,72 @@ export const propertiesApiSlice = apiSlice.injectEndpoints({
         } else return [{ type: "Property", id: "LIST" }]
       },
     }),
+    addNewProperty: builder.mutation({
+      query: (initialPropertyData) => {
+        const formData = new FormData()
+        for (const key in initialPropertyData) {
+          const value = initialPropertyData[key]
+          if (key === "featuredTenants") {
+            for (const tenant of value) {
+              formData.append(key, tenant)
+            }
+          } else if (key === "imageOrder") {
+            for (const image of value) {
+              formData.append("images", image.file)
+            }
+          } else {
+            formData.append(
+              key,
+              typeof value === "string" ? value : JSON.stringify(value)
+            )
+          }
+        }
+
+        return {
+          url: "/properties",
+          method: "POST",
+          body: {
+            ...initialPropertyData,
+          },
+        }
+      },
+      invalidatesTags: [{ type: "Property", id: "LIST" }],
+    }),
+    updateProperty: builder.mutation({
+      query: (initialPropertyData) => {
+        return {
+          url: `/properties/${initialPropertyData.id}`,
+          method: "PUT",
+          body: {
+            ...initialPropertyData,
+          },
+        }
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: "Property", id: arg.id },
+      ],
+    }),
+    deleteProperty: builder.mutation({
+      query: ({ id }) => {
+        return {
+          url: `/properties/${id}`,
+          method: "DELETE",
+          body: { id },
+        }
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: "Property", id: arg.id },
+      ],
+    }),
   }),
 })
 
-export const { useGetPropertiesQuery } = propertiesApiSlice
+export const {
+  useGetPropertiesQuery,
+  useAddNewPropertyMutation,
+  useUpdatePropertyMutation,
+  useDeletePropertyMutation,
+} = propertiesApiSlice
 
 // returns the query result object
 export const selectPropertiesResult =

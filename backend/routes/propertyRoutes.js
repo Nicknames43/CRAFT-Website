@@ -34,7 +34,7 @@ router
   .get(verifyJWT, propertyController.getAllProperties)
   .post(verifyJWT, upload.array("images"), propertyController.createNewProperty)
 router
-  .route("/:pid")
+  .route("/:id")
   .get(propertyController.getProperty)
   .put(verifyJWT, upload.array("newImages"), propertyController.updateProperty)
   .delete(verifyJWT, propertyController.deleteProperty)
