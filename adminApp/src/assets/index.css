@@ -25,10 +25,11 @@
 /* || UTILITY CLASSES */
 .errmsg {
   display: inline-block;
-  background-color: var(--TABLE-BGCOLOR);
   color: var(--ERROR);
-  padding: 0.25em;
-  margin-bottom: 0.5em;
+}
+
+.noerrmsg{
+  display: none
 }
 
 .nowrap {
@@ -343,7 +344,7 @@ tr {
   }
 
   .table--properties {
-    grid-template-columns: repeat(2, 2fr) repeat(2, 1fr);
+    grid-template-columns: 2fr repeat(6, 1fr);
   }
 
   .property__status,
@@ -354,4 +355,37 @@ tr {
   .form__action-buttons {
     position: static;
   }
+}
+
+
+
+
+
+.testBox{
+  width: 1000px;
+  flex-direction: row;
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+  background-color: #FFF;
+}
+
+.elem{
+  width: 200px;
+  height: 200px;
+  touch-action: none;  
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+input[type='file'] {
+  color: transparent;
+}
+
+img {
+  height: auto; 
+  width: auto; 
+  max-width: 100px; 
+  max-height: 100px;
 }
