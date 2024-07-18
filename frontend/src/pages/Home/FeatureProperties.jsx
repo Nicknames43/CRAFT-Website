@@ -5,12 +5,12 @@ import Carousel from "../../components/Carousel"
 
 function FeatureProperty({ icon, title, description, infoLink }) {
   return (
-    <div className="carousel-item">
-      <img src={icon} alt={title} className="carousel-item__img" />
-      <div className="carousel-item__text">
-        <p className="carousel-item__description">{description}</p>
+    <div className="feature-property">
+      <img src={icon} alt={title} className="feature-property__img" />
+      <div className="feature-property__text">
+        <p className="feature-property__description">{description}</p>
         <br />
-        <p className="carousel-item__info-link">
+        <p className="feature-property__info-link">
           For more information, please visit:{" "}
           <a href={`https://www.${infoLink}`}>{infoLink}</a>
         </p>

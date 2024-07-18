@@ -1,0 +1,197 @@
+.properties .drop-down__top{
+    gap: 1vw;
+    margin-left: 11.25vw;
+}
+
+.viewing-options{
+    margin-left: 11.25vw;
+    margin-right: 4vw;
+
+    #{&}__title{
+        font-family: $primary-font-light;
+        color: $font-on-bg-colour;
+        font-size: 1.65vw;
+        line-height: 1.6;
+    }
+
+    .checkbox__text{
+        font-size: 1.25vw;
+    }
+
+    .checkbox__img{
+        height: 0.89vw;
+    }
+
+    #{&}__container{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+.properties-title{
+    width: 124vw;
+    margin-left: -12vw;
+    height: 21vw;
+
+    #{&}__container{
+        width: 100%;
+        height: 100%;
+        container: properties-title / size;
+        overflow-y: visible;
+    }
+
+    foreignObject, svg{
+        overflow: visible;
+    }
+}
+
+@container properties-title (min-height: 0px) {
+    .properties-title__heading{
+        font-family: $primary-font-light;
+        color: $font-on-bg-colour;
+        font-size: 42cqh;
+        text-transform: uppercase;
+    }
+
+    .properties-title__description{
+        font-family: $secondary-font;
+        color: $font-on-bg-colour-secondary;
+        font-size: 13cqh;
+        overflow-y: visible;
+    }
+}
+
+.search-bar{
+    height: max-content;
+
+    #{&}__title{
+        margin-left: 12vw;
+        font-family: $primary-font-light;
+        color: $font-on-bg-colour;
+        font-size: 2vw;
+    }
+
+    #{&}__form{
+        container: search-bar / size;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+
+        ::placeholder{
+            color: $font-on-accent-colour;
+        }
+    }
+
+    #{&}__bg{
+        width: 127vw;
+        margin-left: -13vw;
+    }
+
+    #{&}__type{
+        height: 100%;
+        background-color: $accent-colour-dark;
+        color: $font-on-accent-colour;
+        border: none;
+        font-family: $primary-font-light;
+    }
+}
+
+@container search-bar (min-height: 0px) {
+    .search-bar__type{
+        font-size: 33cqh;
+        width: 100cqw;
+    }
+}
+
+.property-list{
+    #{&}__city-banner{
+        width: 127vw;
+        margin-left: -13vw;
+    }
+
+    #{&}__divider{
+        margin: 2vw 0;
+    }
+
+    #{&}__city-container{
+        width: 100%;
+        height: 100%;
+        container: city-name / size;
+        display: grid;
+        align-items: center;
+    }
+
+    #{&}__city-text{
+        font-family: $primary-font-light;
+        color: $font-on-accent-colour;
+    }
+
+    #{&}__title{
+        color: $font-on-bg-colour;
+        font-family: $primary-font-light;
+        font-size: 3vw;
+        margin-left: 11.25vw;
+    }
+
+    #{&}__selected{
+        margin-left: 11.25vw;
+        margin-right: 11.25vw;
+    }
+
+    #{&}__option{
+        color: $font-on-bg-colour-tertiary;
+        font-family: $secondary-font;
+        font-size: 1.2vw;
+        line-height: 1.5;
+    }
+
+    #{&}__option-title{
+        color: $font-on-bg-colour-secondary;
+        padding-right: 1vw;
+        margin-right: 1vw;
+        border-right: 2px solid;
+        border-color: $font-on-bg-colour-secondary;
+        font-family: $primary-font-light;
+        font-size: 1.5vw;
+        text-transform: uppercase;
+    }
+}
+
+@container city-name (min-height: 0px) {
+    .property-list__city-text{
+        font-size: 33cqh;
+        width: 100cqw;
+    }
+}
+
+.property-listing{
+    margin-left: 11.25vw;
+    width: 77.5vw;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas: "im c1 c2";
+
+    #{&}__text{
+        color: $font-on-bg-colour-secondary;
+        font-family: $secondary-font;
+        font-size: 1.5vw;
+        line-height: 1.5;
+    }
+
+    #{&}__text_bold{
+        font-family: $primary-font-light;
+        font-weight: bold;
+    }
+
+    #{&}__col1{
+        grid-area: c1;
+    }
+
+    #{&}__col2{
+        grid-area: c2;
+    }
+
+    #{&}__img{
+        grid-area: im;
+    }
+}

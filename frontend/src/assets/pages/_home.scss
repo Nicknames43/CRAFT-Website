@@ -21,21 +21,6 @@
         display: grid;
    }
 
-   #{&}__learn-more-container{
-        width: 27vw;
-        height: 5vw;
-        display: inline-block;
-   }
-
-   #{&}__link-container{
-        height: 100%;
-        width: 100%;
-        display: grid;
-        align-content: center;
-        justify-content: center;
-        container: learn-more-link / size;
-   }
-
    #{&}__summary{
         display: inline-block;
         width: 47vw;
@@ -65,15 +50,6 @@
     }
 }
 
-@container learn-more-link (min-width: 0px) {
-    .home-welcome a:any-link{
-        color: $font-on-accent-colour;
-        font-family: $primary-font-light;
-        text-decoration: none;
-        font-size: 40cqh;
-    }
-}
-
 .feature-properties{
     overflow-x: hidden;
 
@@ -95,7 +71,7 @@
 }
 
 @container carousel (min-height: 0px) {
-    .carousel-item{
+    .feature-property{
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -191,12 +167,6 @@
             overflow: visible;
         }
     
-        #{&}__learn-more-container{
-            height: 100%;
-            width: 100%;
-            container: learn-more / size;
-        }
-    
         #{&}__text-container{
             height: 100%;
             width: 100%;
@@ -204,30 +174,6 @@
             display: grid;
             align-content: center;
         }
-    
-        #{&}__link-container{
-            height: 100%;
-            width: 100%;
-            display: grid;
-            align-content: center;
-            justify-content: center;
-            container: learn-more-link / size;
-        }
-    }
-}
-
-@container learn-more-link (min-height: 0px) {
-    .interested a:any-link{
-        color: $accent-colour-light;
-        font-family: $primary-font-light;
-        text-decoration: none;
-        font-size: 60cqh;
-    }
-}
-
-@container learn-more (min-height: 0px) {
-    .interested_learn-more{
-        height: 7cqh;
     }
 }
 

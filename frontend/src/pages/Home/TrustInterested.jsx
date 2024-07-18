@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import ButtonLink from "../../components/ButtonLink"
 
 function TrustInterested() {
   return (
@@ -100,44 +101,13 @@ function TrustInterested() {
             </div>
           </foreignObject>
           <foreignObject x="330" y="240" width="418" height="95">
-            <div
-              xmlns="http://www.w3.org/1999/xhtml"
-              className="interested__learn-more-container"
-            >
-              <svg
-                className="interested__learn-more"
-                viewBox="0 0 418.278 67.4"
-              >
-                <g
-                  id="Group_20"
-                  data-name="Group 20"
-                  transform="translate(-393.466 -4590.541)"
-                >
-                  <path
-                    id="Path_239"
-                    data-name="Path 239"
-                    d="M415.978-157.718l-85.19,51.4h275.6l85.19-51.4Z"
-                    transform="translate(91.423 4756.259)"
-                    fill="#fff"
-                  />
-                  <path
-                    id="Path_239_-_Outline"
-                    data-name="Path 239 - Outline"
-                    d="M415.978-157.718l-85.19,51.4h275.6l85.19-51.4h-275.6m-2.226-8h306.57l-111.708,67.4H302.043Z"
-                    transform="translate(91.423 4756.259)"
-                    fill="#2869a8"
-                  />
-                </g>
-                <foreignObject x="28" y="10" width="362" height="48">
-                  <div
-                    className="interested__link-container"
-                    xmlns="http://www.w3.org/1999/xhtml"
-                  >
-                    <Link to="/Properties">LEARN MORE</Link>
-                  </div>
-                </foreignObject>
-              </svg>
-            </div>
+            <ButtonLink
+              text="LEARN MORE"
+              page="Properties"
+              inverted={true}
+              w="100%"
+              h="100%"
+            />
           </foreignObject>
         </svg>
         <svg className="interested__arrow" viewBox="0 0 710 336.408">
@@ -170,44 +140,13 @@ function TrustInterested() {
             </div>
           </foreignObject>
           <foreignObject x="330" y="240" width="418" height="95">
-            <div
-              xmlns="http://www.w3.org/1999/xhtml"
-              className="interested__learn-more-container"
-            >
-              <svg
-                className="interested__learn-more"
-                viewBox="0 0 418.278 67.4"
-              >
-                <g
-                  id="Group_20"
-                  data-name="Group 20"
-                  transform="translate(-393.466 -4590.541)"
-                >
-                  <path
-                    id="Path_239"
-                    data-name="Path 239"
-                    d="M415.978-157.718l-85.19,51.4h275.6l85.19-51.4Z"
-                    transform="translate(91.423 4756.259)"
-                    fill="#fff"
-                  />
-                  <path
-                    id="Path_239_-_Outline"
-                    data-name="Path 239 - Outline"
-                    d="M415.978-157.718l-85.19,51.4h275.6l85.19-51.4h-275.6m-2.226-8h306.57l-111.708,67.4H302.043Z"
-                    transform="translate(91.423 4756.259)"
-                    fill="#2869a8"
-                  />
-                </g>
-                <foreignObject x="28" y="10" width="362" height="48">
-                  <div
-                    className="interested__link-container"
-                    xmlns="http://www.w3.org/1999/xhtml"
-                  >
-                    <Link to="/Properties">LEARN MORE</Link>
-                  </div>
-                </foreignObject>
-              </svg>
-            </div>
+            <ButtonLink
+              text="LEARN MORE"
+              page="Properties"
+              inverted={true}
+              w="100%"
+              h="100%"
+            />
           </foreignObject>
         </svg>
       </div>
