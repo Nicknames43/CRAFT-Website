@@ -12,12 +12,12 @@ const getAllUsers = async (req, res) => {
   res.json(users)
 }
 
-// @desc Get all users
-// @route GET /users/:username
+// @desc Get individual user
+// @route GET /users/:id
 // @access Private
 const getUser = async (req, res) => {
-  const username = req.params.username
-  const user = await User.findOne({ username: username })
+  const id = req.params.id
+  const user = await User.findById(id)
     .select("-password")
     .lean()
     .exec()
@@ -59,11 +59,11 @@ const createNewUser = async (req, res) => {
 }
 
 // @desc Update a user
-// @route PUT /users/:username
+// @route PUT /users/:id
 // @access Private
 const updateUser = async (req, res) => {
-  const username = req.params.username
-  const { password, roles } = req.body
+  const id = req.params.id
+  const { username, password, roles } = req.body
 
   if (!username || !Array.isArray(roles) || !roles.length) {
     return res
@@ -71,10 +71,20 @@ const updateUser = async (req, res) => {
       .json({ message: "All fields except password are required" })
   }
 
-  const user = await User.findOne({ username: username }).exec()
-
+  const user = await User.findById(id).exec()
   if (!user) {
     return res.status(400).json({ message: "user not found" })
+  }
+
+  if(username){
+    const duplicate = await User.findOne({ username })
+      .collation({ locale: "en", strength: 2 })
+      .lean()
+      .exec()
+      if (duplicate && duplicate?._id.toString() !== id) {
+        return res.status(400).json({ message: "username already exists" })
+    }
+    user.username = username
   }
 
   user.roles = roles
@@ -85,22 +95,22 @@ const updateUser = async (req, res) => {
 
   const updatedUser = await user.save()
 
-  res.json({ message: `${updatedUser.username} updated` })
+  res.json({ message: `updated user with id ${id}` })
 }
 
 // @desc Delete a user
-// @route DELETE /users/:username
+// @route DELETE /users/:id
 // @access Private
 const deleteUser = async (req, res) => {
-  const username = req.params.username
-  const user = await User.findOne({ username: username }).exec()
+  const id = req.params.id
+  const user = await User.findById(id).exec()
 
   if (!user) {
     return res.status(400).json({ message: "user not found" })
   }
 
   await user.deleteOne()
-  res.json({message: `${username} deleted`})
+  res.json({message: `deleted user with id ${id}`})
 }
 
 module.exports = { getAllUsers, getUser, createNewUser, updateUser, deleteUser }
