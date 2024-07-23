@@ -58,7 +58,7 @@ const ResidentialForm = ({
   return (
     <>
       <label className="form__label" htmlFor="numSingle">
-        NumSingle:{" "}
+        Number of Single Units:{" "}
         <span className={`nowrap ${numSingleErr ? "errmsg" : "noerrmsg"}`}>
           {error?.numSingle ?? ""}
         </span>
@@ -73,7 +73,7 @@ const ResidentialForm = ({
         onChange={onNumSingleChanged}
       />
       <label className="form__label" htmlFor="numSemi">
-        NumSemi:{" "}
+        Number of Semi-Detached Units:{" "}
         <span className={`nowrap ${numSemiErr ? "errmsg" : "noerrmsg"}`}>
           {error?.numSemi ?? ""}
         </span>
@@ -88,7 +88,7 @@ const ResidentialForm = ({
         onChange={onNumSemiChanged}
       />
       <label className="form__label" htmlFor="numTownHome">
-        NumTownHome:{" "}
+        Number of Townhome Units:{" "}
         <span className={`nowrap ${numTownHomeErr ? "errmsg" : "noerrmsg"}`}>
           {error?.numTownHome ?? ""}
         </span>
@@ -103,7 +103,7 @@ const ResidentialForm = ({
         onChange={onNumTownHomeChanged}
       />
       <label className="form__label" htmlFor="numStacked">
-        NumStacked:{" "}
+        Number of Stacked Units:{" "}
         <span className={`nowrap ${numStackedErr ? "errmsg" : "noerrmsg"}`}>
           {error?.numStacked ?? ""}
         </span>
@@ -118,7 +118,7 @@ const ResidentialForm = ({
         onChange={onNumStackedChanged}
       />
       <label className="form__label" htmlFor="numCondo">
-        NumCondo:{" "}
+        Number of Condo Units:{" "}
         <span className={`nowrap ${numCondoErr ? "errmsg" : "noerrmsg"}`}>
           {error?.numCondo ?? ""}
         </span>

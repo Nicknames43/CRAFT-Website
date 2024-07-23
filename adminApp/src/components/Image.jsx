@@ -10,7 +10,7 @@ const animateLayoutChanges = (args) => {
   return true
 }
 
-const Elem = ({ id, onClick }) => {
+const Image = ({ id, onClick }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ animateLayoutChanges, id })
 
@@ -20,10 +20,10 @@ const Elem = ({ id, onClick }) => {
     backgroundImage: `url(${id})`,
   }
   return (
-    <div style={style} ref={setNodeRef} {...attributes} className="elem">
+    <div style={style} ref={setNodeRef} {...attributes} className="image">
       <button {...listeners}>Drag</button>
       <button onClick={onClick}>Remove</button>
     </div>
   )
 }
-export default Elem
+export default Image

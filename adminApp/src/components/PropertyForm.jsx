@@ -2,6 +2,7 @@ import { useGetSalesManagersQuery } from "../app/api/salesManagersApiSlice"
 import SalesManagerOption from "./SalesManagerOption"
 import { useState, useEffect } from "react"
 import PropTypes from "prop-types"
+import PulseLoader from "react-spinners/PulseLoader"
 
 const PropertyForm = ({
   isError,
@@ -45,12 +46,12 @@ const PropertyForm = ({
     data: salesManagers,
     isLoading: isGetLoading,
     isSuccess: isGetSuccess,
-    isError: isGetError,
   } = useGetSalesManagersQuery("salesManagersList", {
     pollingInterval: 60000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   })
+
   const [publishedErr, setPublishedErr] = useState(isError)
   const [featuredErr, setFeaturedErr] = useState(isError)
   const [nameErr, setNameErr] = useState(isError)
@@ -175,12 +176,10 @@ const PropertyForm = ({
     setDateCompletedErr(false)
   }, [dateCompleted])
 
-  let salesManagersSelect
+  let salesManagersSelect = <></>
   let content
 
-  if (isGetLoading) content = <p>Loading...</p>
-
-  if (isGetError) salesManagersSelect = <></>
+  if (isGetLoading) content = <PulseLoader color="#FFF" />
 
   if (isGetSuccess) {
     const { ids: salesManagersIds } = salesManagers
@@ -188,7 +187,7 @@ const PropertyForm = ({
       salesManagersSelect = (
         <>
           <label className="form__label" htmlFor="salesManager">
-            SalesManager:{" "}
+            Sales Manager:{" "}
             <span
               className={`nowrap ${salesManagerErr ? "errmsg" : "noerrmsg"}`}
             >
@@ -212,8 +211,6 @@ const PropertyForm = ({
           </select>
         </>
       )
-    } else {
-      salesManagersSelect = <></>
     }
   }
 
@@ -221,34 +218,49 @@ const PropertyForm = ({
     <>
       <label className="form__label" htmlFor="published">
         Published:{" "}
+        <input
+          className={`form__input`}
+          id="published"
+          name="published"
+          type="checkbox"
+          autoComplete="off"
+          checked={published}
+          onChange={onPublishedChanged}
+        />
         <span className={`nowrap ${publishedErr ? "errmsg" : "noerrmsg"}`}>
           {error?.published ?? ""}
         </span>
       </label>
-      <input
-        className={`form__input`}
-        id="published"
-        name="published"
-        type="checkbox"
-        autoComplete="off"
-        checked={published}
-        onChange={onPublishedChanged}
-      />
       <label className="form__label" htmlFor="featured">
         Featured:{" "}
+        <input
+          className={`form__input`}
+          id="featured"
+          name="featured"
+          type="checkbox"
+          autoComplete="off"
+          checked={featured}
+          onChange={onFeaturedChanged}
+        />
         <span className={`nowrap ${featuredErr ? "errmsg" : "noerrmsg"}`}>
           {error?.featured ?? ""}
         </span>
       </label>
-      <input
-        className={`form__input`}
-        id="featured"
-        name="featured"
-        type="checkbox"
-        autoComplete="off"
-        checked={featured}
-        onChange={onFeaturedChanged}
-      />
+      <label className="form__label" htmlFor="developed">
+        Developed:{" "}
+        <input
+          className={`form__input`}
+          id="developed"
+          name="developed"
+          type="checkbox"
+          autoComplete="off"
+          checked={developed}
+          onChange={onDevelopedChanged}
+        />
+        <span className={`nowrap ${developedErr ? "errmsg" : "noerrmsg"}`}>
+          {error?.developed ?? ""}
+        </span>
+      </label>
       <label className="form__label" htmlFor="name">
         Name:{" "}
         <span className={`nowrap ${nameErr ? "errmsg" : "noerrmsg"}`}>
@@ -310,7 +322,7 @@ const PropertyForm = ({
         onChange={onCityChanged}
       />
       <label className="form__label" htmlFor="streetName">
-        StreetName:{" "}
+        Street Name:{" "}
         <span className={`nowrap ${streetNameErr ? "errmsg" : "noerrmsg"}`}>
           {error?.streetName ?? ""}
         </span>
@@ -325,7 +337,7 @@ const PropertyForm = ({
         onChange={onStreetNameChanged}
       />
       <label className="form__label" htmlFor="streetNum">
-        StreetNum:{" "}
+        Street Num:{" "}
         <span className={`nowrap ${streetNumErr ? "errmsg" : "noerrmsg"}`}>
           {error?.streetNum ?? ""}
         </span>
@@ -340,7 +352,7 @@ const PropertyForm = ({
         onChange={onStreetNumChanged}
       />
       <label className="form__label" htmlFor="postalCode">
-        PostalCode:{" "}
+        Postal Code:{" "}
         <span className={`nowrap ${postalCodeErr ? "errmsg" : "noerrmsg"}`}>
           {error?.postalCode ?? ""}
         </span>
@@ -390,17 +402,16 @@ const PropertyForm = ({
           {error?.description ?? ""}
         </span>
       </label>
-      <input
-        className={`form__input`}
+      <textarea
+        className={`form__input form__input--text`}
         id="description"
         name="description"
-        type="text"
         autoComplete="off"
         value={description}
         onChange={onDescriptionChanged}
       />
       <label className="form__label" htmlFor="siteArea">
-        SiteArea:{" "}
+        Site Area:{" "}
         <span className={`nowrap ${siteAreaErr ? "errmsg" : "noerrmsg"}`}>
           {error?.siteArea ?? ""}
         </span>
@@ -414,24 +425,9 @@ const PropertyForm = ({
         value={siteArea}
         onChange={onSiteAreaChanged}
       />
-      <label className="form__label" htmlFor="developed">
-        Developed:{" "}
-        <span className={`nowrap ${developedErr ? "errmsg" : "noerrmsg"}`}>
-          {error?.developed ?? ""}
-        </span>
-      </label>
-      <input
-        className={`form__input`}
-        id="developed"
-        name="developed"
-        type="checkbox"
-        autoComplete="off"
-        checked={developed}
-        onChange={onDevelopedChanged}
-      />
       {salesManagersSelect}
       <label className="form__label" htmlFor="salesURL">
-        SalesURL:{" "}
+        External Sales Link:{" "}
         <span className={`nowrap ${salesURLErr ? "errmsg" : "noerrmsg"}`}>
           {error?.salesURL ?? ""}
         </span>
@@ -446,7 +442,7 @@ const PropertyForm = ({
         onChange={onSalesURLChanged}
       />
       <label className="form__label" htmlFor="dateCompleted">
-        DateCompleted:{" "}
+        Date Completed:{" "}
         <span className={`nowrap ${dateCompletedErr ? "errmsg" : "noerrmsg"}`}>
           {error?.dateCompleted ?? ""}
         </span>

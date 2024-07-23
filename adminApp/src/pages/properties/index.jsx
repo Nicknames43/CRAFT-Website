@@ -16,7 +16,6 @@ const PropertiesList = () => {
   })
 
   const navigate = useNavigate()
-
   const handleCreate = () => navigate(`/dash/properties/new`)
 
   let content

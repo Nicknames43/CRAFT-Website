@@ -1,5 +1,7 @@
 import { useGetUsersQuery } from "../../app/api/usersApiSlice"
+import { useNavigate } from "react-router-dom"
 import User from "./User"
+import useAuth from "../../hooks/useAuth"
 
 const UsersList = () => {
   const {
@@ -14,6 +16,13 @@ const UsersList = () => {
     refetchOnMountOrArgChange: true,
   })
 
+  const navigate = useNavigate()
+  const handleCreate = () => navigate(`/dash/users/new`)
+  const { admin } = useAuth()
+
+  if (!admin) {
+    return <p className="errmsg">Unauthorized</p>
+  }
   let content
 
   if (isLoading) content = <p>Loading...</p>
@@ -30,22 +39,27 @@ const UsersList = () => {
       : null
 
     content = (
-      <table className="table table--users">
-        <thead className="table__thead">
-          <tr>
-            <th scope="col" className="table__th user__username">
-              Username
-            </th>
-            <th scope="col" className="table__th user__roles">
-              Admin
-            </th>
-            <th scope="col" className="table__th user__edit">
-              Edit
-            </th>
-          </tr>
-        </thead>
-        <tbody>{tableContent}</tbody>
-      </table>
+      <>
+        <button title="Create" onClick={handleCreate}>
+          New User
+        </button>
+        <table className="table table--users">
+          <thead className="table__thead">
+            <tr>
+              <th scope="col" className="table__th user__username">
+                Username
+              </th>
+              <th scope="col" className="table__th user__roles">
+                Admin
+              </th>
+              <th scope="col" className="table__th user__edit">
+                Edit
+              </th>
+            </tr>
+          </thead>
+          <tbody>{tableContent}</tbody>
+        </table>
+      </>
     )
   }
 

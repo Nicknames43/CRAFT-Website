@@ -1,19 +1,25 @@
 import { useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
-import { selectUserById } from "../../app/api/usersApiSlice"
 import UserForm from "../../components/UserForm"
 import { useState, useEffect } from "react"
 import {
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useGetUsersQuery,
 } from "../../app/api/usersApiSlice"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
+import useAuth from "../../hooks/useAuth"
+import PulseLoader from "react-spinners/PulseLoader"
 
 const User = () => {
   const { id } = useParams()
-  const user = useSelector((state) => selectUserById(state, id))
+  const { user } = useGetUsersQuery("usersList", {
+    selectFromResult: ({ data }) => ({
+      user: data?.entities[id],
+    }),
+  })
+  const { admin: authAdmin, id: authId } = useAuth()
 
   const [updateUser, { isLoading, isSuccess, isError, error }] =
     useUpdateUserMutation()
@@ -22,18 +28,27 @@ const User = () => {
 
   const navigate = useNavigate()
 
-  const [username, setUsername] = useState(user.username)
+  const [username, setUsername] = useState(user?.username ?? "")
   const [password, setPassword] = useState("")
-  const [admin, setAdmin] = useState(user.admin)
+  const [admin, setAdmin] = useState(user?.admin ?? false)
 
   useEffect(() => {
     if (isSuccess || isDelSuccess) {
       setUsername("")
       setPassword("")
       setAdmin(false)
-      navigate("/dash/users")
+      if (authAdmin) {
+        navigate("/dash/users")
+      } else {
+        navigate("/dash")
+      }
     }
-  }, [isSuccess, isDelSuccess, navigate])
+  }, [isSuccess, isDelSuccess, navigate, authAdmin])
+
+  useEffect(() => {
+    setUsername(user?.username ?? "")
+    setAdmin(user?.admin ?? false)
+  }, [user?.admin, user?.username])
 
   const onSaveUserClicked = async () => {
     if (password) {
@@ -56,10 +71,11 @@ const User = () => {
   }
 
   const content = !user ? (
-    <p>Loading...</p>
+    <PulseLoader color="#FFF" />
+  ) : id !== authId && !authAdmin ? (
+    <p>Action Not Allowed</p>
   ) : (
     <>
-      {" "}
       <form className="form" onSubmit={(e) => e.preventDefault()}>
         <div className="form__title-row">
           <h2>Edit User</h2>
