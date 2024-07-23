@@ -8,10 +8,12 @@ const initialState = salesManagersAdapter.getInitialState()
 export const salesManagersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSalesManagers: builder.query({
-      query: () => "/salesManagers",
-      validateStatus: (response, result) => {
-        return response.status === 200 && !result.isError
-      },
+      query: () => ({
+        url: "/salesManagers",
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError
+        },
+      }),
       transformResponse: (responseData) => {
         const loadedSalesManagers = responseData.map((salesManager) => {
           salesManager.id = salesManager._id

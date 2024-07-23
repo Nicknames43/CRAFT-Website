@@ -5,6 +5,7 @@ import { PROPERTY_TYPES } from "../../config/propertyTypes"
 import PropertyForm from "../../components/PropertyForm"
 import ResidentialForm from "../../components/ResidentialForm"
 import CommercialForm from "../../components/CommercialForm"
+import ImageSelector from "../../components/ImageSelector"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSave } from "@fortawesome/free-solid-svg-icons"
 
@@ -33,7 +34,7 @@ const NewProperty = () => {
   const [salesManager, setSalesManager] = useState("")
   const [salesURL, setSalesURL] = useState("")
   const [dateCompleted, setDateCompleted] = useState("yyyy-mm-dd")
-  //const [images, setImages] = useState(property.images)
+  const [imageOrder, setImageOrder] = useState([])
 
   // States for commercial properties
   const [size, setSize] = useState(0)
@@ -77,7 +78,7 @@ const NewProperty = () => {
       description,
       siteArea,
       developed,
-      images: [],
+      imageOrder,
     }
 
     if (salesManager !== "") {
@@ -267,6 +268,7 @@ const NewProperty = () => {
           setDateCompleted={setDateCompleted}
         />
         {additionalFields}
+        <ImageSelector imageOrder={imageOrder} setImageOrder={setImageOrder} />
       </form>
     </>
   )

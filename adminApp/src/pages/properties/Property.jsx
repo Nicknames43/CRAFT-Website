@@ -1,15 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
 import {
-  selectPropertyById,
   useDeletePropertyMutation,
+  useGetPropertiesQuery,
 } from "../../app/api/propertiesApiSlice"
 import { PROPERTY_TYPES } from "../../config/propertyTypes"
+import { memo } from "react"
 
 const Property = ({ propertyId }) => {
-  const property = useSelector((state) => selectPropertyById(state, propertyId))
+  const { property } = useGetPropertiesQuery("propertiesList", {
+    selectFromResult: ({ data }) => ({
+      property: data?.entities[propertyId],
+    }),
+  })
 
   const [deleteProperty] = useDeletePropertyMutation()
 
@@ -55,4 +59,6 @@ const Property = ({ propertyId }) => {
     )
   } else return null
 }
-export default Property
+
+const memoizedProperty = memo(Property)
+export default memoizedProperty

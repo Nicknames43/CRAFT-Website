@@ -86,7 +86,7 @@ const CommercialForm = ({
         return (
           <Fragment key={`featuredTenants${index}`}>
             <label className="form__label" htmlFor={`featuredTenants${index}`}>
-              FeaturedTenants #{index + 1}:
+              Featured Tenant #{index + 1}:
             </label>
             <input
               className={`form__input`}
@@ -108,7 +108,7 @@ const CommercialForm = ({
       })}
       <button onClick={addFeaturedTenants}>Add More Featured Tenants</button>
       <label className="form__label" htmlFor="leaseSize">
-        LeaseSize:{" "}
+        Lease Size:{" "}
         <span className={`nowrap ${leaseSizeErr ? "errmsg" : "noerrmsg"}`}>
           {error?.leaseSize ?? ""}
         </span>

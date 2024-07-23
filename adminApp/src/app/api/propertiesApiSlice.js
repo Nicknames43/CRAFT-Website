@@ -8,11 +8,12 @@ const initialState = propertiesAdapter.getInitialState()
 export const propertiesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProperties: builder.query({
-      query: () => "/properties",
-      validateStatus: (response, result) => {
-        return response.status === 200 && !result.isError
-      },
-      keepUnusedDataFor: 5,
+      query: () => ({
+        url: "/properties",
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError
+        },
+      }),
       transformResponse: (responseData) => {
         const loadedProperties = responseData.map((property) => {
           property.id = property._id
@@ -53,21 +54,40 @@ export const propertiesApiSlice = apiSlice.injectEndpoints({
         return {
           url: "/properties",
           method: "POST",
-          body: {
-            ...initialPropertyData,
-          },
+          body: formData,
         }
       },
       invalidatesTags: [{ type: "Property", id: "LIST" }],
     }),
     updateProperty: builder.mutation({
       query: (initialPropertyData) => {
+        const formData = new FormData()
+        for (const key in initialPropertyData) {
+          const value = initialPropertyData[key]
+          if (key === "featuredTenants") {
+            for (const tenant of value) {
+              formData.append(key, tenant)
+            }
+          } else if (key === "imageOrder") {
+            for (const image of value) {
+              if (image.new) {
+                formData.append("newImages", image.file)
+              } else {
+                formData.append("images", image.id)
+              }
+            }
+          } else {
+            formData.append(
+              key,
+              typeof value === "string" ? value : JSON.stringify(value)
+            )
+          }
+        }
+
         return {
           url: `/properties/${initialPropertyData.id}`,
           method: "PUT",
-          body: {
-            ...initialPropertyData,
-          },
+          body: formData,
         }
       },
       invalidatesTags: (result, error, arg) => [

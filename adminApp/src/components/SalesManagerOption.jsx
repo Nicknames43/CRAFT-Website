@@ -1,11 +1,12 @@
-import { selectSalesManagerById } from "../app/api/salesManagersApiSlice"
-import { useSelector } from "react-redux"
+import { useGetSalesManagersQuery } from "../app/api/salesManagersApiSlice"
 import PropTypes from "prop-types"
 
 const SalesManagerOption = ({ salesManagerId }) => {
-  const salesManager = useSelector((state) =>
-    selectSalesManagerById(state, salesManagerId)
-  )
+  const { salesManager } = useGetSalesManagersQuery("salesManagersList", {
+    selectFromResult: ({ data }) => ({
+      salesManager: data?.entities[salesManagerId],
+    }),
+  })
   if (salesManager) {
     return (
       <option

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import PropTypes from "prop-types"
+import useAuth from "../hooks/useAuth"
 
 const UserForm = ({
   isError,
@@ -11,6 +12,7 @@ const UserForm = ({
   admin,
   setAdmin,
 }) => {
+  const { admin: authAdmin } = useAuth()
   const [usernameErr, setUsernameErr] = useState(isError)
   const [passwordErr, setPasswordErr] = useState(isError)
   const [adminErr, setAdminErr] = useState(isError)
@@ -69,21 +71,24 @@ const UserForm = ({
         value={password}
         onChange={onPasswordChanged}
       />
-
-      <label className="form__label" htmlFor="admin">
-        Admin user:{" "}
-        <span className={`nowrap ${adminErr ? "errmsg" : "noerrmsg"}`}>
-          {error?.admin ?? "" ?? ""}
-        </span>
-      </label>
-      <input
-        type="checkbox"
-        id="admin"
-        name="admin"
-        className={`form__select`}
-        checked={admin}
-        onChange={onAdminChanged}
-      />
+      {authAdmin ? (
+        <label className="form__label" htmlFor="admin">
+          Admin user:{" "}
+          <input
+            type="checkbox"
+            id="admin"
+            name="admin"
+            className={`form__select`}
+            checked={admin}
+            onChange={onAdminChanged}
+          />
+          <span className={`nowrap ${adminErr ? "errmsg" : "noerrmsg"}`}>
+            {error?.admin ?? "" ?? ""}
+          </span>
+        </label>
+      ) : (
+        <></>
+      )}
     </>
   )
 
