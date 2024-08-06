@@ -1,0 +1,76 @@
+.form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.75em;
+  max-width: 800px;
+
+  &__checkbox-container {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap: 0.5em;
+  }
+
+  &__persist {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.5em;
+  }
+
+  &__title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__input,
+  &__submit-button {
+    padding: 0.5em;
+    border-radius: 15px;
+  }
+
+  &__input--text {
+    min-height: 150px;
+  }
+
+  &__input--incomplete {
+    border: 1px solid red;
+    outline: 1px solid red;
+  }
+
+  &__input--file {
+    color: transparent;
+  }
+
+  &__checkbox {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__select {
+    width: fit-content;
+    padding: 0.25em;
+  }
+
+  &__action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5em;
+    position: absolute;
+    right: 0.5em;
+  }
+
+  &__row {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 2em;
+  }
+
+  &__divider {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5em;
+  }
+}

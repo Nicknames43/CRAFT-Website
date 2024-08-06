@@ -135,8 +135,10 @@ const NewProperty = () => {
     streetName &&
     streetNum &&
     postalCode &&
-    -90 <= latitude <= 90 &&
-    -180 <= longitude < 180 &&
+    -90 <= latitude &&
+    latitude <= 90 &&
+    -180 <= longitude &&
+    longitude < 180 &&
     description &&
     siteArea > 0
   if (t === PROPERTY_TYPES.commercial) {

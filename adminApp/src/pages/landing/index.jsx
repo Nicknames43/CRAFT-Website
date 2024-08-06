@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
+import { useGetUsersQuery } from "../../app/api/usersApiSlice"
 
 const Landing = () => {
-  const { username, admin, id } = useAuth()
+  const { admin, id } = useAuth()
+  const { username } = useGetUsersQuery("usersList", {
+    selectFromResult: ({ data }) => ({
+      username: data?.entities[id]?.username ?? "",
+    }),
+  })
 
   const content = (
     <section className="landing">

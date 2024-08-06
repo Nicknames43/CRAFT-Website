@@ -1,18 +1,20 @@
-import { Outlet, Link } from "react-router-dom"
+import { useLocation, Navigate, Outlet } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
 import { useRefreshMutation } from "../../app/api/authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import { useSelector } from "react-redux"
 import { selectCurrentToken } from "../../app/authSlice"
+import PulseLoader from "react-spinners/PulseLoader"
 
 const PersistLogin = () => {
   const [persist] = usePersist()
   const token = useSelector(selectCurrentToken)
   const effectRan = useRef(false)
+  const location = useLocation()
 
   const [trueSuccess, setTrueSuccess] = useState(false)
 
-  const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] =
+  const [refresh, { isUninitialized, isLoading, isSuccess, isError }] =
     useRefreshMutation()
 
   useEffect(() => {
@@ -44,16 +46,11 @@ const PersistLogin = () => {
   } else if (isLoading) {
     //persist: yes, token: no
     console.log("loading")
-    content = <p>Loading...</p>
+    content = <PulseLoader color={"#FFF"} />
   } else if (isError) {
     //persist: yes, token: no
     console.log("error")
-    content = (
-      <p className="errmsg">
-        {`${error.data?.message} - `}
-        <Link to="/">Please login again</Link>.
-      </p>
-    )
+    content = <Navigate to="/" state={{ from: location }} replace />
   } else if (isSuccess && trueSuccess) {
     //persist: yes, token: yes
     console.log("success")

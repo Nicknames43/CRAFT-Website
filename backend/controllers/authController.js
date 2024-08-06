@@ -27,8 +27,7 @@ const login = async (req, res) => {
   const accessToken = jwt.sign(
     {
       UserInfo: {
-        id: foundUser.id,
-        username: foundUser.username,
+        id: foundUser._id,
         admin: foundUser.admin,
       },
     },
@@ -37,7 +36,7 @@ const login = async (req, res) => {
   )
 
   const refreshToken = jwt.sign(
-    { username: foundUser.username },
+    { id: foundUser._id },
     process.env.REFRESH_TOKEN_SECRET,
     { expiresIn: "1d" }
   )
@@ -50,7 +49,7 @@ const login = async (req, res) => {
     maxAge: 24 * 60 * 60 * 1000, //cookie expiry: set to match rT
   })
 
-  // Send accessToken containing username and admin
+  // Send accessToken containing id and admin
   res.json({ accessToken })
 }
 
@@ -74,9 +73,7 @@ const refresh = (req, res) => {
         return res.status(403).json({ message: "Forbidden" })
       }
 
-      const foundUser = await User.findOne({
-        username: decoded.username,
-      }).exec()
+      const foundUser = await User.findById(decoded.id).exec()
 
       if (!foundUser) {
         return res.status(401).json({ message: "Unauthorized" })
@@ -85,8 +82,7 @@ const refresh = (req, res) => {
       const accessToken = jwt.sign(
         {
           UserInfo: {
-            id: foundUser.id,
-            username: foundUser.username,
+            id: foundUser._id,
             admin: foundUser.admin,
           },
         },

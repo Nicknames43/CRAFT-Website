@@ -2,6 +2,9 @@ import { useGetUsersQuery } from "../../app/api/usersApiSlice"
 import { useNavigate } from "react-router-dom"
 import User from "./User"
 import useAuth from "../../hooks/useAuth"
+import PulseLoader from "react-spinners/PulseLoader"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons"
 
 const UsersList = () => {
   const {
@@ -25,7 +28,7 @@ const UsersList = () => {
   }
   let content
 
-  if (isLoading) content = <p>Loading...</p>
+  if (isLoading) content = <PulseLoader color={"#FFF"} />
 
   if (isError) {
     content = <p className="errmsg">{error?.data?.message}</p>
@@ -40,8 +43,8 @@ const UsersList = () => {
 
     content = (
       <>
-        <button title="Create" onClick={handleCreate}>
-          New User
+        <button className="icon-button create-button" onClick={handleCreate}>
+          <FontAwesomeIcon icon={faUserPlus} />
         </button>
         <table className="table table--users">
           <thead className="table__thead">
@@ -49,11 +52,14 @@ const UsersList = () => {
               <th scope="col" className="table__th user__username">
                 Username
               </th>
-              <th scope="col" className="table__th user__roles">
+              <th scope="col" className="table__th user__admin">
                 Admin
               </th>
               <th scope="col" className="table__th user__edit">
                 Edit
+              </th>
+              <th scope="col" className="table__th user__delete">
+                Delete
               </th>
             </tr>
           </thead>

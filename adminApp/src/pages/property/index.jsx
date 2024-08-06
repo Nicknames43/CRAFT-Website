@@ -49,7 +49,7 @@ const Property = () => {
   const [salesManager, setSalesManager] = useState(property?.salesManager ?? "")
   const [salesURL, setSalesURL] = useState(property?.salesURL ?? "")
   const [dateCompleted, setDateCompleted] = useState(
-    property?.dateCompleted ?? "yyyy-mm-dd"
+    property?.dateCompleted?.split("T")[0] ?? "yyyy-mm-dd"
   )
   const [imageOrder, setImageOrder] = useState(
     property?.images?.map((image) => {
@@ -150,8 +150,10 @@ const Property = () => {
     streetName &&
     streetNum &&
     postalCode &&
-    -90 <= latitude <= 90 &&
-    -180 <= longitude < 180 &&
+    -90 <= latitude &&
+    latitude <= 90 &&
+    -180 <= longitude &&
+    longitude < 180 &&
     description &&
     siteArea > 0
   if (property?.__t === PROPERTY_TYPES.commercial) {
@@ -189,7 +191,7 @@ const Property = () => {
     setDeveloped(property?.developed ?? false)
     setSalesManager(property?.salesManager ?? "")
     setSalesURL(property?.salesURL ?? "")
-    setDateCompleted(property?.dateCompleted ?? "yyyy-mm-dd")
+    setDateCompleted(property?.dateCompleted?.split("T")[0] ?? "yyyy-mm-dd")
     setImageOrder(
       property?.images?.map((image) => {
         return { new: false, id: image }

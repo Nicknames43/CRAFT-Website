@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { selectCurrentToken } from "../app/authSlice"
+import { selectCurrentToken } from "../app/authSlice.js"
 import { jwtDecode } from "jwt-decode"
 
 const useAuth = () => {
@@ -7,13 +7,13 @@ const useAuth = () => {
 
   if (token) {
     const decoded = jwtDecode(token)
-    const { username, admin, id } = decoded.UserInfo
+    const { admin, id } = decoded.UserInfo
 
     const status = admin ? "Admin" : "Employee"
 
-    return { username, status, admin, id }
+    return { status, admin, id }
   }
 
-  return { username: "", admin: false, status: "Employee", id: "" }
+  return { admin: false, status: "", id: "" }
 }
 export default useAuth

@@ -19,12 +19,13 @@ const Property = ({ propertyId }) => {
 
   const navigate = useNavigate()
 
-  const handleDelete = async () => {
-    await deleteProperty({ id: property.id })
-  }
-
   if (property) {
     const handleEdit = () => navigate(`/dash/properties/${propertyId}`)
+
+    const handleDelete = async () => {
+      await deleteProperty({ id: property.id })
+    }
+
     const type =
       property.__t === PROPERTY_TYPES.commercial
         ? "Commercial"
@@ -33,7 +34,7 @@ const Property = ({ propertyId }) => {
         : "Not Applicable"
 
     return (
-      <tr className="table__row">
+      <tr className="table__row property">
         <td className="table__cell property__name">{property.name}</td>
         <td className="table__cell property__published">
           {property.published ? "Yes" : "No"}
@@ -45,12 +46,12 @@ const Property = ({ propertyId }) => {
           {property.developed ? "Developed" : "Under development"}
         </td>
         <td className="table__cell property__type">{type}</td>
-        <td className="table__cell">
+        <td className="table__cell table__button-container property__edit">
           <button className="icon-button table__button" onClick={handleEdit}>
             <FontAwesomeIcon icon={faPenToSquare} />
           </button>
         </td>
-        <td className="table__cell">
+        <td className="table__cell table__button-container property__delete">
           <button className="icon-button table__button" onClick={handleDelete}>
             <FontAwesomeIcon icon={faTrashCan} />
           </button>

@@ -1,0 +1,14 @@
+.public {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1em;
+  flex-grow: 1;
+}
+
+.login {
+  flex-grow: 1;
+  border-top: 2px solid $border-colour;
+  border-bottom: 2px solid $border-colour;
+  padding: 1em 0;
+}

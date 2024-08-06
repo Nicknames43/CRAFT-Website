@@ -64,6 +64,7 @@ const ImageSelector = ({ imageOrder, setImageOrder }) => {
       <label className="form__label" htmlFor="images">
         Images:{" "}
         <input
+          className="form__input--file"
           type="file"
           name="images"
           id="images"
@@ -78,11 +79,12 @@ const ImageSelector = ({ imageOrder, setImageOrder }) => {
         measuring={measuringConfig}
       >
         <SortableContext items={imageOrder} strategy={rectSortingStrategy}>
-          <div className="imageSelector">
+          <div className="image-selector">
             {imageOrder.map((img) => {
               return (
                 <Image
                   id={img.id}
+                  newImg={img.new}
                   key={img.id}
                   onClick={() => handleRemove(img.id)}
                 />
