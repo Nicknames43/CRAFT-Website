@@ -7,13 +7,15 @@ const path = require("path")
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) =>
-    cb(null, path.join(__dirname, "../", "/uploads")), // cb -> callback
+    cb(null, path.join(__dirname, "..", "public", "images")), // cb -> callback
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname)
     const name = path.basename(file.originalname, ext)
+    console.log(name)
     const uniqueName = `${name}${Date.now()}-${Math.round(
       Math.random() * 1e6
     )}${ext}`
+    console.log(uniqueName)
     cb(null, uniqueName)
   },
 })

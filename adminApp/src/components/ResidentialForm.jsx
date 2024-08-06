@@ -21,12 +21,46 @@ const ResidentialForm = ({
   const [numStackedErr, setNumStackedErr] = useState(isError)
   const [numCondoErr, setNumCondoErr] = useState(isError)
 
-  const onNumSingleChanged = (event) => setNumSingle(event.target.value)
-  const onNumSemiChanged = (event) => setNumSemi(event.target.value)
-  const onNumTownHomeChanged = (event) => setNumTownHome(event.target.value)
-  const onNumStackedChanged = (event) => setNumStacked(event.target.value)
-  const onNumCondoChanged = (event) => setNumCondo(event.target.value)
-
+  const onNumSingleChanged = (event) => {
+    const num = parseInt(event.target.value, 10)
+    if (isNaN(num) || num < 0) {
+      setNumSingle(0)
+    } else {
+      setNumSingle(num)
+    }
+  }
+  const onNumSemiChanged = (event) => {
+    const num = parseInt(event.target.value, 10)
+    if (isNaN(num) || num < 0) {
+      setNumSemi(0)
+    } else {
+      setNumSemi(num)
+    }
+  }
+  const onNumTownHomeChanged = (event) => {
+    const num = parseInt(event.target.value, 10)
+    if (isNaN(num) || num < 0) {
+      setNumTownHome(0)
+    } else {
+      setNumTownHome(num)
+    }
+  }
+  const onNumStackedChanged = (event) => {
+    const num = parseInt(event.target.value, 10)
+    if (isNaN(num) || num < 0) {
+      setNumStacked(0)
+    } else {
+      setNumStacked(num)
+    }
+  }
+  const onNumCondoChanged = (event) => {
+    const num = parseInt(event.target.value, 10)
+    if (isNaN(num) || num < 0) {
+      setNumCondo(0)
+    } else {
+      setNumCondo(num)
+    }
+  }
   useEffect(() => {
     setNumSingleErr(isError)
     setNumSemiErr(isError)

@@ -73,16 +73,11 @@ const createNewProperty = async (req, res) => {
   let failed = false
   const property = {}
 
-  // image stuff to be changed later (cloud storage)
+  // image stuff to be changed later (cloud storage etc.)
   property.images = []
   for (file of files) {
     const parsedPath = path.parse(file.path)
-    const dirPathArray = parsedPath.dir.split(path.sep)
-    const filePath = path.join(
-      dirPathArray[dirPathArray.length - 1],
-      parsedPath.base
-    )
-    property.images.push(filePath)
+    property.images.push(parsedPath.base)
   }
 
   if (typeof name !== "string" || !name) {
@@ -411,12 +406,7 @@ const updateProperty = async (req, res) => {
   const newImages = []
   for (file of files) {
     const parsedPath = path.parse(file.path)
-    const dirPathArray = parsedPath.dir.split(path.sep)
-    const filePath = path.join(
-      dirPathArray[dirPathArray.length - 1],
-      parsedPath.base
-    )
-    newImages.push(filePath)
+    newImages.push(parsedPath.base)
   }
 
   const property = await Property.findById(id).exec()
@@ -725,7 +715,7 @@ const updateProperty = async (req, res) => {
     .then(() => {
       for (image of oldImages) {
         if (!images.includes(image)) {
-          fs.unlinkSync(image)
+          fs.unlinkSync("public/images/" + image)
         }
       }
       return res.json({ message: `${property.name} updated` })
@@ -758,7 +748,7 @@ const deleteProperty = async (req, res) => {
 
 const deleteImages = (images) => {
   for (file of images) {
-    fs.unlinkSync(file)
+    fs.unlinkSync("public/images/" + file)
   }
 }
 

@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { setCredentials } from "../authSlice"
+import { setCredentials, logOut } from "../authSlice"
+import { BACKEND_API_URL } from "../../config/backendApiURL"
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3500",
+  baseUrl: BACKEND_API_URL.base,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token
@@ -30,10 +31,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       // retry original query with new access token
       result = await baseQuery(args, api, extraOptions)
     } else {
-      if (refreshResult?.error?.status === 403) {
-        refreshResult.error.data.message = "Your login has expired. "
-      }
-      return refreshResult
+      api.dispatch(logOut())
     }
   }
 

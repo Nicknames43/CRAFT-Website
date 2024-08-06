@@ -1,0 +1,14 @@
+.table--users {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media screen and (max-width: 500px) {
+  .table--users {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .user__admin,
+  .user__delete {
+    display: none;
+  }
+}

@@ -1,0 +1,75 @@
+.errmsg {
+  display: inline-block;
+  color: $error-colour;
+}
+
+.noerrmsg {
+  display: none;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.icon-button {
+  width: 48px;
+  height: 48px;
+  font-size: 2.5rem;
+  background-color: transparent;
+  border: none;
+  color: $text-colour;
+  display: grid;
+  place-content: center;
+
+  &:hover,
+  &:focus-visible {
+    transform: scale(1.2);
+  }
+
+  &[disabled] {
+    visibility: hidden;
+  }
+}
+
+body {
+  font-family: sans-serif;
+  min-height: 100vh;
+  background-color: $background-colour;
+  color: $text-colour;
+  background-size: cover;
+  background-position: top right;
+  background-blend-mode: multiply;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+a {
+  text-decoration: none;
+  color: $link-colour;
+
+  &:visited {
+    color: $link-colour;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: $link-hover-colour;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .icon-button {
+    font-size: 1.5rem;
+  }
+}

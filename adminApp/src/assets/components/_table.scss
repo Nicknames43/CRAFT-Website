@@ -1,0 +1,38 @@
+thead,
+tbody,
+tr {
+  display: contents;
+}
+
+.table {
+  font-size: 1rem;
+  width: 100%;
+  display: grid;
+  color: $table-colour;
+  gap: 0.1em;
+
+  &__button {
+    padding: 0.25em;
+    font-size: 1.5rem;
+    color: $table-colour;
+  }
+  
+  &__thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  &__th,
+  &__cell {
+    background-color: $table-background-colour;
+    text-align: left;
+    border: 1px solid $table-colour;
+    padding: 0.5em;
+  }
+  
+  &__button-container {
+    display: grid;
+    place-content: center;
+  }
+}

@@ -1,0 +1,36 @@
+.table--sales-managers {
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+}
+
+@media screen and (max-width: 1200px) {
+  .table--sales-managers {
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .table--sales-managers {
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .table--sales-managers {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .sales-manager__email {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .table--sales-managers {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .sales-manager__delete,
+  .sales-manager__phone {
+    display: none;
+  }
+}

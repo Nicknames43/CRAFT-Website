@@ -47,7 +47,7 @@ const PropertyForm = ({
     isLoading: isGetLoading,
     isSuccess: isGetSuccess,
   } = useGetSalesManagersQuery("salesManagersList", {
-    pollingInterval: 60000,
+    pollingInterval: 5 * 60 * 1000,
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,
   })
@@ -79,10 +79,31 @@ const PropertyForm = ({
   const onStreetNameChanged = (event) => setStreetName(event.target.value)
   const onStreetNumChanged = (event) => setStreetNum(event.target.value)
   const onPostalCodeChanged = (event) => setPostalCode(event.target.value)
-  const onLatitudeChanged = (event) => setLatitude(Number(event.target.value))
-  const onLongitudeChanged = (event) => setLongitude(Number(event.target.value))
+  const onLatitudeChanged = (event) => {
+    const num = Number(event.target.value).valueOf()
+    if (isNaN(num)) {
+      setLatitude(0)
+    } else if (-90 <= num && num <= 90) {
+      setLatitude(num)
+    }
+  }
+  const onLongitudeChanged = (event) => {
+    const num = Number(event.target.value).valueOf()
+    if (isNaN(num)) {
+      setLongitude(0)
+    } else if (-180 <= num && num < 180) {
+      setLongitude(num)
+    }
+  }
   const onDescriptionChanged = (event) => setDescription(event.target.value)
-  const onSiteAreaChanged = (event) => setSiteArea(Number(event.target.value))
+  const onSiteAreaChanged = (event) => {
+    const num = Number(event.target.value).valueOf()
+    if (isNaN(num) || num < 0) {
+      setSiteArea(0)
+    } else {
+      setSiteArea(num)
+    }
+  }
   const onDevelopedChanged = () => setDeveloped(!developed)
   const onSalesManagerChanged = (event) => setSalesManager(event.target.value)
   const onSalesURLChanged = (event) => setSalesURL(event.target.value)

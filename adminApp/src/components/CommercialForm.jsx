@@ -19,13 +19,27 @@ const CommercialForm = ({
   const [leaseSizeErr, setLeaseSizeErr] = useState(isError)
   const [typeErr, setTypeErr] = useState(isError)
 
-  const onSizeChanged = (event) => setSize(Number(event.target.value))
+  const onSizeChanged = (event) => {
+    const num = Number(event.target.value).valueOf()
+    if (isNaN(num) || num < 0) {
+      setSize(0)
+    } else {
+      setSize(num)
+    }
+  }
   const onFeaturedTenantsChanged = (event, index) => {
     let data = [...featuredTenants]
     data[index] = event.target.value
     setFeaturedTenants(data)
   }
-  const onLeaseSizeChanged = (event) => setLeaseSize(Number(event.target.value))
+  const onLeaseSizeChanged = (event) => {
+    const num = Number(event.target.value).valueOf()
+    if (isNaN(num) || num < 0) {
+      setLeaseSize(0)
+    } else {
+      setLeaseSize(num)
+    }
+  }
   const onTypeChanged = (event) => setType(event.target.value)
   const addFeaturedTenants = () => setFeaturedTenants([...featuredTenants, ""])
   const removeFeaturedTenants = (index) => {

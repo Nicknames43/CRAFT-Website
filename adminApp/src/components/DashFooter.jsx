@@ -2,9 +2,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHouse } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate, useLocation } from "react-router-dom"
 import useAuth from "../hooks/useAuth"
+import { useGetUsersQuery } from "../app/api/usersApiSlice"
 
 const DashFooter = () => {
-  const { username, status } = useAuth()
+  const { id, status } = useAuth()
+  const { username } = useGetUsersQuery("usersList", {
+    selectFromResult: ({ data }) => ({
+      username: data?.entities[id]?.username ?? "",
+    }),
+  })
 
   const navigate = useNavigate()
   const { pathname } = useLocation()
